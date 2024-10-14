@@ -149,6 +149,32 @@ border: 2px solid black;
 background-color: black;
 }
 
+#Month{
+  width: 18rem;
+  height: 2rem;
+}
+#Day{
+  width: 18rem;
+  height: 2rem;
+}
+#Year{
+  width: 18rem;
+  height: 2rem;
+}
+#Gender{
+  width: 18rem;
+  height: 2rem;
+}
+
+.address-inp-ds{
+  margin-top: 5px;
+  width: 25rem;
+  height: 2.5rem;
+}
+
+.create-acc-form-ds{
+  border: 1rem solid yellow;
+}
 
   /* RESPONSIVE CSS
   -------------------------------------------------- */
