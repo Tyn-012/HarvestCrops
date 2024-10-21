@@ -304,3 +304,8 @@ background-color: black;
     height: 200px;
     resize: none;
   }
+
+  #Month-myacc, #Day-myacc, #Year-myacc{
+    width: 10rem;
+    height: 2rem;
+  }
