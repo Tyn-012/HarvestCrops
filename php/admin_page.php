@@ -1,3 +1,8 @@
+<?php
+session_start();
+include 'connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,9 +45,9 @@
         <div class="container">
             <div class="section">
                 <div class="row">
-                    <div class="col-md-4 d-flex">
+                    <div class="col-md-4 d-flex align-items-center">
                         <img src="../images/plots.jpg" class="border rounded-circle" width="60px" height="60px" alt="">
-                        <a class="anc-page px-3 text-decoration-none d-flex align-items-center" href="">Username</a>
+                        <p class="anc-page px-2 pt-2"><?php echo $_SESSION['name']; ?></p>
                     </div>
                     <div class="col-md-8 d-flex align-items-center justify-content-end">
                         <input class="p-1" id="search-input" type="text" placeholder="Search..">
@@ -84,8 +89,13 @@
                         </li>
                     </ul>
                     <hr>
-                    <div class="col-md-12 d-flex justify-content-center align-items-center pb-5">
+                    <div class="col-md-12 d-flex justify-content-center align-items-center">
                         <a href="#" class="text-decoration-none text-light fw-bolder">SETTINGS</a>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-center align-items-center pb-5">
+                        <form action="logout.php" method="post" target="admin_page.php">
+                            <button class="btn btn-sm text-md text-light bg-dark" type="submit">Logout</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -94,7 +104,7 @@
                     <div class="section">
                         <div class="row bg-info mb-2 ps-2">
                             <div class="col-md-1 d-flex justify-content-center">
-                                <p>No</p>
+                                <p>ID</p>
                             </div>
                             <div class="col-md-4 d-flex justify-content-center">
                                 <p>Profile</p>
@@ -103,83 +113,82 @@
                                 <p>Mobile Number</p>
                             </div>
                             <div class="col-md-2 d-flex justify-content-center">
-                                <p>Role</p>
+                                <p>Type</p>
                             </div>
                             <div class="col-md-3 d-flex justify-content-center">
                                 <p>Action</p>
                             </div>
                         </div>
-                        <div class="row d-flex align-items-center mb-2 ps-2 mb-2 border">
-                            <div class="col-md-1 d-flex justify-content-center">
-                                1.
-                            </div>
-                            <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                <img src="../images/farm.jpg" class="rounded-circle mx-2" alt="Specific Image" height="80px" width="80px">
-                                Lorem, ipsum. Lorem ipsum dolor sit amet.
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <p>Mobile Number</p>
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <p>Role</p>
-                            </div>
-                            <div class="col-md-3 d-flex justify-content-center">
-                                <span class="mx-2">
-                                    <button class="btn btn-sm bg-dark text-light pw-2">Edit</button>
-                                </span>
-                                <span>
-                                    <button class="btn btn-sm bg-dark text-light">Delete</button>
-                                </span>
-                            </div>
-                        </div>
-                        <!--Example-->
-                        <div class="row d-flex align-items-center mb-2 ps-2 mb-2 border">
-                            <div class="col-md-1 d-flex justify-content-center">
-                                2.
-                            </div>
-                            <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                <img src="../images/plots.jpg" class="rounded-circle mx-2" alt="Specific Image" height="80px" width="80px">
-                                Lorem, ipsum. Lorem ipsum dolor sit amet.
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <p>Mobile Number</p>
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <p>Role</p>
-                            </div>
-                            <div class="col-md-3 d-flex justify-content-center">
-                                <span class="mx-2">
-                                    <button class="btn btn-sm bg-dark text-light pw-2">Edit</button>
-                                </span>
-                                <span>
-                                    <button class="btn btn-sm bg-dark text-light">Delete</button>
-                                </span>
-                            </div>
-                        </div>
-                        <!--Example 2-->
-                        <div class="row d-flex align-items-center mb-2 ps-2 mb-2 border">
-                            <div class="col-md-1 d-flex justify-content-center">
-                                3.
-                            </div>
-                            <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                <img src="../images/farm.jpg" class="rounded-circle mx-2" alt="Specific Image" height="80px" width="80px">
-                                Lorem, ipsum. Lorem ipsum dolor sit amet.
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <p>Mobile Number</p>
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <p>Role</p>
-                            </div>
-                            <div class="col-md-3 d-flex justify-content-center">
-                                <span class="mx-2">
-                                    <button class="btn btn-sm bg-dark text-light pw-2">Edit</button>
-                                </span>
-                                <span>
-                                    <button class="btn btn-sm bg-dark text-light">Delete</button>
-                                </span>
-                            </div>
-                        </div>
+                        
+                        <?php
+                        $cnt_qry = "SELECT User_ID, COUNT(*) as total FROM user";
+                        $cnt_rslt = mysqli_query($connect, $cnt_qry);
+                        if (mysqli_num_rows($cnt_rslt) > 0) {
+                            while ($row = mysqli_fetch_assoc($cnt_rslt)) {
+                                $count_result = $row['total'];
+                            }
+
+                            $getuser_info_qry = "SELECT * FROM user";
+                            $stmt = $connect->prepare($getuser_info_qry);
+                            $stmt->execute();
+                            $user_info_result = $stmt->get_result();  
+
+                            $getuser_type_qry = "SELECT * FROM user_type";
+                            $stmt = $connect->prepare($getuser_type_qry);
+                            $stmt->execute();
+                            $type_count = $stmt->get_result();
+
+                            for ($counter = 1; $counter <= $count_result; $counter++) {
+
+                                
+                                if ($row = $type_count->fetch_assoc()) {
+                                    $user_type = $row['Type_Name'];
+                                }
+                                
+                                if($user_type == "Admin");                
+                                else if ($user_type == "Farmer" || $user_type == "Vendor"){
+        
+                                    if ($row = $user_info_result ->fetch_assoc()) {
+                                        $user_id = $row['User_ID'];
+                                        $status_id = $row['Status_ID'];
+                                        $type_id = $row['Type_ID'];
+                                        $role_id = $row['Role_ID'];
+                                        $name = $row['User_FirstName'] . " " . $row['User_MiddleName'] . " " . $row['User_LastName'];
+                                        $birthdate = $row['User_BirthDate'];
+                                        $email_address = $row['User_EmailAddress'];
+                                        $password = $row['User_Password'];
+                                        $mobile_number = $row['User_MobileNumber'];
+                                    }
+                                    
+
+                                    echo'
+                                    <div class="row d-flex align-items-center mb-2 ps-2 mb-2 border">
+                                        <div class="col-md-1 d-flex justify-content-center">' . $user_id . '</div>
+
+                                        <div class="col-md-4 d-flex align-items-center">
+                                            <img src="../images/farm.jpg" class="rounded-circle mx-2" alt="Specific Image" height="80px" width="80px">'. $name . '</div>
+    
+                                        <div class="col-md-2 d-flex justify-content-center">'. $mobile_number . '</div>
+                                        
+                                        <div class="col-md-2 d-flex justify-content-center">'. $user_type . '</div> 
+                                            
+                                        <div class="col-md-3 d-flex justify-content-center">
+                                            <form action="account_updates.php" method ="post">
+                                                <span class="mx-2">
+                                                    <button name="edit" class="btn btn-sm bg-dark text-light">Edit</button>
+                                                </span>
+                                                <span>
+                                                    <button name="deactivate" class="btn btn-sm bg-dark text-light">Deactivate</button>
+                                                </span>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    ';
+                                }
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -192,11 +201,9 @@
                 <div class="row d-flex mb-4">
                     <div class="col-md-12 pt-2">
                         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
+                            <li class="nav-item"><a href="customer_support_page.html" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                            <li class="nav-item"><a href="about_us_page.html" class="nav-link px-2 text-body-secondary">About</a></li>
                           </ul>
                     </div>
                     <div class="col-md-12 mt-4 d-flex justify-content-center align-items-center">

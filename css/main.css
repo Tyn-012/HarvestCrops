@@ -1,8 +1,4 @@
-/* GLOBAL STYLES
--------------------------------------------------- */
-/* Padding below the footer and lighter body text */
-  
-  /* CUSTOMIZE THE CAROUSEL
+    /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
   
   /* Carousel base class */
@@ -10,13 +6,15 @@
     margin-bottom: 4rem;
     background-color: gray;
   }
-  /* Since positioning the image, we need to help out the caption */
+  /* Since positioning the image, 
+  we need to help out the caption */
   .carousel-caption {
     bottom: 3rem;
     z-index: 10;
   }
   
-  /* Declare heights because of positioning of img element */
+  /* Declare heights because 
+  of positioning of img element */
   .carousel-item {
     height: 32rem;
   }
@@ -38,7 +36,8 @@
   /* MARKETING CONTENT
   -------------------------------------------------- */
   
-  /* Center align the text within the three columns below the carousel */
+  /* Center align the text within the 
+  three columns below the carousel */
   .marketing .col-lg-4 {
     margin-bottom: 1.5rem;
     text-align: center;
@@ -50,12 +49,12 @@
   }
   /* rtl:end:ignore */
   
-  
+
   /* Featurettes
   ------------------------- */
   
   .featurette-divider {
-    margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+    margin: 5rem 0; 
   }
   
   /* Thin out the marketing headings */
@@ -65,137 +64,6 @@
   }
   
   /* rtl:end:remove */
-
-.icon-ds{
-  font-size: 24px;
-  text-decoration: none;
-  color: black;
-  margin-bottom: 1rem;
-}
-
-.icon-ds-login{
-  font-size: 18px;
-  text-decoration: none;
-  color: black;
-  margin-left:10px;
-  margin-right: 7px;
-  display: flex;
-  align-items: center;
-}
-
-.icon-ds-profile{
-  font-size: 24px;
-  text-decoration: none;
-  color: black;
-  border-radius: 100%;
-  border: 2px solid black;
-}
-
-.card-ds{
-  border-radius: 10%;
-  border: 3px solid gray;
-}
-
-.card-ds:hover{
-  transform: scale(1.05);
-}
-
-.card-img-ds{
-  border-radius: 10%;
-  border: 3px solid white;
-}
-
-.anc-page{
-  font-size: 25px;
-  text-decoration: none;
-  color: black;
-}
-
-.span-line{
-  height: 5px;
-  width: 50rem;
-}
-  
-#logo_part{
-  padding:0;
-  margin-right:5rem;
-}
-
-#logo{
-  width: 70px;
-  height: 70px;
-  border: solid black 2px;
-}
-
-#icon-search{
-  font-size: 24px;
-  text-decoration: none;
-  color: black;
-  background-color: gray;
-}
-
-#search-input{
-  width: 35rem;
-}
-
-#icon-heart{
-  font-size: 24px;
-  text-decoration: none;
-  color: black;
-  margin-bottom: 1rem;
-}
-
-#icon-flag{
-  font-size: 24px;
-  text-decoration: none;
-  color: black;
-  margin-bottom: 1rem;
-}
-
-.password-text-ds{
-  font-size: 10px;
-}
-
-.sign-button-ds{
-width: 15rem;
-border: 2px solid black;
-background-color: black;
-}
-
-#Month{
-  width: 18rem;
-  height: 2rem;
-}
-#Day{
-  width: 18rem;
-  height: 2rem;
-}
-#Year{
-  width: 18rem;
-  height: 2rem;
-}
-#Gender{
-  width: 18rem;
-  height: 2rem;
-}
-
-.address-inp-ds{
-  margin-top: 5px;
-  width: 25rem;
-  height: 2.5rem;
-}
-
-.create-acc-form-ds{
-  border: 1rem solid yellow;
-}
-
-#term-cond-bg{
-  background-image: url('../images/farm.jpg');
-  background-size: cover;
-  color: white;
-  margin: 0;
-  padding: 0;
-}
 
   /* RESPONSIVE CSS
   -------------------------------------------------- */
@@ -218,8 +86,155 @@ background-color: black;
       margin-top: 7rem;
     }
   }
+
+
+  /*IDs*/
+  #term-cond-bg{
+    background-image: url('../images/farm.jpg');
+    background-size: cover;
+    color: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  #imagePreview {
+    display: none;
+  }
+
+  #logo_part{
+    padding:0;
+    margin-right:5rem;
+  }
   
-  /*Sign In*/
+  #logo{
+    width: 70px;
+    height: 70px;
+    border: solid black 2px;
+  }
+  
+  #icon-search{
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+    background-color: gray;
+  }
+  
+  #search-input{
+    width: 35rem;
+  }
+  
+  #icon-heart{
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 1rem;
+  }
+  
+  #icon-flag{
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 1rem;
+  }
+  
+  #Month, #Day, #Year, #Gender{
+    width: 17rem;
+    height: 2.5rem;
+  }
+  
+  #seller-store-account-bg{
+    background-color: rgb(108, 189, 108);
+  }
+
+  #textarea-hw{
+    width: 300px;
+    height: 200px;
+    resize: none;
+  }
+
+  #Month-myacc, #Day-myacc, #Year-myacc{
+    width: 10rem;
+    height: 2rem;
+  }
+
+  /*Class*/
+  .icon-ds{
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 1rem;
+  }
+  
+  .icon-ds-login{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-left:10px;
+    margin-right: 7px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon-ds-profile{
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+    border-radius: 100%;
+    border: 2px solid black;
+  }
+  
+  .card-ds{
+    border-radius: 10%;
+    border: 3px solid gray;
+  }
+  
+  .card-ds:hover{
+    transform: scale(1.05);
+  }
+  
+  .card-img-ds{
+    border-radius: 10%;
+    border: 3px solid white;
+  }
+  
+  .anc-page{
+    font-size: 25px;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .span-line{
+    height: 5px;
+    width: 50rem;
+  }
+  
+  .password-text-ds{
+    font-size: 11px;
+  }
+
+  
+  .sign-button-ds{
+    width: 15rem;
+    border: 2px solid black;
+    background-color: black;
+  }
+
+  .sign-button-ds:hover{
+    background-color: gold !important;
+    color: gray !important;
+  }
+  
+  
+  .address-inp-ds{
+    margin-top: 5px;
+    width: 25rem;
+    height: 2.5rem;
+  }
+  
+  .create-acc-form-ds{
+    border: 1rem solid yellow;
+  }
+  
   .split{
     height: 100%;
     width: 30%;
@@ -263,48 +278,68 @@ background-color: black;
     padding:2rem;
     border: 1px solid grey;
   }
- 
+  
   .tc-border{
     border: 15px solid black;
   }
-
+  
   .hr-ht{
     opacity: 100%;
     padding: 4px;
     background-color:black;
     width: 70rem;
   }
-
+  
   .account-add-tab, .customer-support{
     opacity: 100%;
     padding: 0.8rem;
     background-color:black;
     width: 70rem;
   }
-
+  
   .custom-support-query-bg, .seller-store-chat{
     background-color: peru;
   }
-
-
+  
+  
   .acc_add_tab-margin-top{
     margin-top: 8rem;
   }
   .border-right{
     border-right: 3px solid black;
   }
-
-  #seller-store-account-bg{
-    background-color: rgb(108, 189, 108);
+  
+  .aboutus_ds{
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    font-family:sans-serif;
+  }
+  
+  .aboutus_ds_effect{
+    background-color: black;
+  }
+  
+  .aboutus_ds_effect:hover{
+    background-color: grey;
+  }
+  
+  .aboutus_team_ds{
+    font-weight: lighter;
+    font-style: italic;
+    font-family:sans-serif;
+  }
+  
+  .aboutus_img:hover{
+    transform: scale(1.05);
+    transition: 1s ease-in;
+  }
+  
+  .forgot_password_pad_top{
+    padding-top: 15rem;
   }
 
-  #textarea-hw{
-    width: 300px;
-    height: 200px;
-    resize: none;
-  }
-
-  #Month-myacc, #Day-myacc, #Year-myacc{
-    width: 10rem;
-    height: 2rem;
+  .form-bg-forgot{
+    border: 2px solid black;
+    background: rgb(108, 189, 108);
   }

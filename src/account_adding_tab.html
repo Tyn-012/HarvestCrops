@@ -21,8 +21,8 @@
                         </span>
                     </div>
                     <div class="col-md-11">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, ipsam.</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <h4>HarvestCrops: Agri-Marketplace Connecting Farmers, Retailers, and Traders Seamlessly</h4>
+                        <p>"Harvest Your Potential: Connect, Trade, and Thrive in Our Agricultural Marketplace!"</p>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <a href="#" class="fa-regular fa-envelope icon-ds p-1 m-1"></a>
                 <a href="#" class="fa-solid fa-globe icon-ds p-1 m-1"></a>
                 <a href="#" class="fa-regular fa-bell icon-ds p-1 m-1"></a>
-                <a href="#" class="icon-ds-login">Login</a>
+                <a href="#" class="icon-ds-login">Logout</a>
                 <a href="#" class="fa-solid fa-user icon-ds-profile px-2 py-1"></a>
             </div>
         </div>
@@ -44,10 +44,10 @@
             <div class="section">
                 <div class="row">
                     <div class="col-md-6 d-flex">
-                        <a class="anc-page px-3" href="">Home</a>
+                        <a class="anc-page px-3" href="index.html">Home</a>
                         <a class="anc-page px-3" href="">Shop</a>
-                        <a class="anc-page px-3" href="">About Us</a>
-                        <a class="anc-page px-3" href="">Customer Support</a>
+                        <a class="anc-page px-3" href="about_us_page.html">About Us</a>
+                        <a class="anc-page px-3" href="customer_support_page.html">Customer Support</a>
                     </div>
                     <div class="col-md-6 d-flex align-items-center">
                         <input class="p-1" id="search-input" type="text" placeholder="Search..">
@@ -57,7 +57,7 @@
             </div>
         </div>
     </nav>
-    <form action="" class="mb-5">
+    <form action="../php/add_product.php" method="POST" enctype="multipart/form-data" class="mb-5">
         <div class="container">
             <div class="section">
                 <div class="row">
@@ -70,16 +70,37 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="card">
-                                        <img src="../images/plots.jpg" class="opacity-100">                   
+                                        <div class="col-md-12 d-flex align-items-center border-bottom">
+                                            <input type="file" id="imageInput" name="image" accept="image/*" required>
+                                        </div>
+                                        <div class="col-md-12 border">
+                                        <img class="" id="imagePreview" alt="Image Preview" width="622px" height="500px">
+                                        </div>
+                                        <script>
+                                            const imageInput = document.getElementById('imageInput');
+                                            const imagePreview = document.getElementById('imagePreview');
+                                    
+                                            imageInput.addEventListener('change', function() {
+                                                const file = this.files[0];
+                                                if (file) {
+                                                    const reader = new FileReader();
+                                    
+                                                    reader.onload = function(e) {
+                                                        imagePreview.src = e.target.result;
+                                                        imagePreview.style.display = 'block';
+                                                    }
+                                    
+                                                    reader.readAsDataURL(file);
+                                                }
+                                            });
+                                        </script>
                                     </div>
                                     <div class="container">
                                         <div class="section">
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center align-items-center pt-2">
-                                                    <img src="../images/plots.jpg" height="75px" class="opacity-100 m-2"> 
-                                                    <img src="../images/plots.jpg" height="75px" class="opacity-100 m-2"> 
                                                 </div>
-                                                <div class="col-md-12 d-flex justify-content-center">
+                                                <div class="col-md-12 d-flex justify-content-center mt-4">
                                                     <h4>Product Information</h4>
                                                 </div>
                                                 <div class="col-md-12">
