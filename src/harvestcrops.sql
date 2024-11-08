@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2024 at 12:22 PM
+-- Generation Time: Nov 08, 2024 at 03:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -361,7 +361,7 @@ CREATE TABLE `user` (
   `User_MiddleName` varchar(10) DEFAULT NULL,
   `User_LastName` varchar(60) NOT NULL,
   `User_BirthDate` date DEFAULT NULL,
-  `User_Gender` enum('None','Male','Female','Other') DEFAULT 'None',
+  `User_Gender` set('None','Male','Female','Other') DEFAULT 'None',
   `User_EmailAddress` varchar(100) NOT NULL,
   `User_Password` varchar(64) NOT NULL,
   `User_MobileNumber` varchar(20) NOT NULL,
@@ -372,6 +372,15 @@ CREATE TABLE `user` (
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`User_ID`, `User_FirstName`, `User_MiddleName`, `User_LastName`, `User_BirthDate`, `User_Gender`, `User_EmailAddress`, `User_Password`, `User_MobileNumber`, `Status_ID`, `Type_ID`, `Role_ID`, `created_at`, `modified_at`) VALUES
+(1, 'Leila Aliyah', 'Jambaro', 'Manalo', '2004-02-05', 'Female', 'Aliyah@gmail.com', '12345678', '12345678910', 1, 1, 1, '2024-11-04 15:50:51', '2024-11-04 15:50:51'),
+(2, 'John Lloyd', 'Buenavista', 'Dela Cruz', '2004-01-12', 'Male', 'tyn@gmail.com', '12345678', '12345678910', 2, 2, 2, '2024-11-04 16:17:27', '2024-11-04 16:17:27'),
+(3, 'John', '', ' Dela Cruz', '2000-01-01', 'Male', 'Admin@gmail.com', '12345678', '...', 3, 3, 3, '2024-11-06 06:51:37', '2024-11-06 08:32:05');
+
 -- --------------------------------------------------------
 
 --
@@ -381,7 +390,7 @@ CREATE TABLE `user` (
 CREATE TABLE `user_address` (
   `Address_ID` int(11) NOT NULL,
   `User_ID` int(11) NOT NULL,
-  `Address_Type` enum('home','farm','business','other') DEFAULT 'home',
+  `Address_Type` set('home','farm','business','other') DEFAULT 'home',
   `User_Address` varchar(255) NOT NULL,
   `Island_Group` varchar(50) NOT NULL,
   `Region` varchar(50) NOT NULL,
@@ -391,6 +400,15 @@ CREATE TABLE `user_address` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_address`
+--
+
+INSERT INTO `user_address` (`Address_ID`, `User_ID`, `Address_Type`, `User_Address`, `Island_Group`, `Region`, `City`, `Barangay`, `zip_code`, `created_at`, `modified_at`) VALUES
+(1, 1, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-04 15:50:51', '2024-11-04 15:50:51'),
+(2, 2, 'farm', 'CS Fojas Subdivision Daang Amaya II Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-04 16:17:27', '2024-11-04 16:17:27'),
+(3, 3, 'farm', '...', '...', '...', '...', '...', 0, '2024-11-06 06:51:37', '2024-11-06 06:51:37');
 
 -- --------------------------------------------------------
 
@@ -404,6 +422,15 @@ CREATE TABLE `user_role` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`Role_ID`, `Role_Name`, `created_at`, `modified_at`) VALUES
+(1, 'User', '2024-11-04 15:50:51', '0000-00-00 00:00:00'),
+(2, 'User', '2024-11-04 16:17:27', '0000-00-00 00:00:00'),
+(3, 'Admin', '2024-11-06 06:52:07', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -441,10 +468,19 @@ CREATE TABLE `user_session` (
 
 CREATE TABLE `user_status` (
   `Status_ID` int(11) NOT NULL,
-  `Status_Name` enum('active','suspended','deactivated') DEFAULT 'active',
+  `Status_Name` set('active','suspended','deactivated') DEFAULT 'active',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_status`
+--
+
+INSERT INTO `user_status` (`Status_ID`, `Status_Name`, `created_at`, `modified_at`) VALUES
+(1, 'active', '2024-11-04 15:50:51', '2024-11-06 07:30:15'),
+(2, 'active', '2024-11-04 16:17:27', '2024-11-06 04:37:44'),
+(3, 'active', '2024-11-06 06:51:37', '2024-11-06 06:52:23');
 
 -- --------------------------------------------------------
 
@@ -459,6 +495,15 @@ CREATE TABLE `user_type` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_type`
+--
+
+INSERT INTO `user_type` (`Type_ID`, `Type_Name`, `Type_Description`, `created_at`, `modified_at`) VALUES
+(1, 'Vendor', 'Local Vendor', '2024-11-04 15:50:51', '2024-11-06 07:29:38'),
+(2, 'Farmer', 'Local Farmer', '2024-11-04 16:17:27', '2024-11-04 16:17:27'),
+(3, 'Admin', 'Admin Account', '2024-11-06 06:51:37', '2024-11-06 06:52:43');
 
 -- --------------------------------------------------------
 
@@ -676,15 +721,13 @@ ALTER TABLE `user_session`
 -- Indexes for table `user_status`
 --
 ALTER TABLE `user_status`
-  ADD PRIMARY KEY (`Status_ID`),
-  ADD UNIQUE KEY `idx_status_name` (`Status_Name`);
+  ADD PRIMARY KEY (`Status_ID`);
 
 --
 -- Indexes for table `user_type`
 --
 ALTER TABLE `user_type`
-  ADD PRIMARY KEY (`Type_ID`),
-  ADD UNIQUE KEY `idx_type_name` (`Type_Name`);
+  ADD PRIMARY KEY (`Type_ID`);
 
 --
 -- Indexes for table `user_type_management`
@@ -744,7 +787,7 @@ ALTER TABLE `order_status_history`
 -- AUTO_INCREMENT for table `password_reset`
 --
 ALTER TABLE `password_reset`
-  MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `reset_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -804,37 +847,37 @@ ALTER TABLE `supplier_details`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `user_address`
 --
 ALTER TABLE `user_address`
-  MODIFY `Address_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Address_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `Role_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Role_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_session`
 --
 ALTER TABLE `user_session`
-  MODIFY `Session_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Session_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_status`
 --
 ALTER TABLE `user_status`
-  MODIFY `Status_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Status_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_type`
 --
 ALTER TABLE `user_type`
-  MODIFY `Type_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Type_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `vendor_details`
