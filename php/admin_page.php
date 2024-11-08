@@ -26,8 +26,8 @@ include 'connect.php';
                         </span>
                     </div>
                     <div class="col-md-11">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, ipsam.</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <h4>HarvestCrops: Agri-Marketplace Connecting Farmers, Retailers, and Traders Seamlessly</h4>
+                        <p>Harvest Your Potential: Connect, Trade, and Thrive in Our Agricultural Marketplace!</p>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@ include 'connect.php';
                             $stmt->execute();
                             $type_count = $stmt->get_result();
 
-                            for ($counter = 1; $counter <= $count_result; $counter++) {
+                            for ($counter = 0; $counter <= $count_result; $counter++) {
 
                                 
                                 if ($row = $type_count->fetch_assoc()) {
