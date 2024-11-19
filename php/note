@@ -1,0 +1,5 @@
+// Ensure the user is logged in (you can add additional checks here)
+if (!isset($_SESSION['name'])) {
+    header('Location: login.php'); // Redirect to login page if not logged in
+    exit();
+}

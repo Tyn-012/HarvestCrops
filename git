@@ -1,0 +1,123 @@
+[33mcommit baeeb99c7c173e0ff5fba207d359da14f1fbf650[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Sat Nov 9 00:42:58 2024 +0800
+
+    admin page tweaks
+
+[33mcommit 40aa16c38a7a35ad590c1cea672020f0dd4298af[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Fri Nov 8 23:09:37 2024 +0800
+
+    about us tweaks
+
+[33mcommit d2b458012db2b26fb7e5b3631fb47c3fb85eac11[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Fri Nov 8 23:03:33 2024 +0800
+
+    about us tweaks
+
+[33mcommit 034aeafc240ffc41788e1e3578c6479424796b68[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Fri Nov 8 23:01:01 2024 +0800
+
+    FAQS tweaks
+
+[33mcommit 9b2d57f82fff52075810d04b655a7b3996454e23[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Fri Nov 8 22:56:52 2024 +0800
+
+    tweaks
+
+[33mcommit 4ad6f75d7980bd8de581c68d3c6c6f6109429ce8[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Fri Nov 8 22:41:23 2024 +0800
+
+    database update
+
+[33mcommit bc949c05f00ef5b120b439c9fe22678ff0cdffb2[m
+Author: Tyn-012 <jlbdc14@gmail.com>
+Date:   Thu Nov 7 21:33:00 2024 +0800
+
+    Update README.md
+
+[33mcommit 93cce4caf86d411f0d550446090053d3d099a14d[m
+Author: Tyn-012 <jlbdc14@gmail.com>
+Date:   Thu Nov 7 21:32:16 2024 +0800
+
+    Update README.md
+
+[33mcommit c2ceae144a827ebec0a02394bd546bff148fb3bc[m
+Author: Tyn-012 <jlbdc14@gmail.com>
+Date:   Thu Nov 7 21:31:57 2024 +0800
+
+    Create README.md
+
+[33mcommit 1a7a44c8f00ad226857783afd1496f734c17cbd0[m
+Merge: cefd55e 1652e0b
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Thu Nov 7 21:28:30 2024 +0800
+
+    clean files
+
+[33mcommit cefd55e5a9ab7dc755b1d77ae881cb2983b24968[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Thu Nov 7 20:58:47 2024 +0800
+
+    50 Percent System (Product / Cart / User Details - (In Progress))
+
+[33mcommit bc3ea9265ee01fc363fc12239923000b1913f67b[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Mon Oct 21 21:44:34 2024 +0800
+
+    sign in fix
+
+[33mcommit b53d96c1dc17e8cbb9b94aa8842e0f9f91454c18[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Mon Oct 21 21:40:42 2024 +0800
+
+    carousel fix
+
+[33mcommit beb8469d677264e9200da8f6448df329b2f7d202[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Mon Oct 21 20:46:30 2024 +0800
+
+            modified:   css/main.css
+            modified:   public/account_adding_tab.html
+            modified:   public/create_account.html
+            new file:   public/about_us_page.html
+            new file:   public/admin_page.html
+            new file:   public/cart_page.html
+            new file:   public/my_account_page.html
+            new file:   public/receipt_template.html
+
+[33mcommit 9c3d4841e3dfeb66c8f578922c4cf6f9d5b37714[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Wed Oct 16 22:24:04 2024 +0800
+
+    new file:   public/account_adding_tab.html
+    new file:   public/customer_support_page.html
+    new file:   public/payment_page.html
+    new file:   public/product_page.html
+    new file:   public/seller_store_page.html
+    new file:   public/store_page.html
+    new file:   public/terms_conditions.html
+    modified:   public/index.html
+    modified:   css/main.css
+
+[33mcommit c966cffd11c80e9288bc634036bff46fc5cd0d12[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Mon Oct 14 23:21:04 2024 +0800
+
+    Create Account - Design
+
+[33mcommit 4179668e7da39967c8114aecfc541f3f467523e1[m
+Author: Tyn <jlbdc14@gmail.com>
+Date:   Mon Oct 14 18:10:28 2024 +0800
+
+    First Commit
+
+[33mcommit 1652e0bbce57d35b08b8ab8092290c49ea6ecfba[m
+Author: Tyn-012 <jlbdc14@gmail.com>
+Date:   Mon Oct 14 15:09:35 2024 +0800
+
+    Initial commit

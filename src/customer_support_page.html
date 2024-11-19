@@ -46,9 +46,7 @@
             <div class="section">
                 <div class="row">
                     <div class="col-md-6 d-flex">
-                        <a class="anc-page px-3" href="index.html">Home</a>
-                        <a class="anc-page px-3" href="">Shop</a>
-                        <a class="anc-page px-3" href="about_us_page.html">About Us</a>
+                        <a class="anc-page px-3" href="javascript:history.back();">My Account</a>
                         <a class="anc-page px-3" href="customer_support_page.html">Customer Support</a>
                     </div>
                     <div class="col-md-6 d-flex align-items-center">
@@ -59,7 +57,7 @@
             </div>
         </div>
     </nav>
-    <form action="" class="mb-5">
+    <form action="../php/components/customer_support.php" method="post" class="mb-5">
         <div class="container">
             <div class="section">
                 <div class="row">
@@ -99,7 +97,7 @@
                                                 </div>
                                                 <div class="col-md-12 mb-4">
                                                     <label class="fw-bold">Write your Questions: </label>
-                                                    <textarea class="form-control" placeholder="input your text here..." rows="3" required ></textarea>
+                                                    <textarea class="form-control" placeholder="input your text here..." rows="3" name="custom-question" required></textarea>
                                                 </div>
                                                 <div class="col-md-12 mb-4 d-flex justify-content-center align-items-center">
                                                     <button class="btn btn-md bg-dark text-light rounded" type="submit"
@@ -174,8 +172,8 @@
                 <div class="row d-flex mb-4">
                     <div class="col-md-12 pt-2">
                         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
-                            <li class="nav-item"><a href="customer_support_page.html" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                            <li class="nav-item"><a href="javascript:history.back();" class="nav-link px-2 text-body-secondary">Home</a></li>
+                            <li class="nav-item"><a href="FAQS_page.html" class="nav-link px-2 text-body-secondary">FAQs</a></li>
                             <li class="nav-item"><a href="about_us_page.html" class="nav-link px-2 text-body-secondary">About</a></li>
                           </ul>
                     </div>
