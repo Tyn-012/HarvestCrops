@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2024 at 03:40 PM
+-- Generation Time: Nov 19, 2024 at 05:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -35,6 +35,19 @@ CREATE TABLE `category` (
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`Category_ID`, `Category_Name`, `Category_Desc`, `created_at`, `modified_at`) VALUES
+(13, 'grains', 'Rice, Wheat etc.', '2024-11-18 12:16:18', '2024-11-18 12:16:18'),
+(14, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-18 12:17:20', '2024-11-18 12:17:20'),
+(15, 'rootcrops', 'Potatoes, Carrots, Sweet Potatoes etc.', '2024-11-18 12:18:06', '2024-11-18 12:18:06'),
+(17, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-18 13:01:52', '2024-11-18 13:01:52'),
+(18, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-18 13:02:44', '2024-11-18 13:02:44'),
+(19, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-18 13:58:02', '2024-11-18 13:58:02'),
+(20, 'rootcrops', 'Potatoes, Carrots, Sweet Potatoes etc.', '2024-11-19 07:25:50', '2024-11-19 07:25:50');
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +64,14 @@ CREATE TABLE `farmer_details` (
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `farmer_details`
+--
+
+INSERT INTO `farmer_details` (`Farmer_ID`, `User_ID`, `farm_name`, `farm_size`, `farm_size_unit`, `created_at`, `modified_at`) VALUES
+(1, 1, 'John Farm', 15.00, 'hectares', '2024-11-18 08:03:16', '2024-11-18 08:06:41'),
+(3, 3, 'Hans Farm VIlle', 100.00, 'hectares', '2024-11-18 12:08:08', '2024-11-18 12:08:43');
+
 -- --------------------------------------------------------
 
 --
@@ -65,6 +86,19 @@ CREATE TABLE `inventory` (
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`Inventory_ID`, `harvest_date`, `quantity`, `created_at`, `modified_at`) VALUES
+(12, '2024-11-30', 3990.00, '2024-11-18 12:16:18', '2024-11-19 16:16:06'),
+(13, '2024-11-26', 140.00, '2024-11-18 12:17:20', '2024-11-19 16:16:10'),
+(14, '2024-11-26', 490.00, '2024-11-18 12:18:06', '2024-11-19 16:16:15'),
+(16, '2024-11-17', 85.00, '2024-11-18 13:01:52', '2024-11-19 16:16:20'),
+(17, '2024-11-19', 80.00, '2024-11-18 13:02:44', '2024-11-19 16:16:25'),
+(18, '2024-11-25', 120.00, '2024-11-18 13:58:02', '2024-11-19 16:16:28'),
+(19, '2024-11-20', 3965.00, '2024-11-19 07:25:50', '2024-11-19 16:16:35');
+
 -- --------------------------------------------------------
 
 --
@@ -77,8 +111,22 @@ CREATE TABLE `order_details` (
   `total` decimal(10,2) NOT NULL CHECK (`total` >= 0),
   `order_status` enum('pending','processing','cancelled','completed') DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `seller_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`order_ID`, `user_ID`, `total`, `order_status`, `created_at`, `modified_at`, `seller_id`) VALUES
+(26, 4, 10.00, 'pending', '2024-11-19 16:16:06', '2024-11-19 16:16:06', 3),
+(27, 4, 10.00, 'pending', '2024-11-19 16:16:10', '2024-11-19 16:16:10', 3),
+(28, 4, 10.00, 'pending', '2024-11-19 16:16:15', '2024-11-19 16:16:15', 3),
+(29, 4, 15.00, 'pending', '2024-11-19 16:16:20', '2024-11-19 16:16:20', 1),
+(30, 4, 20.00, 'pending', '2024-11-19 16:16:25', '2024-11-19 16:16:25', 1),
+(31, 4, 30.00, 'pending', '2024-11-19 16:16:28', '2024-11-19 16:16:28', 1),
+(32, 4, 35.00, 'pending', '2024-11-19 16:16:35', '2024-11-19 16:16:35', 1);
 
 -- --------------------------------------------------------
 
@@ -95,6 +143,19 @@ CREATE TABLE `order_item` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_item`
+--
+
+INSERT INTO `order_item` (`orderedItem_ID`, `order_ID`, `product_ID`, `quantity`, `sold_quantity`, `created_at`, `modified_at`) VALUES
+(16, 26, 15, 10, 0, '2024-11-19 16:16:06', '2024-11-19 16:16:06'),
+(17, 27, 16, 10, 0, '2024-11-19 16:16:10', '2024-11-19 16:16:10'),
+(18, 28, 17, 10, 0, '2024-11-19 16:16:15', '2024-11-19 16:16:15'),
+(19, 29, 19, 15, 0, '2024-11-19 16:16:20', '2024-11-19 16:16:20'),
+(20, 30, 20, 20, 0, '2024-11-19 16:16:25', '2024-11-19 16:16:25'),
+(21, 31, 21, 30, 0, '2024-11-19 16:16:28', '2024-11-19 16:16:28'),
+(22, 32, 22, 35, 0, '2024-11-19 16:16:35', '2024-11-19 16:16:35');
 
 --
 -- Triggers `order_item`
@@ -196,7 +257,6 @@ CREATE TABLE `product` (
   `Category_ID` int(11) NOT NULL,
   `SubCategory_ID` int(11) NOT NULL,
   `Inventory_ID` int(11) NOT NULL,
-  `Supplier_ID` int(11) NOT NULL,
   `Product_Name` varchar(100) NOT NULL,
   `Product_Desc` text DEFAULT NULL,
   `product_SKU` varchar(100) DEFAULT NULL,
@@ -209,8 +269,22 @@ CREATE TABLE `product` (
   `bulk_minimum_quantity` int(11) DEFAULT NULL,
   `sold_quantity` int(11) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `User_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`Product_ID`, `Category_ID`, `SubCategory_ID`, `Inventory_ID`, `Product_Name`, `Product_Desc`, `product_SKU`, `product_price`, `average_rating`, `shelf_life`, `shelf_life_unit`, `is_organic`, `bulk_available`, `bulk_minimum_quantity`, `sold_quantity`, `created_at`, `modified_at`, `User_ID`) VALUES
+(15, 13, 13, 12, 'Wheat', 'New Harvest', '1', 100.00, NULL, 30, 'days', 1, 1, NULL, 0, '2024-11-18 12:16:18', '2024-11-18 12:16:18', 3),
+(16, 14, 14, 13, 'Banana', 'New Harvest', '2', 45.00, NULL, 20, 'days', 1, 0, NULL, 0, '2024-11-18 12:17:20', '2024-11-18 12:17:20', 3),
+(17, 15, 15, 14, 'Potato', 'New Harvest', '3', 35.00, NULL, 10, 'days', 0, 0, NULL, 0, '2024-11-18 12:18:06', '2024-11-18 12:18:06', 3),
+(19, 17, 17, 16, 'watermelon', 'fresh', '5', 100.00, NULL, 10, 'days', 1, 0, NULL, 0, '2024-11-18 13:01:52', '2024-11-18 13:01:52', 1),
+(20, 18, 18, 17, 'Apple', 'fresh', '4', 10.00, NULL, 5, 'days', 1, 0, NULL, 0, '2024-11-18 13:02:44', '2024-11-19 07:30:54', 1),
+(21, 19, 19, 18, 'Orange', 'New Harvest', '7', 30.00, NULL, 10, 'days', 1, 0, NULL, 0, '2024-11-18 13:58:02', '2024-11-18 13:58:02', 1),
+(22, 20, 20, 19, 'Carrot', 'New Harvest', '10', 27.00, NULL, 21, 'days', 1, 1, NULL, 0, '2024-11-19 07:25:50', '2024-11-19 07:25:50', 1);
 
 -- --------------------------------------------------------
 
@@ -222,9 +296,21 @@ CREATE TABLE `product_images` (
   `image_ID` int(11) NOT NULL,
   `Product_ID` int(11) NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,
-  `is_primary` tinyint(1) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`image_ID`, `Product_ID`, `image_url`, `created_at`) VALUES
+(7, 15, '../images/product_uploads/img_673b3012e67cc6.18249776.jpg', '2024-11-18 12:16:18'),
+(8, 16, '../images/product_uploads/img_673b3050d57839.85096462.jpg', '2024-11-18 12:17:20'),
+(9, 17, '../images/product_uploads/img_673b307e61a980.60116733.jpg', '2024-11-18 12:18:06'),
+(11, 19, '../images/product_uploads/img_673b3ac09936c8.93614192.jpg', '2024-11-18 13:01:52'),
+(12, 20, '../images/product_uploads/img_673b3af48a93a5.80577716.jpg', '2024-11-18 13:02:44'),
+(13, 21, '../images/product_uploads/img_673b47ea5da193.81982663.jpg', '2024-11-18 13:58:02'),
+(14, 22, '../images/product_uploads/img_673c3d7eb0f918.65353263.png', '2024-11-19 07:25:50');
 
 -- --------------------------------------------------------
 
@@ -234,13 +320,12 @@ CREATE TABLE `product_images` (
 
 CREATE TABLE `product_qa` (
   `qa_ID` int(11) NOT NULL,
-  `Product_ID` int(11) NOT NULL,
   `User_ID` int(11) NOT NULL,
   `question` text DEFAULT NULL,
   `answer` text DEFAULT NULL,
   `is_answered` tinyint(1) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `answered_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `answered_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -256,6 +341,49 @@ CREATE TABLE `product_quantity_updates` (
   `sold_quantity` decimal(10,2) DEFAULT 0.00,
   `update_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_quantity_updates`
+--
+
+INSERT INTO `product_quantity_updates` (`Update_ID`, `Product_ID`, `stock_quantity`, `sold_quantity`, `update_date`) VALUES
+(1, 15, 0.00, 5.00, '2024-11-19 13:52:54'),
+(2, 15, 0.00, -5.00, '2024-11-19 13:54:35'),
+(3, 15, 0.00, 4000.00, '2024-11-19 13:54:43'),
+(4, 15, 0.00, -4000.00, '2024-11-19 15:23:33'),
+(5, 20, 0.00, 100.00, '2024-11-19 15:26:44'),
+(6, 15, 0.00, 4000.00, '2024-11-19 15:46:25'),
+(7, 15, 0.00, -4000.00, '2024-11-19 15:47:25'),
+(8, 15, 0.00, 4000.00, '2024-11-19 15:50:26'),
+(9, 17, 0.00, 500.00, '2024-11-19 15:50:47'),
+(10, 17, 0.00, -500.00, '2024-11-19 16:01:07'),
+(11, 15, 0.00, -4000.00, '2024-11-19 16:01:08'),
+(12, 20, 0.00, -100.00, '2024-11-19 16:01:09'),
+(13, 17, 0.00, 500.00, '2024-11-19 16:01:36'),
+(14, 15, 0.00, 10.00, '2024-11-19 16:08:25'),
+(15, 15, 0.00, -10.00, '2024-11-19 16:10:39'),
+(16, 15, 0.00, 10.00, '2024-11-19 16:11:06'),
+(17, 15, 0.00, -10.00, '2024-11-19 16:11:59'),
+(18, 17, 0.00, -500.00, '2024-11-19 16:12:01'),
+(19, 20, 0.00, 10.00, '2024-11-19 16:12:38'),
+(20, 19, 0.00, 20.00, '2024-11-19 16:12:50'),
+(21, 15, 0.00, 10.00, '2024-11-19 16:12:54'),
+(22, 17, 0.00, 15.00, '2024-11-19 16:12:59'),
+(23, 21, 0.00, 30.00, '2024-11-19 16:13:03'),
+(24, 22, 0.00, 15.00, '2024-11-19 16:13:10'),
+(25, 20, 0.00, -10.00, '2024-11-19 16:14:39'),
+(26, 19, 0.00, -20.00, '2024-11-19 16:14:39'),
+(27, 15, 0.00, -10.00, '2024-11-19 16:14:39'),
+(28, 17, 0.00, -15.00, '2024-11-19 16:14:39'),
+(29, 21, 0.00, -30.00, '2024-11-19 16:14:39'),
+(30, 22, 0.00, -15.00, '2024-11-19 16:14:39'),
+(31, 15, 0.00, 10.00, '2024-11-19 16:16:06'),
+(32, 16, 0.00, 10.00, '2024-11-19 16:16:10'),
+(33, 17, 0.00, 10.00, '2024-11-19 16:16:15'),
+(34, 19, 0.00, 15.00, '2024-11-19 16:16:20'),
+(35, 20, 0.00, 20.00, '2024-11-19 16:16:25'),
+(36, 21, 0.00, 30.00, '2024-11-19 16:16:28'),
+(37, 22, 0.00, 35.00, '2024-11-19 16:16:35');
 
 -- --------------------------------------------------------
 
@@ -328,26 +456,18 @@ CREATE TABLE `sub_category` (
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `supplier_details`
+-- Dumping data for table `sub_category`
 --
 
-CREATE TABLE `supplier_details` (
-  `Supplier_ID` int(11) NOT NULL,
-  `User_ID` int(11) NOT NULL,
-  `company_name` varchar(255) DEFAULT NULL,
-  `supply_type` enum('Vegetable','Fruits','Mixed','Other') DEFAULT 'Other',
-  `tax_id` varchar(50) DEFAULT NULL,
-  `years_in_business` int(11) DEFAULT NULL,
-  `sourcing_regions` text DEFAULT NULL,
-  `distribution_capacity` varchar(255) DEFAULT NULL,
-  `storage_facilities` text DEFAULT NULL,
-  `transportation_methods` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `sub_category` (`SubCategory_ID`, `Category_ID`, `SubCategory_Name`, `SubCategory_Desc`, `created_at`, `modified_at`) VALUES
+(13, 13, 'grains', NULL, '2024-11-18 12:16:18', '2024-11-18 12:16:18'),
+(14, 14, 'fruits', NULL, '2024-11-18 12:17:20', '2024-11-18 12:17:20'),
+(15, 15, 'rootcrops', NULL, '2024-11-18 12:18:06', '2024-11-18 12:18:06'),
+(17, 17, 'fruits', NULL, '2024-11-18 13:01:52', '2024-11-18 13:01:52'),
+(18, 18, 'fruits', NULL, '2024-11-18 13:02:44', '2024-11-18 13:02:44'),
+(19, 19, 'fruits', NULL, '2024-11-18 13:58:02', '2024-11-18 13:58:02'),
+(20, 20, 'rootcrops', NULL, '2024-11-19 07:25:50', '2024-11-19 07:25:50');
 
 -- --------------------------------------------------------
 
@@ -377,9 +497,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`User_ID`, `User_FirstName`, `User_MiddleName`, `User_LastName`, `User_BirthDate`, `User_Gender`, `User_EmailAddress`, `User_Password`, `User_MobileNumber`, `Status_ID`, `Type_ID`, `Role_ID`, `created_at`, `modified_at`) VALUES
-(1, 'Leila Aliyah', 'Jambaro', 'Manalo', '2004-02-05', 'Female', 'Aliyah@gmail.com', '12345678', '12345678910', 1, 1, 1, '2024-11-04 15:50:51', '2024-11-04 15:50:51'),
-(2, 'John Lloyd', 'Buenavista', 'Dela Cruz', '2004-01-12', 'Male', 'tyn@gmail.com', '12345678', '12345678910', 2, 2, 2, '2024-11-04 16:17:27', '2024-11-04 16:17:27'),
-(3, 'John', '', ' Dela Cruz', '2000-01-01', 'Male', 'Admin@gmail.com', '12345678', '...', 3, 3, 3, '2024-11-06 06:51:37', '2024-11-06 08:32:05');
+(1, 'John Lloyd', 'Buena', 'Dela Cruz', '2002-02-03', 'Male', 'tyn@gmail.com', '12345678', '09645539284', 1, 1, 1, '2024-11-18 08:03:16', '2024-11-18 08:05:54'),
+(2, 'Leila Aliyah', 'Jambaro', 'Manalo', '2005-02-05', 'Female', 'aliyah@gmail.com', '12345678', '09685147954', 2, 2, 2, '2024-11-18 08:04:01', '2024-11-18 08:04:01'),
+(3, 'Hans Kyle', ' ', 'Bertoso', '2002-01-05', 'Male', 'Hans@gmail.com', '12345678', '09685147954', 3, 3, 3, '2024-11-18 12:08:08', '2024-11-18 12:08:08'),
+(4, 'Joe', 'Bill', 'Biden', '2003-02-05', 'Male', 'Joe@gmail.com', '12345678', '09685147954', 4, 4, 4, '2024-11-18 13:04:16', '2024-11-18 13:04:16');
 
 -- --------------------------------------------------------
 
@@ -406,9 +527,10 @@ CREATE TABLE `user_address` (
 --
 
 INSERT INTO `user_address` (`Address_ID`, `User_ID`, `Address_Type`, `User_Address`, `Island_Group`, `Region`, `City`, `Barangay`, `zip_code`, `created_at`, `modified_at`) VALUES
-(1, 1, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-04 15:50:51', '2024-11-04 15:50:51'),
-(2, 2, 'farm', 'CS Fojas Subdivision Daang Amaya II Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-04 16:17:27', '2024-11-04 16:17:27'),
-(3, 3, 'farm', '...', '...', '...', '...', '...', 0, '2024-11-06 06:51:37', '2024-11-06 06:51:37');
+(1, 1, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 08:03:16', '2024-11-18 08:03:16'),
+(2, 2, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 08:04:01', '2024-11-18 08:04:01'),
+(3, 3, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 12:08:08', '2024-11-18 12:08:08'),
+(4, 4, 'home', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 13:04:16', '2024-11-18 13:04:16');
 
 -- --------------------------------------------------------
 
@@ -428,9 +550,10 @@ CREATE TABLE `user_role` (
 --
 
 INSERT INTO `user_role` (`Role_ID`, `Role_Name`, `created_at`, `modified_at`) VALUES
-(1, 'User', '2024-11-04 15:50:51', '0000-00-00 00:00:00'),
-(2, 'User', '2024-11-04 16:17:27', '0000-00-00 00:00:00'),
-(3, 'Admin', '2024-11-06 06:52:07', '0000-00-00 00:00:00');
+(1, 'User', '2024-11-18 08:03:16', '0000-00-00 00:00:00'),
+(2, 'Admin', '2024-11-18 08:05:19', '0000-00-00 00:00:00'),
+(3, 'User', '2024-11-18 12:08:08', '0000-00-00 00:00:00'),
+(4, 'User', '2024-11-18 13:04:16', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -442,6 +565,16 @@ CREATE TABLE `user_role_management` (
   `User_ID` int(11) NOT NULL,
   `Role_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_role_management`
+--
+
+INSERT INTO `user_role_management` (`User_ID`, `Role_ID`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -478,9 +611,10 @@ CREATE TABLE `user_status` (
 --
 
 INSERT INTO `user_status` (`Status_ID`, `Status_Name`, `created_at`, `modified_at`) VALUES
-(1, 'active', '2024-11-04 15:50:51', '2024-11-06 07:30:15'),
-(2, 'active', '2024-11-04 16:17:27', '2024-11-06 04:37:44'),
-(3, 'active', '2024-11-06 06:51:37', '2024-11-06 06:52:23');
+(1, 'active', '2024-11-18 08:03:16', '2024-11-18 08:05:59'),
+(2, 'active', '2024-11-18 08:04:01', '2024-11-18 08:05:11'),
+(3, 'active', '2024-11-18 12:08:08', '2024-11-18 12:08:18'),
+(4, 'active', '2024-11-18 13:04:15', '2024-11-18 13:04:32');
 
 -- --------------------------------------------------------
 
@@ -501,9 +635,10 @@ CREATE TABLE `user_type` (
 --
 
 INSERT INTO `user_type` (`Type_ID`, `Type_Name`, `Type_Description`, `created_at`, `modified_at`) VALUES
-(1, 'Vendor', 'Local Vendor', '2024-11-04 15:50:51', '2024-11-06 07:29:38'),
-(2, 'Farmer', 'Local Farmer', '2024-11-04 16:17:27', '2024-11-04 16:17:27'),
-(3, 'Admin', 'Admin Account', '2024-11-06 06:51:37', '2024-11-06 06:52:43');
+(1, 'Farmer', 'Local Farmer', '2024-11-18 08:03:16', '2024-11-18 08:03:16'),
+(2, 'Admin', 'Admin', '2024-11-18 08:04:01', '2024-11-18 08:05:05'),
+(3, 'Farmer', 'Local Farmer', '2024-11-18 12:08:08', '2024-11-18 12:08:08'),
+(4, 'Vendor', 'Local Vendor', '2024-11-18 13:04:15', '2024-11-18 13:04:15');
 
 -- --------------------------------------------------------
 
@@ -515,6 +650,16 @@ CREATE TABLE `user_type_management` (
   `User_ID` int(11) NOT NULL,
   `Type_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_type_management`
+--
+
+INSERT INTO `user_type_management` (`User_ID`, `Type_ID`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -535,6 +680,13 @@ CREATE TABLE `vendor_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `vendor_details`
+--
+
+INSERT INTO `vendor_details` (`Vendor_ID`, `User_ID`, `business_name`, `business_type`, `tax_id`, `years_in_business`, `product_types`, `created_at`, `modified_at`) VALUES
+(4, 4, 'Joe Business', 'Retailer', '05', 5, 'Grains', '2024-11-18 13:04:16', '2024-11-18 13:08:06');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -542,8 +694,7 @@ CREATE TABLE `vendor_details` (
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
-  ADD PRIMARY KEY (`Category_ID`),
-  ADD KEY `idx_category_name` (`Category_Name`);
+  ADD PRIMARY KEY (`Category_ID`);
 
 --
 -- Indexes for table `farmer_details`
@@ -565,7 +716,8 @@ ALTER TABLE `inventory`
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`order_ID`),
   ADD KEY `idx_user_orders` (`user_ID`),
-  ADD KEY `idx_created_at` (`created_at`);
+  ADD KEY `idx_created_at` (`created_at`),
+  ADD KEY `Seller_ID` (`seller_id`);
 
 --
 -- Indexes for table `order_item`
@@ -600,11 +752,11 @@ ALTER TABLE `product`
   ADD KEY `SubCategory_ID` (`SubCategory_ID`),
   ADD KEY `Inventory_ID` (`Inventory_ID`),
   ADD KEY `idx_product_price` (`product_price`),
-  ADD KEY `idx_supplier` (`Supplier_ID`),
   ADD KEY `idx_average_rating` (`average_rating`),
   ADD KEY `idx_is_organic` (`is_organic`),
   ADD KEY `idx_bulk_available` (`bulk_available`),
-  ADD KEY `idx_product_sku` (`product_SKU`);
+  ADD KEY `idx_product_sku` (`product_SKU`),
+  ADD KEY `User_ID` (`User_ID`);
 ALTER TABLE `product` ADD FULLTEXT KEY `idx_product_search` (`Product_Name`,`Product_Desc`);
 
 --
@@ -619,8 +771,7 @@ ALTER TABLE `product_images`
 --
 ALTER TABLE `product_qa`
   ADD PRIMARY KEY (`qa_ID`),
-  ADD KEY `User_ID` (`User_ID`),
-  ADD KEY `idx_product_qa` (`Product_ID`);
+  ADD KEY `User_ID` (`User_ID`);
 
 --
 -- Indexes for table `product_quantity_updates`
@@ -666,16 +817,7 @@ ALTER TABLE `shopping_cart`
 --
 ALTER TABLE `sub_category`
   ADD PRIMARY KEY (`SubCategory_ID`),
-  ADD KEY `Category_ID` (`Category_ID`),
-  ADD KEY `idx_subcategory_name` (`SubCategory_Name`);
-
---
--- Indexes for table `supplier_details`
---
-ALTER TABLE `supplier_details`
-  ADD PRIMARY KEY (`Supplier_ID`),
-  ADD UNIQUE KEY `idx_user_id` (`User_ID`),
-  ADD KEY `idx_supply_type` (`supply_type`);
+  ADD KEY `Category_ID` (`Category_ID`);
 
 --
 -- Indexes for table `user`
@@ -751,31 +893,31 @@ ALTER TABLE `vendor_details`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `Category_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `farmer_details`
 --
 ALTER TABLE `farmer_details`
-  MODIFY `Farmer_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Farmer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `Inventory_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Inventory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `orderedItem_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orderedItem_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `order_status_history`
@@ -793,25 +935,25 @@ ALTER TABLE `password_reset`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `image_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `image_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `product_qa`
 --
 ALTER TABLE `product_qa`
-  MODIFY `qa_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `qa_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_quantity_updates`
 --
 ALTER TABLE `product_quantity_updates`
-  MODIFY `Update_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Update_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `product_review`
@@ -835,13 +977,7 @@ ALTER TABLE `shopping_cart`
 -- AUTO_INCREMENT for table `sub_category`
 --
 ALTER TABLE `sub_category`
-  MODIFY `SubCategory_ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `supplier_details`
---
-ALTER TABLE `supplier_details`
-  MODIFY `Supplier_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `SubCategory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -865,7 +1001,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_session`
 --
 ALTER TABLE `user_session`
-  MODIFY `Session_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Session_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `user_status`
@@ -883,7 +1019,7 @@ ALTER TABLE `user_type`
 -- AUTO_INCREMENT for table `vendor_details`
 --
 ALTER TABLE `vendor_details`
-  MODIFY `Vendor_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Vendor_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -926,8 +1062,7 @@ ALTER TABLE `password_reset`
 ALTER TABLE `product`
   ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`Category_ID`) REFERENCES `category` (`Category_ID`),
   ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`SubCategory_ID`) REFERENCES `sub_category` (`SubCategory_ID`),
-  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`Inventory_ID`) REFERENCES `inventory` (`Inventory_ID`),
-  ADD CONSTRAINT `product_ibfk_4` FOREIGN KEY (`Supplier_ID`) REFERENCES `supplier_details` (`Supplier_ID`);
+  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`Inventory_ID`) REFERENCES `inventory` (`Inventory_ID`);
 
 --
 -- Constraints for table `product_images`
@@ -939,7 +1074,6 @@ ALTER TABLE `product_images`
 -- Constraints for table `product_qa`
 --
 ALTER TABLE `product_qa`
-  ADD CONSTRAINT `product_qa_ibfk_1` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`),
   ADD CONSTRAINT `product_qa_ibfk_2` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`);
 
 --
@@ -980,12 +1114,6 @@ ALTER TABLE `shopping_cart`
 --
 ALTER TABLE `sub_category`
   ADD CONSTRAINT `sub_category_ibfk_1` FOREIGN KEY (`Category_ID`) REFERENCES `category` (`Category_ID`);
-
---
--- Constraints for table `supplier_details`
---
-ALTER TABLE `supplier_details`
-  ADD CONSTRAINT `supplier_details_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`);
 
 --
 -- Constraints for table `user`
