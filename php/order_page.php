@@ -37,7 +37,7 @@ $order_result = $stmt->get_result();
                 <div class="row">
                     <div class="col-md-1">
                         <span id="logo_part">
-                            <img src="../images/plots.jpg" alt="Logo" id="logo">
+                            <img src="../images/HarvestCrops - Logo Version 1 (Circle).png" alt="Logo" id="logo">
                         </span>
                     </div>
                     <div class="col-md-11">

@@ -10,19 +10,16 @@
     <script src="../css/bootstrap-5.3.3-dist/js/bootstrap.min.js" rel="script"></script>
     <title></title>
 </head>
-<!--<body>-->
-<body class="create_account_body">
+<body>
     <section>
-        <form class="rounded" action="../php/components/create_account.php" method="post">
+        <form class="rounded" action="../php/components/account_details_update.php" method="post">
             <div class="container">
-                <!--<div class="section create-acc-form-ds mb-4">-->
-                <div class="section mb-4 bg-cfe1b9 rounded-4">
+                <div class="section create-acc-form-ds mb-4">
                     <div class="row p-4 m-4 d-flex align-items-center">
-                        <!--<h1 class="h3 mb-3 d-flex justify-content-center mb-5">Registration Form</h1>-->
-                        <h1 class="h3 mb-2 d-flex justify-content-center mb-2 pb-2">Registration Form</h1>
+                        <a href="javascript:history.back();" class="text-decoration-none text-dark"><i class="fa-solid fa-backward"></i> back</a>
+                        <h1 class="h3 mb-3 d-flex justify-content-center mb-5">Update User Account</h1>
                         <div class="col-md-1"></div>
-                        <!--<div class="col-md-10"><hr class="rounded bg-dark p-1"></div>-->
-                        <div class="col-md-12"><hr class="rounded h-25 bg-397F35"></div>
+                        <div class="col-md-10"><hr class="rounded bg-dark p-1"></div>
                         <div class="col-md-1"></div>
                         <label class="p-3 fw-bold">Account Name</label>
                         <div class="col-md-4">
@@ -127,45 +124,27 @@
                         <div class="col-md-12">
                             <label class="pt-5 mb-2 fw-bold">Account Information</label>
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" name="EmailAdd" class="mt-3 form-control mb-2"
-                            placeholder="Email Address" required autofocus>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <input type="text" name="MobileNum" class="mt-3 form-control mb-2"
                             placeholder="Mobile Number" required autofocus>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <input type="password" name="Password" class="mt-3 form-control mb-2"
                             placeholder="Password" required autofocus>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <input type="password" name="Re-enterpass" class="mt-3 form-control mb-2"
                             placeholder="Re-enter Password" required autofocus>
                         </div>
-                        <div class="col-md-6">
-                            <select class="mt-3 form-control mb-2" name="Occupation" required>
-                                <option value="Occupation" disabled selected>Occupation</option>
-                                <option value="Farmer">Farmer</option>
-                                <option value="Vendor">Vendor</option>
-                                <option value="Organization">Organization</option>
-                            </select>
+                        <div class="col-md-12">
+                            <hr>
                         </div>
-                        <!--<div class="col-md-12"><hr class="rounded bg-dark p-1"></div>-->
-                        <div class="col-md-12"><hr class="rounded h-25 bg-397F35"></div>
-                        <!--<div class="col-md-12 d-flex justify-content-center pt-3 mt-4">-->
-                        <div class="col-md-12 d-flex justify-content-center pt-1 mt-4">
-                            <a class="text-dark text-decoration-none mb-3" href="terms_conditions.html" target="_blank" style="font-size: large;">
-                                <input type="checkbox" id="terms-conditions" name="terms-conditions" value="Agreement" class="me-2 acce_color" required> 
-                                    I agree to the  <span class="acce_color c-397F35 text-decoration-underline">Terms and Conditions</span></a> <!--revised: style-->
+                        <div class="col-md-12 d-flex justify-content-end align-items-center pt-4">
+                            <button class="btn btn-lg bg-secondary rounded" type="submit"
+                                name="submit">Update
+                                Account</button>
                         </div>
-                        <div class="col-md-12 d-flex justify-content-center align-items-center">
-                            <!--<button class="btn btn-md bg-secondary rounded" type="submit"
-                                name="submit">Create
-                                Account</button>-->
-                            <button class="btn btn-md rounded" type="submit"
-                                id = "create_acc" name="submit">Create Account</button>
-                        </div>
+
                     </div>
                 </div>
             </div>

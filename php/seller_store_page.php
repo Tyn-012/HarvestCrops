@@ -20,7 +20,7 @@ include 'components/user_details.php'
                 <div class="row">
                     <div class="col-md-1">
                         <span id="logo_part">
-                            <img src="../images/plots.jpg" alt="Logo" id="logo">
+                            <img src="../images/HarvestCrops - Logo Version 1 (Circle).png" alt="Logo" id="logo">
                         </span>
                     </div>
                     <div class="col-md-11">
@@ -150,6 +150,7 @@ include 'components/user_details.php'
                                                     </div>
                                                     <div class="col-md-4">
                                                         <form action = "components/delete_product.php" method="post">
+                                                            <input type="hidden" name="product_id" value="' . htmlspecialchars($productid) . '">
                                                             <button class = "btn text-light fw-bolder" type="submit" name="delete_product">Delete</button>
                                                         </form>
                                                     </div>

@@ -83,9 +83,8 @@ if(isset($_POST['submit'])) {
     $product_id);  // Bind the Product_ID
 
     if ($stmt->execute()) {
-        echo "Product updated successfully.<br>";
         echo "<script language = 'JavaScript'>
-        alert('Invalid Username or Password');";
+        alert('Product updated successfully.');";
         echo "window.location = \"../seller_store_page.php\";
         </script>";
     } else {

@@ -107,9 +107,17 @@
   }
   
   #logo{
-    width: 70px;
-    height: 70px;
-    border: solid black 2px;
+    border: none; 
+    width: 95px; 
+    height: 95px; 
+    opacity: 85%
+  }
+
+  #logo-signin{
+    border: none; 
+    width: 300px; 
+    height: 300px; 
+    opacity: 85%
   }
   
   #icon-search{
@@ -260,7 +268,7 @@
   }
   
   .right {
-    padding-top:7rem;
+    padding-top:2rem;
     border-left:20px solid rgb(250, 217, 71);
     right: 0;
     background-color: white;
@@ -342,4 +350,59 @@
   .form-bg-forgot{
     border: 2px solid black;
     background: rgb(108, 189, 108);
+  }
+
+  
+
+  /*Color ThemesFlog - BACKGROUNDS */
+
+  .bg-cfe1b9{
+    background-color: #cfe1b9;
+  }
+  
+
+  .bg-397F35{
+    background-color: #397F35;
+  }
+
+  .c-397F35{
+    color: #397F35;
+  }
+
+  .acce_color{
+    accent-color: #397F35;
+  }
+
+  .bg-F5BD22{
+    background-color: #F5BD22;
+  }
+
+  .bg-ECF39E{
+    background-color: #ECF39E;
+  }
+
+  .c-ECF39E{
+    color: #ECF39E;
+  }
+
+
+  /*Create Account Body*/
+
+  .create_account_body{
+    background-image: url('../images/farm.jpg'); 
+    padding-top: 25px;
+  }
+
+  #create_acc{
+    background-color: #397F35; 
+    border: none; 
+    color: white;
+  }
+
+  .font-size-md{
+    font-size: medium;
+  }
+
+  .bg-3B442C{
+    background-color: #3B442C;
   }

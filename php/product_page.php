@@ -61,7 +61,7 @@ if (isset($_GET['product_id']) && isset($_GET['img_url']) && isset($_GET['produc
                 <div class="row">
                     <div class="col-md-1">
                         <span id="logo_part">
-                            <img src="../images/plots.jpg" alt="Logo" id="logo">
+                            <img src="../images/HarvestCrops - Logo Version 1 (Circle).png" alt="Logo" id="logo">
                         </span>
                     </div>
                     <div class="col-md-11">

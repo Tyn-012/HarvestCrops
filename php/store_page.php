@@ -20,7 +20,7 @@ include 'components/user_details.php'
                 <div class="row">
                     <div class="col-md-1">
                         <span id="logo_part">
-                            <img src="../images/plots.jpg" alt="Logo" id="logo">
+                            <img src="../images/HarvestCrops - Logo Version 1 (Circle).png" alt="Logo" id="logo">
                         </span>
                     </div>
                     <div class="col-md-11">
@@ -111,7 +111,6 @@ include 'components/user_details.php'
                                     $productid = $row['Product_ID'];
                                     $product_name = $row['Product_Name'];
                                     $product_price = $row['product_price'];
-
                                     // Get product image
                                     $getproduct_info_qry = "SELECT * FROM product_images WHERE Product_ID = ?";
                                     $stmt = $connect->prepare($getproduct_info_qry);

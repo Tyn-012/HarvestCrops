@@ -2,10 +2,11 @@
 session_start();
 include 'connect.php';
 
-$product_id = $_SESSION['product_id'];
+
 
 if (isset($_POST['delete_product'])) {
     // Step 1: Get product information from the database
+    $product_id = $_POST['product_id'];
     $getproduct_info_qry = "SELECT * FROM product WHERE Product_ID = ?";
     $stmt = $connect->prepare($getproduct_info_qry);
     $stmt->bind_param('s', $product_id);
@@ -107,8 +108,6 @@ if (isset($_POST['delete_product'])) {
     }
 
     // Success message
-    echo "Product and related records deleted successfully.<br>";
-    // Optionally redirect after deletion
     echo "Product and related records deleted successfully.<br>";
     echo "<script language = 'JavaScript'>";
     echo "window.location = \"../seller_store_page.php\";

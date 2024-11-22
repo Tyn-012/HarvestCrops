@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2024 at 06:29 PM
+-- Generation Time: Nov 22, 2024 at 04:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -40,8 +40,13 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`Category_ID`, `Category_Name`, `Category_Desc`, `created_at`, `modified_at`) VALUES
-(22, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-22 17:04:27', '2024-11-22 17:04:27'),
-(23, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-22 17:05:07', '2024-11-22 17:05:07');
+(13, 'grains', 'Rice, Wheat etc.', '2024-11-18 12:16:18', '2024-11-18 12:16:18'),
+(14, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-18 12:17:20', '2024-11-18 12:17:20'),
+(15, 'rootcrops', 'Potatoes, Carrots, Sweet Potatoes etc.', '2024-11-18 12:18:06', '2024-11-18 12:18:06'),
+(17, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-18 13:01:52', '2024-11-18 13:01:52'),
+(18, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-18 13:02:44', '2024-11-18 13:02:44'),
+(19, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-18 13:58:02', '2024-11-18 13:58:02'),
+(20, 'rootcrops', 'Potatoes, Carrots, Sweet Potatoes etc.', '2024-11-19 07:25:50', '2024-11-19 07:25:50');
 
 -- --------------------------------------------------------
 
@@ -64,9 +69,8 @@ CREATE TABLE `farmer_details` (
 --
 
 INSERT INTO `farmer_details` (`Farmer_ID`, `User_ID`, `farm_name`, `farm_size`, `farm_size_unit`, `created_at`, `modified_at`) VALUES
-(1, 1, 'John dc Farm', 10.00, 'acres', '2024-11-18 08:03:16', '2024-11-22 16:25:33'),
-(3, 3, 'Hans Farm', 15.00, 'acres', '2024-11-18 12:08:08', '2024-11-22 17:08:13'),
-(5, 5, NULL, NULL, 'hectares', '2024-11-22 17:13:29', '2024-11-22 17:13:29');
+(1, 1, 'John Farm', 15.00, 'hectares', '2024-11-18 08:03:16', '2024-11-18 08:06:41'),
+(3, 3, 'Hans Farm VIlle', 100.00, 'hectares', '2024-11-18 12:08:08', '2024-11-18 12:08:43');
 
 -- --------------------------------------------------------
 
@@ -81,6 +85,19 @@ CREATE TABLE `inventory` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`Inventory_ID`, `harvest_date`, `quantity`, `created_at`, `modified_at`) VALUES
+(12, '2024-11-30', 3990.00, '2024-11-18 12:16:18', '2024-11-22 02:42:23'),
+(13, '2024-11-26', 120.00, '2024-11-18 12:17:20', '2024-11-22 02:43:53'),
+(14, '2024-11-26', 500.00, '2024-11-18 12:18:06', '2024-11-22 03:17:49'),
+(16, '2024-11-17', 98.00, '2024-11-18 13:01:52', '2024-11-22 03:51:40'),
+(17, '2024-11-19', 70.00, '2024-11-18 13:02:44', '2024-11-22 03:51:49'),
+(18, '2024-11-25', 116.00, '2024-11-18 13:58:02', '2024-11-20 09:50:08'),
+(19, '2024-11-20', 3990.00, '2024-11-19 07:25:50', '2024-11-20 09:50:21');
 
 -- --------------------------------------------------------
 
@@ -98,6 +115,16 @@ CREATE TABLE `order_details` (
   `seller_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`order_ID`, `user_ID`, `total`, `order_status`, `created_at`, `modified_at`, `seller_id`) VALUES
+(59, 4, 2.00, 'processing', '2024-11-20 09:47:41', '2024-11-22 03:51:40', 1),
+(60, 4, 30.00, 'processing', '2024-11-20 09:47:50', '2024-11-22 03:51:49', 1),
+(61, 4, 14.00, 'processing', '2024-11-20 09:50:08', '2024-11-20 10:12:41', 1),
+(62, 4, 10.00, 'completed', '2024-11-20 09:50:21', '2024-11-20 10:20:08', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -113,6 +140,16 @@ CREATE TABLE `order_item` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_item`
+--
+
+INSERT INTO `order_item` (`orderedItem_ID`, `order_ID`, `product_ID`, `quantity`, `sold_quantity`, `created_at`, `modified_at`) VALUES
+(49, 59, 19, 2, 0, '2024-11-20 09:47:41', '2024-11-22 03:50:11'),
+(50, 60, 20, 30, 0, '2024-11-20 09:47:50', '2024-11-22 03:51:49'),
+(51, 61, 21, 14, 0, '2024-11-20 09:50:08', '2024-11-20 09:50:08'),
+(52, 62, 22, 10, 0, '2024-11-20 09:50:21', '2024-11-20 09:50:21');
 
 --
 -- Triggers `order_item`
@@ -230,6 +267,19 @@ CREATE TABLE `product` (
   `User_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`Product_ID`, `Category_ID`, `SubCategory_ID`, `Inventory_ID`, `Product_Name`, `Product_Desc`, `product_SKU`, `product_price`, `average_rating`, `shelf_life`, `shelf_life_unit`, `is_organic`, `bulk_available`, `bulk_minimum_quantity`, `sold_quantity`, `created_at`, `modified_at`, `User_ID`) VALUES
+(15, 13, 13, 12, 'Wheat', 'New Harvest', '1', 100.00, NULL, 30, 'days', 1, 1, NULL, 0, '2024-11-18 12:16:18', '2024-11-18 12:16:18', 3),
+(16, 14, 14, 13, 'Banana', 'New Harvest', '2', 45.00, NULL, 20, 'days', 1, 0, NULL, 0, '2024-11-18 12:17:20', '2024-11-18 12:17:20', 3),
+(17, 15, 15, 14, 'Potato', 'New Harvest', '3', 35.00, NULL, 10, 'days', 0, 0, NULL, 0, '2024-11-18 12:18:06', '2024-11-18 12:18:06', 3),
+(19, 17, 17, 16, 'watermelon', 'fresh', '5', 100.00, NULL, 10, 'days', 1, 0, NULL, 0, '2024-11-18 13:01:52', '2024-11-18 13:01:52', 1),
+(20, 18, 18, 17, 'Apple', 'fresh', '4', 10.00, NULL, 5, 'days', 1, 0, NULL, 0, '2024-11-18 13:02:44', '2024-11-19 07:30:54', 1),
+(21, 19, 19, 18, 'Orange', 'New Harvest', '7', 30.00, NULL, 10, 'days', 1, 0, NULL, 0, '2024-11-18 13:58:02', '2024-11-18 13:58:02', 1),
+(22, 20, 20, 19, 'Carrot', 'New Harvest', '10', 27.00, NULL, 21, 'days', 1, 1, NULL, 0, '2024-11-19 07:25:50', '2024-11-19 07:25:50', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -242,6 +292,19 @@ CREATE TABLE `product_images` (
   `image_url` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`image_ID`, `Product_ID`, `image_url`, `created_at`) VALUES
+(7, 15, '../images/product_uploads/img_673b3012e67cc6.18249776.jpg', '2024-11-18 12:16:18'),
+(8, 16, '../images/product_uploads/img_673b3050d57839.85096462.jpg', '2024-11-18 12:17:20'),
+(9, 17, '../images/product_uploads/img_673b307e61a980.60116733.jpg', '2024-11-18 12:18:06'),
+(11, 19, '../images/product_uploads/img_673b3ac09936c8.93614192.jpg', '2024-11-18 13:01:52'),
+(12, 20, '../images/product_uploads/img_673b3af48a93a5.80577716.jpg', '2024-11-18 13:02:44'),
+(13, 21, '../images/product_uploads/img_673b47ea5da193.81982663.jpg', '2024-11-18 13:58:02'),
+(14, 22, '../images/product_uploads/img_673c3d7eb0f918.65353263.png', '2024-11-19 07:25:50');
 
 -- --------------------------------------------------------
 
@@ -259,13 +322,6 @@ CREATE TABLE `product_qa` (
   `answered_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `product_qa`
---
-
-INSERT INTO `product_qa` (`qa_ID`, `User_ID`, `question`, `answer`, `is_answered`, `created_at`, `answered_at`) VALUES
-(3, 3, 'There\'s an error', NULL, 0, '2024-11-22 17:08:43', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -279,6 +335,27 @@ CREATE TABLE `product_quantity_updates` (
   `sold_quantity` decimal(10,2) DEFAULT 0.00,
   `update_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_quantity_updates`
+--
+
+INSERT INTO `product_quantity_updates` (`Update_ID`, `Product_ID`, `stock_quantity`, `sold_quantity`, `update_date`) VALUES
+(97, 15, 0.00, 11.00, '2024-11-20 09:46:54'),
+(98, 16, 0.00, 12.00, '2024-11-20 09:47:13'),
+(99, 17, 0.00, 11.00, '2024-11-20 09:47:31'),
+(100, 19, 0.00, 11.00, '2024-11-20 09:47:41'),
+(101, 20, 0.00, 13.00, '2024-11-20 09:47:50'),
+(102, 21, 0.00, 14.00, '2024-11-20 09:50:08'),
+(103, 22, 0.00, 10.00, '2024-11-20 09:50:21'),
+(106, 15, 0.00, -1.00, '2024-11-20 10:04:27'),
+(107, 15, 0.00, -1.00, '2024-11-20 10:04:27'),
+(108, 15, 0.00, -11.00, '2024-11-22 02:42:23'),
+(109, 16, 0.00, -12.00, '2024-11-22 02:43:53'),
+(110, 17, 0.00, -11.00, '2024-11-22 03:17:49'),
+(111, 19, 0.00, -9.00, '2024-11-22 03:50:11'),
+(112, 19, 0.00, 0.00, '2024-11-22 03:51:40'),
+(113, 20, 0.00, 17.00, '2024-11-22 03:51:49');
 
 -- --------------------------------------------------------
 
@@ -356,8 +433,13 @@ CREATE TABLE `sub_category` (
 --
 
 INSERT INTO `sub_category` (`SubCategory_ID`, `Category_ID`, `SubCategory_Name`, `SubCategory_Desc`, `created_at`, `modified_at`) VALUES
-(22, 22, 'fruits', NULL, '2024-11-22 17:04:27', '2024-11-22 17:04:27'),
-(23, 23, 'fruits', NULL, '2024-11-22 17:05:07', '2024-11-22 17:05:07');
+(13, 13, 'grains', NULL, '2024-11-18 12:16:18', '2024-11-18 12:16:18'),
+(14, 14, 'fruits', NULL, '2024-11-18 12:17:20', '2024-11-18 12:17:20'),
+(15, 15, 'rootcrops', NULL, '2024-11-18 12:18:06', '2024-11-18 12:18:06'),
+(17, 17, 'fruits', NULL, '2024-11-18 13:01:52', '2024-11-18 13:01:52'),
+(18, 18, 'fruits', NULL, '2024-11-18 13:02:44', '2024-11-18 13:02:44'),
+(19, 19, 'fruits', NULL, '2024-11-18 13:58:02', '2024-11-18 13:58:02'),
+(20, 20, 'rootcrops', NULL, '2024-11-19 07:25:50', '2024-11-19 07:25:50');
 
 -- --------------------------------------------------------
 
@@ -387,11 +469,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`User_ID`, `User_FirstName`, `User_MiddleName`, `User_LastName`, `User_BirthDate`, `User_Gender`, `User_EmailAddress`, `User_Password`, `User_MobileNumber`, `Status_ID`, `Type_ID`, `Role_ID`, `created_at`, `modified_at`) VALUES
-(1, 'John Lloyd', 'Buenavista', 'Dela Cruz', '2001-01-04', 'Male', 'tyn@gmail.com', '12345678', '09685147954', 1, 1, 1, '2024-11-18 08:03:16', '2024-11-22 16:25:10'),
+(1, 'John Lloyd', 'Buena', 'Dela Cruz', '2002-02-03', 'Male', 'tyn@gmail.com', '12345678', '09645539284', 1, 1, 1, '2024-11-18 08:03:16', '2024-11-18 08:05:54'),
 (2, 'Leila Aliyah', 'Jambaro', 'Manalo', '2005-02-05', 'Female', 'aliyah@gmail.com', '12345678', '09685147954', 2, 2, 2, '2024-11-18 08:04:01', '2024-11-18 08:04:01'),
 (3, 'Hans Kyle', ' ', 'Bertoso', '2002-01-05', 'Male', 'Hans@gmail.com', '12345678', '09685147954', 3, 3, 3, '2024-11-18 12:08:08', '2024-11-18 12:08:08'),
-(4, 'Joe', 'Bill', 'Biden', '2003-02-05', 'Male', 'Joe@gmail.com', '12345678', '09685147954', 4, 4, 4, '2024-11-18 13:04:16', '2024-11-18 13:04:16'),
-(5, 'Bill', '-', 'Gates', '2001-01-05', 'Male', 'Bill@gmail.com', '12345678', '09645539284', 5, 5, 5, '2024-11-22 17:13:29', '2024-11-22 17:14:29');
+(4, 'Joe', 'Bill', 'Biden', '2003-02-05', 'Male', 'Joe@gmail.com', '12345678', '09685147954', 4, 4, 4, '2024-11-18 13:04:16', '2024-11-18 13:04:16');
 
 -- --------------------------------------------------------
 
@@ -421,8 +502,7 @@ INSERT INTO `user_address` (`Address_ID`, `User_ID`, `Address_Type`, `User_Addre
 (1, 1, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 08:03:16', '2024-11-18 08:03:16'),
 (2, 2, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 08:04:01', '2024-11-18 08:04:01'),
 (3, 3, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 12:08:08', '2024-11-18 12:08:08'),
-(4, 4, 'home', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 13:04:16', '2024-11-18 13:04:16'),
-(5, 5, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-22 17:13:29', '2024-11-22 17:13:29');
+(4, 4, 'home', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 13:04:16', '2024-11-18 13:04:16');
 
 -- --------------------------------------------------------
 
@@ -445,8 +525,7 @@ INSERT INTO `user_role` (`Role_ID`, `Role_Name`, `created_at`, `modified_at`) VA
 (1, 'User', '2024-11-18 08:03:16', '0000-00-00 00:00:00'),
 (2, 'Admin', '2024-11-18 08:05:19', '0000-00-00 00:00:00'),
 (3, 'User', '2024-11-18 12:08:08', '0000-00-00 00:00:00'),
-(4, 'User', '2024-11-18 13:04:16', '0000-00-00 00:00:00'),
-(5, 'User', '2024-11-22 17:13:29', '0000-00-00 00:00:00');
+(4, 'User', '2024-11-18 13:04:16', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -467,8 +546,7 @@ INSERT INTO `user_role_management` (`User_ID`, `Role_ID`) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
-(4, 4),
-(5, 5);
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -486,27 +564,6 @@ CREATE TABLE `user_session` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user_session`
---
-
-INSERT INTO `user_session` (`Session_ID`, `User_ID`, `session_start`, `session_end`, `last_activity`, `session_status`, `created_at`, `modified_at`) VALUES
-(1, 1, '2024-11-22 15:16:41', '2024-11-22 07:16:46', '2024-11-22 07:16:46', 'closed', '2024-11-22 15:16:41', '2024-11-22 15:16:46'),
-(2, 1, '2024-11-22 15:21:01', '2024-11-22 07:21:55', '2024-11-22 07:21:55', 'closed', '2024-11-22 15:21:01', '2024-11-22 15:21:55'),
-(3, 1, '2024-11-22 16:24:32', '2024-11-22 08:28:06', '2024-11-22 08:28:06', 'closed', '2024-11-22 16:24:32', '2024-11-22 16:28:06'),
-(4, 1, '2024-11-22 16:52:26', '2024-11-22 08:56:31', '2024-11-22 08:56:31', 'closed', '2024-11-22 16:52:26', '2024-11-22 16:56:31'),
-(5, 3, '2024-11-22 16:56:36', '2024-11-22 09:08:59', '2024-11-22 09:08:59', 'closed', '2024-11-22 16:56:36', '2024-11-22 17:08:59'),
-(6, 3, '2024-11-22 17:09:12', '2024-11-22 09:09:22', '2024-11-22 09:09:22', 'closed', '2024-11-22 17:09:12', '2024-11-22 17:09:22'),
-(7, 1, '2024-11-22 17:09:27', '2024-11-22 09:10:24', '2024-11-22 09:10:24', 'closed', '2024-11-22 17:09:27', '2024-11-22 17:10:24'),
-(8, 1, '2024-11-22 17:10:39', '2024-11-22 09:12:35', '2024-11-22 09:12:35', 'closed', '2024-11-22 17:10:39', '2024-11-22 17:12:35'),
-(9, 2, '2024-11-22 17:13:50', '2024-11-22 09:15:02', '2024-11-22 09:15:02', 'closed', '2024-11-22 17:13:50', '2024-11-22 17:15:02'),
-(10, 4, '2024-11-22 17:15:26', '2024-11-22 09:16:59', '2024-11-22 09:16:59', 'closed', '2024-11-22 17:15:26', '2024-11-22 17:16:59'),
-(11, 1, '2024-11-22 17:19:12', '2024-11-22 09:19:22', '2024-11-22 09:19:22', 'closed', '2024-11-22 17:19:12', '2024-11-22 17:19:22'),
-(12, 3, '2024-11-22 17:19:28', '2024-11-22 09:21:17', '2024-11-22 09:21:17', 'closed', '2024-11-22 17:19:28', '2024-11-22 17:21:17'),
-(13, 2, '2024-11-22 17:23:30', NULL, '2024-11-22 09:23:30', 'active', '2024-11-22 17:23:30', '2024-11-22 17:23:30'),
-(14, 2, '2024-11-22 17:24:51', NULL, '2024-11-22 09:24:51', 'active', '2024-11-22 17:24:51', '2024-11-22 17:24:51'),
-(15, 1, '2024-11-22 17:27:39', '2024-11-22 09:28:54', '2024-11-22 09:28:54', 'closed', '2024-11-22 17:27:39', '2024-11-22 17:28:54');
 
 -- --------------------------------------------------------
 
@@ -529,8 +586,7 @@ INSERT INTO `user_status` (`Status_ID`, `Status_Name`, `created_at`, `modified_a
 (1, 'active', '2024-11-18 08:03:16', '2024-11-18 08:05:59'),
 (2, 'active', '2024-11-18 08:04:01', '2024-11-18 08:05:11'),
 (3, 'active', '2024-11-18 12:08:08', '2024-11-18 12:08:18'),
-(4, 'active', '2024-11-18 13:04:15', '2024-11-18 13:04:32'),
-(5, 'active', '2024-11-22 17:13:29', '2024-11-22 17:14:41');
+(4, 'active', '2024-11-18 13:04:15', '2024-11-18 13:04:32');
 
 -- --------------------------------------------------------
 
@@ -554,8 +610,7 @@ INSERT INTO `user_type` (`Type_ID`, `Type_Name`, `Type_Description`, `created_at
 (1, 'Farmer', 'Local Farmer', '2024-11-18 08:03:16', '2024-11-18 08:03:16'),
 (2, 'Admin', 'Admin', '2024-11-18 08:04:01', '2024-11-18 08:05:05'),
 (3, 'Farmer', 'Local Farmer', '2024-11-18 12:08:08', '2024-11-18 12:08:08'),
-(4, 'Vendor', 'Local Vendor', '2024-11-18 13:04:15', '2024-11-18 13:04:15'),
-(5, 'Farmer', 'Local Farmer', '2024-11-22 17:13:29', '2024-11-22 17:13:29');
+(4, 'Vendor', 'Local Vendor', '2024-11-18 13:04:15', '2024-11-18 13:04:15');
 
 -- --------------------------------------------------------
 
@@ -576,8 +631,7 @@ INSERT INTO `user_type_management` (`User_ID`, `Type_ID`) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
-(4, 4),
-(5, 5);
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -811,31 +865,31 @@ ALTER TABLE `vendor_details`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `Category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `Category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `farmer_details`
 --
 ALTER TABLE `farmer_details`
-  MODIFY `Farmer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Farmer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `Inventory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `Inventory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `order_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `orderedItem_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `orderedItem_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `order_status_history`
@@ -853,25 +907,25 @@ ALTER TABLE `password_reset`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `image_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `image_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `product_qa`
 --
 ALTER TABLE `product_qa`
-  MODIFY `qa_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `qa_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_quantity_updates`
 --
 ALTER TABLE `product_quantity_updates`
-  MODIFY `Update_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `Update_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `product_review`
@@ -895,7 +949,7 @@ ALTER TABLE `shopping_cart`
 -- AUTO_INCREMENT for table `sub_category`
 --
 ALTER TABLE `sub_category`
-  MODIFY `SubCategory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `SubCategory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -907,13 +961,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_address`
 --
 ALTER TABLE `user_address`
-  MODIFY `Address_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Address_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `Role_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Role_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_session`
@@ -925,13 +979,13 @@ ALTER TABLE `user_session`
 -- AUTO_INCREMENT for table `user_status`
 --
 ALTER TABLE `user_status`
-  MODIFY `Status_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Status_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_type`
 --
 ALTER TABLE `user_type`
-  MODIFY `Type_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Type_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `vendor_details`
