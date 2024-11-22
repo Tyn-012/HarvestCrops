@@ -2,11 +2,13 @@
 include 'components/user_details.php';
 
 // Ensure the product details are passed via URL parameters
-if (isset($_GET['product_id']) && isset($_GET['img_url']) && isset($_GET['product_name']) && isset($_GET['product_price'])) {
+if (isset($_GET['product_id']) && isset($_GET['order_id']) && isset($_GET['img_url']) && isset($_GET['product_name']) && isset($_GET['product_price'])) {
     $product_id = $_GET['product_id'];
     $img_url = $_GET['img_url'];
     $product_name = $_GET['product_name'];
     $product_price = $_GET['product_price'];
+    $order_id = $_GET['order_id'];
+
 
     $_SESSION['product_id'] = $_GET['product_id'];
     $_SESSION['img_url'] = $_GET['img_url'];
@@ -119,21 +121,21 @@ if (isset($_GET['product_id']) && isset($_GET['img_url']) && isset($_GET['produc
                                         <h3 class="d-flex justify-content-center mt-4"><?php echo $product_name; ?></h3>
                                         <hr>
                                         <p><strong>Price:</strong> <?php echo $product_price; ?></p>
-                                        <form action="../php/components/product_order.php" method="post"> 
+                                        <form action="../php/components/order_cart_update.php" method="post">
+                                            <input type="hidden" name="order_id" value="<?php echo $order_id; ?>"> <!-- Pass order_id -->
                                             <div class="col-md-6 mb-4">
                                                 <div class="row">
                                                     <div class="col-md-2 mx-2">
                                                         <label class="m-2">Quantity:</label>
                                                     </div>
                                                     <div class="col-md-4 mx-4">
-                                                        <input type="text" name="order_quantity" class="form-control mb-2"
-                                                        placeholder="0" required autofocus>
+                                                        <input type="text" name="new_quantity" class="form-control mb-2" placeholder="0" required autofocus>
                                                     </div>
                                                     <div class="col-md-6"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 d-flex justify-content-end">
-                                                    <button class="btn btn-md bg-secondary rounded m-4" type="submit"name="submit">Order Product</button>
+                                                <button class="btn btn-md bg-secondary rounded m-4" type="submit" name="modify">Update Product</button>
                                             </div>
                                         </form>
                                     </div>

@@ -6,6 +6,7 @@ $product_name = $_SESSION['product_name'];
 $product_price = $_SESSION['product_price'];
 $product_quantity = $_SESSION['product_quantity']; // Current quantity of product in stock
 $seller_id = $_SESSION['seller_id'];
+$inventory_id = $_SESSION['Inventory_ID'];
 
 // Check if the form is submitted
 if (isset($_POST['submit'])) {
@@ -49,11 +50,12 @@ if (isset($_POST['submit'])) {
 
                 // Execute the order_item query
                 if (mysqli_stmt_execute($stmt2)) {
-                    // Success message and redirect
-                    echo "<script language = 'JavaScript'>
+                    // Success message and redirect (Post-Redirect-Get pattern)
+                    echo "<script language='JavaScript'>
                             alert('Order details and order items have been successfully added.');
                             window.location = '../store_page.php';
-                        </script>";
+                          </script>";
+                    exit; // Ensure no further code execution
                 } else {
                     echo "Error inserting order item: " . mysqli_error($connect);
                 }

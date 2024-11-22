@@ -116,10 +116,10 @@ $order_result = $stmt->get_result();
                                     <div class="col-md-3 d-flex justify-content-center p-4">' . htmlspecialchars($order_status) . '</div>
                                     <div class="col-md-5 d-flex justify-content-center p-4">
                                         <span>
-                                            <form action="components/account_status_update.php" method="post">
+                                            <form action="components/product_status_update.php" method="post">
                                                 <input type="hidden" name="order_id" value="' . htmlspecialchars($order_id) . '">
-                                                <button name="activate" class="btn btn-sm bg-dark text-light mx-2">Accept</button>
-                                                <button name="deactivate" class="btn btn-sm bg-dark text-light mx-2">Complete</button>
+                                                <button name="accept" class="btn btn-sm bg-dark text-light mx-2">Accept</button>
+                                                <button name="complete" class="btn btn-sm bg-dark text-light mx-2">Complete</button>
                                             </form>
                                         </span>
                                     </div>

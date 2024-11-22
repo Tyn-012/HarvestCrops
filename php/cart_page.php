@@ -1,3 +1,21 @@
+<?php
+session_start();
+include 'components/connect.php';
+
+// Assuming the user is logged in and has a session
+$User_ID = $_SESSION['user_id']; // Get the logged-in user ID
+
+// SQL Query to fetch orders for the logged-in user
+$getuser_orders_qry = "SELECT * FROM order_details WHERE User_ID = ? ORDER BY created_at ASC";
+
+// Prepare and bind the query
+$stmt = $connect->prepare($getuser_orders_qry);
+$stmt->bind_param('i', $User_ID); // 'i' for integer (user_ID is expected to be an integer)
+$stmt->execute();
+
+// Get the result
+$order_result = $stmt->get_result();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +64,7 @@
             <div class="section">
                 <div class="row">
                     <div class="col-md-6 d-flex">
-                        <a class="anc-page px-3" href="javascript:history.back();">My Account</a>
+                        <a class="anc-page px-3" href="vendor_account_page.php">My Account</a>
                         <a class="anc-page px-3" href="../src/customer_support_page.html">Customer Support</a>
                         <a class="anc-page px-3" href="cart_page.php">Cart</a>
                     </div>
@@ -58,280 +76,110 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="section">
-            <div class="row">
-                <div class="col-md-12">
-                    <h4 class="d-flex justify-content-center mt-4 ">Shopping Cart</h4>
-                </div>
-                <hr>
+    <div class="container-fluid mb-5 mt-2">
+        <div class="row flex-nowrap">
+            <div class="col py-5">
                 <div class="container">
                     <div class="section">
-                        <div class="row bg-info mb-2">
-                            <div class="col-md-4">
-                                <p>Product Ordered</p>
+                        <div class="row bg-warning mb-2 ps-2">
+                            <div class="col-md-1 d-flex justify-content-center">
+                                <p>Order ID</p>
                             </div>
-                            <div class="col-md-2">
-                                <p>Unit Price</p>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <p>Product</p>
                             </div>
-                            <div class="col-md-2">
-                                <p>Quantity</p>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <p>Total</p>
                             </div>
-                            <div class="col-md-2">
-                                <p>Item Subtotal</p>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <p>Status</p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-5 d-flex justify-content-center">
                                 <p>Action</p>
                             </div>
                         </div>
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/farm.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
 
-                        <!--Example-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/farm.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
+                        <?php
 
-                        <!--Example 2-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/plots.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
-                        <!--Example-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/farm.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
+                        // Check if any orders are returned
+                        if ($order_result->num_rows > 0) {
+                            // Loop through the orders and fetch details
+                            while ($order_row = $order_result->fetch_assoc()) {
+                                $order_id = $order_row['order_ID'];
+                                $total = $order_row['total'];
+                                $order_status = $order_row['order_status'];
+                                $created_at = $order_row['created_at'];
+                                $modified_at = $order_row['modified_at'];
+                                
+                                // Fetch products related to this order
+                                $getproduct_id_qry = "SELECT * FROM order_item WHERE order_ID = ? ORDER BY created_at ASC";
+                                $stmt = $connect->prepare($getproduct_id_qry);
+                                $stmt->bind_param('i', $order_id);
+                                $stmt->execute();
+                                $product_result = $stmt->get_result();
 
-                        <!--Example 2-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/plots.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
-                        <!--Example-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/farm.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
+                                // Get the product details for each order item
+                                while ($product_row = $product_result->fetch_assoc()) {
+                                    $product_id = $product_row['product_ID'];
 
-                        <!--Example 2-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/plots.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
-                        <!--Example-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/farm.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
+                                    
+                                    // Get product image
+                                    $getproduct_info_qry = "SELECT * FROM product_images WHERE Product_ID = ?";
+                                    $stmt = $connect->prepare($getproduct_info_qry);
+                                    $stmt->bind_param('s', $product_id);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
 
-                        <!--Example 2-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/plots.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
-                        <!--Example-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/farm.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
+                                    if ($row = $result->fetch_assoc()) {
+                                        $img_url = $row['image_url'];
+                                    }
 
-                        <!--Example 2-->
-                        <div class="row p-2 d-flex align-items-center mb-2">
-                            <div class="col-md-4">
-                                <input type="checkbox">
-                                <img src="../images/plots.jpg" alt="Specific Image" height="80px" width="80px">
-                                Lorem ipsum, dolor sit amet 
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem, ipsum.
-                            </div>
-                            <div class="col-md-2">
-                                Lorem.
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-sm bg-dark text-light">Delete</button>
-                            </div>
-                        </div>
+                                    // Fetch the product name
+                                    $getproduct_name_qry = "SELECT * FROM product WHERE Product_ID = ? ORDER BY created_at ASC";
+                                    $stmt = $connect->prepare($getproduct_name_qry);
+                                    $stmt->bind_param('i', $product_id);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    if ($row = $result->fetch_assoc()) {
+                                        $product_name = $row['Product_Name'];
+                                        $product_price = $row['product_price'];
+                                    }
+
+                                    // Format the date as you prefer
+                                    $created_at_formatted = date("Y-m-d H:i:s", strtotime($created_at));
+                                    $modified_at_formatted = date("Y-m-d H:i:s", strtotime($modified_at));
+
+                                    // Output the order details
+                                    echo '
+                                    <div class="row d-flex align-items-center mb-2 ps-2 border">
+                                        <div class="col-md-1 d-flex justify-content-center p-4">' . htmlspecialchars($order_id) . '</div>
+                                        <div class="col-md-2 d-flex justify-content-center p-4">' . htmlspecialchars($product_name) . '</div>
+                                        <div class="col-md-2 d-flex justify-content-center p-4">' . htmlspecialchars($total) . '</div>
+                                        <div class="col-md-2 d-flex justify-content-center p-4">' . htmlspecialchars($order_status) . '</div>
+                                        <div class="col-md-5 d-flex justify-content-center p-4">
+                                            <span>
+                                                <form action="components/order_cart_update.php" method="post">
+                                                    <input type="hidden" name="order_id" value="' . htmlspecialchars($order_id) . '">
+                                                    <button name="cancel" class="btn btn-sm bg-dark text-light mx-2">Cancel</button>
+                                                    <a class="btn btn-sm text-light bg-dark text-decoration-none" href="update_order.php?product_id='. $product_id . 
+                                                    ' &order_id='. $order_id . '&img_url=' 
+                                                    . urlencode($img_url) . '&product_name=' . urlencode($product_name) . '&product_price=' 
+                                                    . urlencode($product_price) . '">Update</a>
+                                                </form>
+                                            </span>
+                                        </div>
+                                    </div>';
+                                }
+                            }
+                        } else {
+                            // If no orders are found, display a message
+                            echo '<p>No orders found.</p>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="p-2 bg-warning"></div>
-    <footer class="nav bg-success">
-        <div class="container">
-            <div class="section">
-                <div class="row d-flex mb-4">
-                    <div class="col-md-12 pt-2">
-                        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                            <li class="nav-item"><a href="javascript:history.back();" class="nav-link px-2 text-body-secondary">Home</a></li>
-                            <li class="nav-item"><a href="../customer_support_page.html" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                          </ul>
-                    </div>
-                    <div class="col-md-12 mt-4 d-flex justify-content-center align-items-center">
-                        <span> &copy; Copyrights. All rights reserved to Leila Aliyah J. Manalo | John Lloyd B. Dela Cruz | Vince Wackie Espera
-                            | Jezreel Anne C. Jaynos</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>
