@@ -2,6 +2,10 @@
 session_start();
 include 'components/connect.php';
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +17,9 @@ include 'components/connect.php';
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
     <script src="../css/bootstrap-5.3.3-dist/js/bootstrap.min.js" rel="script"></script>
-    <title>HarvestCrops</title>
+    <title>HarvestCrops - Product Listing Page</title>
 </head>
-<body>
+<body class="bg-cfe1b9">
     <nav class="nav pt-5 mx-5">
         <div class="container">
             <div class="section">
@@ -36,9 +40,6 @@ include 'components/connect.php';
     <div class="container">
         <div class="section mx-5 mb-3">
             <div class="col-md-12 d-flex justify-content-end">
-                <a href="#" class="fa-regular fa-envelope icon-ds p-1 m-1"></a>
-                <a href="#" class="fa-solid fa-globe icon-ds p-1 m-1"></a>
-                <a href="#" class="fa-regular fa-bell icon-ds p-1 m-1"></a>
                 <form action="components/logout.php" method="post">
                     <button class="btn btn-sm text-md fw-bold m-1" type="submit">Logout</button>
                 </form>
@@ -46,19 +47,12 @@ include 'components/connect.php';
             </div>
         </div>
     </div>
-    <nav class="p-3 bg-success">
+    <nav class="p-3 bg-397F35">
         <div class="container">
             <div class="section">
                 <div class="row">
                     <div class="col-md-6 d-flex">
-                        <a class="anc-page px-3" href="my_account_page.html">Home</a>
-                        <a class="anc-page px-3" href="../src/farmer_account_page.html">Shop</a>
-                        <a class="anc-page px-3" href="about_us_page.html">About Us</a>
-                        <a class="anc-page px-3" href="customer_support_page.html">Customer Support</a>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <input class="p-1" id="search-input" type="text" placeholder="Search..">
-                        <a href="#" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></a>
+                        <a class="anc-page px-3" href="seller_store_page.php">Home</a>
                     </div>
                 </div>
             </div>
@@ -107,12 +101,6 @@ include 'components/connect.php';
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center align-items-center pt-2">
                                                 </div>
-                                                <div class="col-md-12 d-flex justify-content-center mt-4">
-                                                    <h4>Product Information</h4>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <textarea class="form-control" rows="3" required ></textarea>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -133,9 +121,6 @@ include 'components/connect.php';
                                                         <label class="fw-bold">Product Description</label>
                                                         <input type="text" name="product-desc" class="form-control mb-2"
                                                             placeholder="Product Description" required autofocus>
-                                                        <label class="fw-bold">Product SKU</label>
-                                                        <input type="text" name="product-SKU" class="form-control mb-2"
-                                                            placeholder="Product SKU" required autofocus>
                                                         <label class="fw-bold">Quantity</label>
                                                         <input type="text" name="product-quantity" class="form-control mb-2"
                                                             placeholder="Product Quantity" required autofocus>
@@ -182,7 +167,7 @@ include 'components/connect.php';
                                                 </div>
                                                 <div class="col-md-12 mb-4 d-flex justify-content-center align-items-center">
                                                     <button class="btn btn-md bg-dark text-light rounded" type="submit"
-                                                        name="submit">Create Product Offer</button>
+                                                        name="submit">Add Product</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,14 +184,14 @@ include 'components/connect.php';
         </div>
     </form>
     <div class="p-2 bg-warning acc_add_tab-margin-top"></div>
-    <footer class="nav bg-success">
+    <footer class="nav bg-397F35">
         <div class="container">
             <div class="section">
                 <div class="row d-flex mb-4">
                     <div class="col-md-12 pt-2">
                         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                             <li class="nav-item"><a href="farmer_account_page.php" class="nav-link px-2 text-body-secondary">Home</a></li>
-                            <li class="nav-item"><a href="customer_support_page.html" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                            <li class="nav-item"><a href="customer_support_page.php" class="nav-link px-2 text-body-secondary">FAQs</a></li>
                         </ul>
                     </div>
                     <div class="col-md-12 mt-4 d-flex justify-content-center align-items-center">

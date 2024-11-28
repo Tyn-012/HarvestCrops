@@ -2,6 +2,11 @@
 session_start();
 include 'connect.php';
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+
 $user_id = $_SESSION['user_id'];
 
     if (isset($_POST['submit'])) {
@@ -38,12 +43,12 @@ $user_id = $_SESSION['user_id'];
         if ($count_char <= 7) {
             echo "<script language = 'JavaScript'>
                 alert('Password Must Have Atleast 8 Characters or More');";
-            echo "window.location = \"../../src/account_details_update.html\";
+            echo "window.location = \"../account_info_update.php\";
                 </script>";
         } else if ($cn_pass != $cr_pass) {
             echo "<script language = 'JavaScript'>
                     alert('Unable to create account, Kindly Re-check if the passwords are the same.');";
-            echo "window.location = \"../../src/account_details_update.html\";
+            echo "window.location = \"../account_info_update.php\";
                     </script>";
         }
 
@@ -70,7 +75,7 @@ $user_id = $_SESSION['user_id'];
        if (mysqli_query($connect, $user_query)) {
             echo "<script language = 'JavaScript'>
                    alert('Account Updated');";
-            echo "window.location = \"../../src/account_details_update.html\";
+            echo "window.location = \"../account_info_update.php\";
                    </script>";
        }
 

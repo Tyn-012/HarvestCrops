@@ -1,5 +1,11 @@
 <?php
-include 'components/user_details.php'
+include 'components/connect.php';
+
+if (!isset($_SESSION['name'])) {
+    header('Location: ../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+include 'components/user_details.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +17,9 @@ include 'components/user_details.php'
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
     <script src="../css/bootstrap-5.3.3-dist/js/bootstrap.min.js" rel="script"></script>
-    <title>HarvestCrops</title>
+    <title>HarvestCrops - Seller Store Page</title>
 </head>
-<body>
+<body class="bg-cfe1b9">
     <nav class="nav pt-5 mx-5">
         <div class="container">
             <div class="section">
@@ -34,9 +40,6 @@ include 'components/user_details.php'
     <div class="container">
         <div class="section mx-5 mb-3">
             <div class="col-md-12 d-flex justify-content-end">
-                <a href="#" class="fa-regular fa-envelope icon-ds p-1 m-1"></a>
-                <a href="#" class="fa-solid fa-globe icon-ds p-1 m-1"></a>
-                <a href="#" class="fa-regular fa-bell icon-ds p-1 m-1"></a>
                 <form action="components/logout.php" method="post">
                     <button class="btn btn-sm text-md fw-bold m-1" type="submit">Logout</button>
                 </form>
@@ -44,24 +47,26 @@ include 'components/user_details.php'
             </div>
         </div>
     </div>
-    <nav class="p-3 bg-success">
+    <nav class="p-3 bg-397F35">
         <div class="container">
             <div class="section">
-                <div class="row">
-                    <div class="col-md-6 d-flex">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col-md-6">
                         <a class="anc-page px-3" href="farmer_account_page.php">My Account</a>
                         <a class="anc-page px-3" href="seller_store_page.php">Shop</a>
                     </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <input class="p-1" id="search-input" type="text" placeholder="Search..">
-                        <a href="#" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></a>
+                    <div class="col-md-6">
+                    <form action="seller_store_page.php" method="get">
+                        <input class="p-1" id="search-input" name="search" type="text" placeholder="Search..">
+                        <button type="submit" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></button>
+                    </form>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
     <div class="p-2 bg-dark"></div>
-    <div id="seller-store-account-bg">
+    <div class="bg-F5BD22">
         <div class="container">
             <div class="section">
                 <div class="row p-4">
@@ -94,7 +99,6 @@ include 'components/user_details.php'
             </div>
         </div>
     </div>
-    <div class="p-2 bg-warning"></div>
     <div class="container">
         <div class="section">
             <div class="row">
@@ -105,61 +109,121 @@ include 'components/user_details.php'
                     <div class="col-md-12 d-flex justify-content-center">
                     <h4>Search Filter</h4>
                     </div>
-                    <form action="" method="post" target="store_page.html">
-                        <label class="me-2 py-2"><input type="checkbox" id="terms_conditions" name="terms_conditions" value="Agree" class="me-2">Fruits</label><br>
-                        <label class="me-2 py-2"><input type="checkbox" id="terms_conditions" name="terms_conditions" value="Agree" class="me-2">Vegetables</label><br>
-                        <label class="me-2 py-2"><input type="checkbox" id="terms_conditions" name="terms_conditions" value="Agree" class="me-2">Grains</label><br>
-                        <label class="me-2 py-2"><input type="checkbox" id="terms_conditions" name="terms_conditions" value="Agree" class="me-2">Root Crops</label><br>
+                    <form action="seller_store_page.php" method="post">
+                        <label class="me-2 py-2">
+                            <input type="checkbox" name="fruits" value="fruits" class="me-2">Fruits
+                        </label><br>
+                        <label class="me-2 py-2">
+                            <input type="checkbox" name="vegetables" value="vegetables" class="me-2">Vegetables
+                        </label><br>
+                        <label class="me-2 py-2">
+                            <input type="checkbox" name="grains" value="grains" class="me-2">Grains
+                        </label><br>
+                        <label class="me-2 py-2">
+                            <input type="checkbox" name="rootcrops" value="rootcrops" class="me-2">Root Crops
+                        </label><br>
                         <hr>
-                        <input type="submit" value="Filter">
+                        <input type="submit" name="category_filter" value="Filter">
                     </form>
+
 
                 </div>
                 <div class="col-md-9">
                     <div class="row">
                         <?php
+                            // Enable error reporting for MySQL
+                            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
                             $userid = $_SESSION['user_id'];
-                            $cnt_qry = "SELECT * FROM product WHERE User_ID = $userid";
-                            $cnt_rslt = mysqli_query($connect, $cnt_qry);
-                            if (mysqli_num_rows($cnt_rslt) > 0) {
-                                while ($row = mysqli_fetch_assoc($cnt_rslt)) {
+                            $categoryFilter = '';
+                            $search_filter = '';
+
+                            // Check if there's a search term
+                            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                                $search_term = "%" . mysqli_real_escape_string($connect, $_GET['search']) . "%"; // For LIKE query
+                                $search_filter = "AND p.Product_Name LIKE ?";
+                            }
+
+                            // Category filter handling
+                            if (isset($_POST['category_filter'])) {
+                                // Collect selected categories
+                                $categories = [];
+                                if (isset($_POST['fruits'])) {
+                                    $categories[] = 'Fruits';
+                                }
+                                if (isset($_POST['vegetables'])) {
+                                    $categories[] = 'Vegetables';
+                                }
+                                if (isset($_POST['grains'])) {
+                                    $categories[] = 'Grains';
+                                }
+                                if (isset($_POST['rootcrops'])) {
+                                    $categories[] = 'RootCrops';
+                                }
+
+                                if (!empty($categories)) {
+                                    $categoryFilter = "AND c.Category_Name IN ('" . implode("','", $categories) . "')";
+                                }
+                            }
+
+                            // Main product query with prepared statement
+                            $cnt_qry = "
+                                SELECT p.Product_ID, p.Product_Name, p.product_price, c.Category_Name, pi.image_url
+                                FROM product p
+                                JOIN category c ON p.Category_ID = c.Category_ID
+                                LEFT JOIN product_images pi ON p.Product_ID = pi.Product_ID
+                                WHERE p.User_ID = ? $categoryFilter $search_filter
+                            ";
+
+                            // Debugging: Print the query for verification
+                            $stmt = $connect->prepare($cnt_qry);
+                            if ($stmt === false) {
+                                // If prepare failed, output an error message
+                                die('MySQL prepare error: ' . $connect->error);
+                            }
+
+                            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                                $stmt->bind_param('is', $userid, $search_term);
+                            } else {
+                                $stmt->bind_param('i', $userid);
+                            }
+
+                            $stmt->execute();
+                            $cnt_rslt = $stmt->get_result();
+
+                            if ($cnt_rslt->num_rows > 0) {
+                                while ($row = $cnt_rslt->fetch_assoc()) {
                                     $productid = $row['Product_ID'];
-                                    $product_name = $row['Product_Name'];
-                                    $product_price = $row['product_price'];
+                                    $product_name = htmlspecialchars($row['Product_Name']);
+                                    $product_price = htmlspecialchars($row['product_price']);
+                                    $category_name = htmlspecialchars($row['Category_Name']);
+                                    $img_url = htmlspecialchars($row['image_url']); // Ensure the URL is safe
 
-                                    $getproduct_info_qry = "SELECT * FROM product_images WHERE Product_ID = ?";
-                                    $stmt = $connect->prepare($getproduct_info_qry);
-                                    $stmt->bind_param('s', $productid);
-                                    $stmt->execute();
-                                    $result = $stmt->get_result();
-                        
-                                    if ($row = $result->fetch_assoc()) {
-                                        $img_url = $row['image_url'];
-                                    }
-
-                                    echo' 
+                                    echo '
                                     <div class="col-md-4">
                                         <div class="card card-ds m-2">
-                                            <img class ="card-img card-img-ds opacity-75" src="' . $img_url . '" width="50px" height="200px">
+                                            <img class="card-img card-img-ds opacity-75" src="' . $img_url . '" width="50px" height="200px">
                                             <div class="card-img-overlay">
-                                                <h4 class="card-title text-dark pt-2">' . $product_name . '</h4> 
-                                                <p class="card-text text-dark pt-3">PHP' . $product_price . ' - each</p>
+                                                <h4 class="card-title text-light pt-2">' . $product_name . '</h4> 
+                                                <p class="card-text text-light pt-3">PHP ' . $product_price . ' - each</p>
+                                                <p class="text-light">Category: ' . $category_name . '</p>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <a class = "btn text-light fw-bolder text-decoration-none" href="update_product.php?product_id='. $productid . '">Update</a>
+                                                        <a class="btn text-light fw-bolder text-decoration-none" href="update_product.php?product_id=' . $productid . '">Update</a>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <form action = "components/delete_product.php" method="post">
-                                                            <input type="hidden" name="product_id" value="' . htmlspecialchars($productid) . '">
-                                                            <button class = "btn text-light fw-bolder" type="submit" name="delete_product">Delete</button>
+                                                        <form action="components/delete_product.php" method="post">
+                                                            <input type="hidden" name="product_id" value="' . $productid . '">
+                                                            <button class="btn text-light fw-bolder" type="submit" name="delete_product">Delete</button>
                                                         </form>
                                                     </div>
-                                                </div>                                                
+                                                </div>                                                 
                                             </div>                     
                                         </div>
-                                    </div>
-                                    ';
+                                    </div>';
                                 }
+                            } else {
+                                echo "No products found.";
                             }
                         ?>
                     </div>
@@ -168,14 +232,14 @@ include 'components/user_details.php'
         </div>
     </div>
     <div class="p-2 bg-warning acc_add_tab-margin-top"></div>
-    <footer class="nav bg-success">
+    <footer class="nav bg-397F35">
         <div class="container">
             <div class="section">
                 <div class="row d-flex mb-4">
                     <div class="col-md-12 pt-2">
                         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                             <li class="nav-item"><a href="farmer_account_page.php" class="nav-link px-2 text-body-secondary">Home</a></li>
-                            <li class="nav-item"><a href="customer_support_page.html" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                            <li class="nav-item"><a href="customer_support_page.php" class="nav-link px-2 text-body-secondary">FAQs</a></li>
                         </ul>
                     </div>
                     <div class="col-md-12 mt-4 d-flex justify-content-center align-items-center">

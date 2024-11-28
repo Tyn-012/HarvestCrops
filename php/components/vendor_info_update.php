@@ -4,6 +4,11 @@ include 'connect.php';
 
 $user_id = $_SESSION['user_id'];
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+
 if (isset($_POST['submit'])) {
 
     $business_name = $_POST['business_name'];

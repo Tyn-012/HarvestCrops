@@ -150,9 +150,6 @@
     height: 2.5rem;
   }
   
-  #seller-store-account-bg{
-    background-color: rgb(108, 189, 108);
-  }
 
   #textarea-hw{
     width: 300px;
@@ -344,16 +341,9 @@
   }
   
   .forgot_password_pad_top{
-    padding-top: 15rem;
+    padding-top: 12rem;
   }
-
-  .form-bg-forgot{
-    border: 2px solid black;
-    background: rgb(108, 189, 108);
-  }
-
   
-
   /*Color ThemesFlog - BACKGROUNDS */
 
   .bg-cfe1b9{
@@ -375,6 +365,10 @@
 
   .bg-F5BD22{
     background-color: #F5BD22;
+  }
+
+  .c-F5BD22{
+    color: #F5BD22;
   }
 
   .bg-ECF39E{
@@ -405,4 +399,55 @@
 
   .bg-3B442C{
     background-color: #3B442C;
+  }
+
+  .modify_account_details_body{
+    background-image: url('../images/modify_account_img/modify_account.jpg');
+    display:cover; 
+  }
+
+  .update_farmer_bg{
+    background-image: url('../images/modify_account_img/farmer_vendor_update.jpg');
+    display:cover; 
+  } 
+
+  .notice_bg{
+    background-image: url('../images/notice_creation_imh/notice_img.jpg');
+    display:cover; 
+  }
+
+  .admin_update_bg{
+    background-image: url('../images/admin_account_img/update_admin_img.jpg');
+    display:cover; 
+  }
+
+  .product_update_bg{
+    background-image: url('../images/product_info_img/product_update.jpg');
+    display:cover; 
+  }
+
+
+  /*Button Designs*/
+  .button-ds{
+    width: 15rem;
+    border: 2px solid black;
+    background-color: black !important;
+    color:white;
+  }
+
+  .button-ds:hover{
+    background-color: gold !important;
+    color: gray !important;
+  }
+
+  .farmer_up_button-ds{
+    width: 20rem;
+    border: 2px solid black;
+    background-color: black !important;
+    color:white;
+  }
+
+  .farmer_up_button-ds:hover{
+    background-color: gold !important;
+    color: gray !important;
   }

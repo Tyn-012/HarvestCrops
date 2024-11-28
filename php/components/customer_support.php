@@ -2,6 +2,11 @@
 session_start();
 include 'connect.php';
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+
 // Ensure the user is logged in
 if (!isset($_SESSION['user_id'])) {
     // Redirect to login if not logged in
@@ -35,7 +40,7 @@ if (isset($_POST['submit'])) {
     if ($stmt->execute()) {
         echo "<script language = 'JavaScript'>
         alert('Your inquiry has been submitted successfully. We will get back to you soon.');";
-        echo "window.location = \"../../src/customer_support_page.html\";
+        echo "window.location = \"../customer_support_page.php\";
         </script>";
         exit;
     } else {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2024 at 06:29 PM
+-- Generation Time: Nov 28, 2024 at 06:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -34,14 +34,6 @@ CREATE TABLE `category` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`Category_ID`, `Category_Name`, `Category_Desc`, `created_at`, `modified_at`) VALUES
-(22, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-22 17:04:27', '2024-11-22 17:04:27'),
-(23, 'fruits', 'Apples, Watermelon, Banana etc.', '2024-11-22 17:05:07', '2024-11-22 17:05:07');
 
 -- --------------------------------------------------------
 
@@ -192,6 +184,54 @@ CREATE TABLE `order_status_history` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `organization_details`
+--
+
+CREATE TABLE `organization_details` (
+  `Organization_ID` int(11) NOT NULL,
+  `User_ID` int(11) NOT NULL,
+  `Organization_Name` varchar(255) DEFAULT NULL,
+  `Contact_Number` varchar(20) DEFAULT NULL,
+  `Email_Address` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `organization_details`
+--
+
+INSERT INTO `organization_details` (`Organization_ID`, `User_ID`, `Organization_Name`, `Contact_Number`, `Email_Address`, `created_at`, `modified_at`) VALUES
+(6, 6, 'Department of Agriculture Tanza', '09582669745', 'Doa.Tanza@gmail.com', '2024-11-25 06:49:13', '2024-11-25 07:10:01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `organization_notice`
+--
+
+CREATE TABLE `organization_notice` (
+  `Notice_ID` int(11) NOT NULL,
+  `Organization_ID` int(11) NOT NULL,
+  `Notice_Title` varchar(255) NOT NULL,
+  `Notice_Content` text NOT NULL,
+  `Created_At` timestamp NOT NULL DEFAULT current_timestamp(),
+  `Notice_Schedule` datetime DEFAULT NULL,
+  `Organization_Name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `organization_notice`
+--
+
+INSERT INTO `organization_notice` (`Notice_ID`, `Organization_ID`, `Notice_Title`, `Notice_Content`, `Created_At`, `Notice_Schedule`, `Organization_Name`) VALUES
+(9, 6, 'Farmer Seminar & Meeting', 'Seminar About the New Rules Implemented by the Department of Agriculture', '2024-11-25 11:16:38', '2024-11-26 11:30:00', 'Department of Agriculture Tanza'),
+(10, 6, 'Farmers Event', 'Event and Celebration for Good Harvest Year', '2024-11-25 11:17:58', '2024-12-21 07:00:00', 'Department of Agriculture Tanza'),
+(11, 6, 'Farmer & Vendor Meeting for Product Tradings ', 'Product Tradings Discussions', '2024-11-25 11:19:10', '2024-11-27 08:20:00', 'Department of Agriculture Tanza');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_reset`
 --
 
@@ -202,6 +242,13 @@ CREATE TABLE `password_reset` (
   `token_expiry` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `password_reset`
+--
+
+INSERT INTO `password_reset` (`reset_id`, `User_ID`, `reset_token`, `token_expiry`, `created_at`) VALUES
+(1, 1, '1', '2024-11-28 02:28:30', '2024-11-28 10:18:30');
 
 -- --------------------------------------------------------
 
@@ -216,7 +263,6 @@ CREATE TABLE `product` (
   `Inventory_ID` int(11) NOT NULL,
   `Product_Name` varchar(100) NOT NULL,
   `Product_Desc` text DEFAULT NULL,
-  `product_SKU` varchar(100) DEFAULT NULL,
   `product_price` decimal(10,2) NOT NULL,
   `average_rating` decimal(3,1) DEFAULT NULL,
   `shelf_life` int(11) DEFAULT NULL,
@@ -351,14 +397,6 @@ CREATE TABLE `sub_category` (
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `sub_category`
---
-
-INSERT INTO `sub_category` (`SubCategory_ID`, `Category_ID`, `SubCategory_Name`, `SubCategory_Desc`, `created_at`, `modified_at`) VALUES
-(22, 22, 'fruits', NULL, '2024-11-22 17:04:27', '2024-11-22 17:04:27'),
-(23, 23, 'fruits', NULL, '2024-11-22 17:05:07', '2024-11-22 17:05:07');
-
 -- --------------------------------------------------------
 
 --
@@ -387,11 +425,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`User_ID`, `User_FirstName`, `User_MiddleName`, `User_LastName`, `User_BirthDate`, `User_Gender`, `User_EmailAddress`, `User_Password`, `User_MobileNumber`, `Status_ID`, `Type_ID`, `Role_ID`, `created_at`, `modified_at`) VALUES
-(1, 'John Lloyd', 'Buenavista', 'Dela Cruz', '2001-01-04', 'Male', 'tyn@gmail.com', '12345678', '09685147954', 1, 1, 1, '2024-11-18 08:03:16', '2024-11-22 16:25:10'),
+(1, 'John Lloyd', 'Buenavista', 'Dela Cruz', '1985-11-11', 'Male', 'tyn@gmail.com', '12345678', '09691779124', 1, 1, 1, '2024-11-18 08:03:16', '2024-11-28 09:53:07'),
 (2, 'Leila Aliyah', 'Jambaro', 'Manalo', '2005-02-05', 'Female', 'aliyah@gmail.com', '12345678', '09685147954', 2, 2, 2, '2024-11-18 08:04:01', '2024-11-18 08:04:01'),
 (3, 'Hans Kyle', ' ', 'Bertoso', '2002-01-05', 'Male', 'Hans@gmail.com', '12345678', '09685147954', 3, 3, 3, '2024-11-18 12:08:08', '2024-11-18 12:08:08'),
 (4, 'Joe', 'Bill', 'Biden', '2003-02-05', 'Male', 'Joe@gmail.com', '12345678', '09685147954', 4, 4, 4, '2024-11-18 13:04:16', '2024-11-18 13:04:16'),
-(5, 'Bill', '-', 'Gates', '2001-01-05', 'Male', 'Bill@gmail.com', '12345678', '09645539284', 5, 5, 5, '2024-11-22 17:13:29', '2024-11-22 17:14:29');
+(5, 'Bill', ' ', 'Gates', '1997-01-17', 'Male', 'Bill@gmail.com', '12345678', '09587994682', 5, 5, 5, '2024-11-22 17:13:29', '2024-11-28 10:45:28'),
+(6, 'Jose', 'Nueva', 'Abutin', '2000-03-03', 'Male', 'DOA@gmail.com', '12345678', '09691779124', 6, 6, 6, '2024-11-25 06:49:13', '2024-11-25 06:53:26'),
+(7, 'Yue', 'Mill', 'Zoe', '1981-02-28', 'Female', 'Yue@gmail.com', '12345678', '09681358966', 7, 7, 7, '2024-11-28 10:22:16', '2024-11-28 10:22:16');
 
 -- --------------------------------------------------------
 
@@ -418,11 +458,13 @@ CREATE TABLE `user_address` (
 --
 
 INSERT INTO `user_address` (`Address_ID`, `User_ID`, `Address_Type`, `User_Address`, `Island_Group`, `Region`, `City`, `Barangay`, `zip_code`, `created_at`, `modified_at`) VALUES
-(1, 1, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 08:03:16', '2024-11-18 08:03:16'),
+(1, 1, 'farm', 'Fojas Subdivision', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 08:03:16', '2024-11-28 09:52:00'),
 (2, 2, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 08:04:01', '2024-11-18 08:04:01'),
 (3, 3, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 12:08:08', '2024-11-18 12:08:08'),
 (4, 4, 'home', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-18 13:04:16', '2024-11-18 13:04:16'),
-(5, 5, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-22 17:13:29', '2024-11-22 17:13:29');
+(5, 5, 'farm', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-22 17:13:29', '2024-11-22 17:13:29'),
+(6, 6, 'business', 'Municipal Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-25 06:49:13', '2024-11-25 06:53:26'),
+(7, 7, 'home', 'Tanza Cavite', 'Luzon', 'Region IV - A', 'Cavite', 'Tanza', 4108, '2024-11-28 10:22:16', '2024-11-28 10:22:16');
 
 -- --------------------------------------------------------
 
@@ -446,7 +488,9 @@ INSERT INTO `user_role` (`Role_ID`, `Role_Name`, `created_at`, `modified_at`) VA
 (2, 'Admin', '2024-11-18 08:05:19', '0000-00-00 00:00:00'),
 (3, 'User', '2024-11-18 12:08:08', '0000-00-00 00:00:00'),
 (4, 'User', '2024-11-18 13:04:16', '0000-00-00 00:00:00'),
-(5, 'User', '2024-11-22 17:13:29', '0000-00-00 00:00:00');
+(5, 'User', '2024-11-22 17:13:29', '0000-00-00 00:00:00'),
+(6, 'User', '2024-11-25 06:49:13', '0000-00-00 00:00:00'),
+(7, 'User', '2024-11-28 10:22:16', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -468,7 +512,9 @@ INSERT INTO `user_role_management` (`User_ID`, `Role_ID`) VALUES
 (2, 2),
 (3, 3),
 (4, 4),
-(5, 5);
+(5, 5),
+(6, 6),
+(7, 7);
 
 -- --------------------------------------------------------
 
@@ -492,21 +538,69 @@ CREATE TABLE `user_session` (
 --
 
 INSERT INTO `user_session` (`Session_ID`, `User_ID`, `session_start`, `session_end`, `last_activity`, `session_status`, `created_at`, `modified_at`) VALUES
-(1, 1, '2024-11-22 15:16:41', '2024-11-22 07:16:46', '2024-11-22 07:16:46', 'closed', '2024-11-22 15:16:41', '2024-11-22 15:16:46'),
-(2, 1, '2024-11-22 15:21:01', '2024-11-22 07:21:55', '2024-11-22 07:21:55', 'closed', '2024-11-22 15:21:01', '2024-11-22 15:21:55'),
-(3, 1, '2024-11-22 16:24:32', '2024-11-22 08:28:06', '2024-11-22 08:28:06', 'closed', '2024-11-22 16:24:32', '2024-11-22 16:28:06'),
-(4, 1, '2024-11-22 16:52:26', '2024-11-22 08:56:31', '2024-11-22 08:56:31', 'closed', '2024-11-22 16:52:26', '2024-11-22 16:56:31'),
-(5, 3, '2024-11-22 16:56:36', '2024-11-22 09:08:59', '2024-11-22 09:08:59', 'closed', '2024-11-22 16:56:36', '2024-11-22 17:08:59'),
-(6, 3, '2024-11-22 17:09:12', '2024-11-22 09:09:22', '2024-11-22 09:09:22', 'closed', '2024-11-22 17:09:12', '2024-11-22 17:09:22'),
-(7, 1, '2024-11-22 17:09:27', '2024-11-22 09:10:24', '2024-11-22 09:10:24', 'closed', '2024-11-22 17:09:27', '2024-11-22 17:10:24'),
-(8, 1, '2024-11-22 17:10:39', '2024-11-22 09:12:35', '2024-11-22 09:12:35', 'closed', '2024-11-22 17:10:39', '2024-11-22 17:12:35'),
-(9, 2, '2024-11-22 17:13:50', '2024-11-22 09:15:02', '2024-11-22 09:15:02', 'closed', '2024-11-22 17:13:50', '2024-11-22 17:15:02'),
-(10, 4, '2024-11-22 17:15:26', '2024-11-22 09:16:59', '2024-11-22 09:16:59', 'closed', '2024-11-22 17:15:26', '2024-11-22 17:16:59'),
-(11, 1, '2024-11-22 17:19:12', '2024-11-22 09:19:22', '2024-11-22 09:19:22', 'closed', '2024-11-22 17:19:12', '2024-11-22 17:19:22'),
-(12, 3, '2024-11-22 17:19:28', '2024-11-22 09:21:17', '2024-11-22 09:21:17', 'closed', '2024-11-22 17:19:28', '2024-11-22 17:21:17'),
-(13, 2, '2024-11-22 17:23:30', NULL, '2024-11-22 09:23:30', 'active', '2024-11-22 17:23:30', '2024-11-22 17:23:30'),
-(14, 2, '2024-11-22 17:24:51', NULL, '2024-11-22 09:24:51', 'active', '2024-11-22 17:24:51', '2024-11-22 17:24:51'),
-(15, 1, '2024-11-22 17:27:39', '2024-11-22 09:28:54', '2024-11-22 09:28:54', 'closed', '2024-11-22 17:27:39', '2024-11-22 17:28:54');
+(26, 1, '2024-11-27 16:34:03', '2024-11-27 08:34:24', '2024-11-27 08:34:24', 'closed', '2024-11-27 16:34:03', '2024-11-27 16:34:24'),
+(27, 1, '2024-11-27 16:36:13', '2024-11-27 08:37:21', '2024-11-27 08:37:21', 'closed', '2024-11-27 16:36:13', '2024-11-27 16:37:21'),
+(28, 6, '2024-11-27 16:37:54', '2024-11-27 08:46:54', '2024-11-27 08:46:54', 'closed', '2024-11-27 16:37:54', '2024-11-27 16:46:54'),
+(29, 1, '2024-11-27 16:47:52', '2024-11-27 08:48:27', '2024-11-27 08:48:27', 'closed', '2024-11-27 16:47:52', '2024-11-27 16:48:27'),
+(30, 2, '2024-11-27 16:48:34', '2024-11-27 08:59:58', '2024-11-27 08:59:58', 'closed', '2024-11-27 16:48:34', '2024-11-27 16:59:58'),
+(31, 4, '2024-11-27 17:00:40', '2024-11-27 09:09:01', '2024-11-27 09:09:01', 'closed', '2024-11-27 17:00:40', '2024-11-27 17:09:01'),
+(32, 1, '2024-11-27 17:09:07', '2024-11-27 09:22:32', '2024-11-27 09:22:32', 'closed', '2024-11-27 17:09:07', '2024-11-27 17:22:32'),
+(33, 4, '2024-11-27 17:22:39', '2024-11-27 09:24:09', '2024-11-27 09:24:09', 'closed', '2024-11-27 17:22:39', '2024-11-27 17:24:09'),
+(34, 4, '2024-11-27 17:26:18', '2024-11-27 09:30:37', '2024-11-27 09:30:37', 'closed', '2024-11-27 17:26:18', '2024-11-27 17:30:37'),
+(35, 2, '2024-11-27 17:30:45', '2024-11-27 09:31:12', '2024-11-27 09:31:12', 'closed', '2024-11-27 17:30:45', '2024-11-27 17:31:12'),
+(36, 1, '2024-11-27 17:31:34', '2024-11-27 09:41:04', '2024-11-27 09:41:04', 'closed', '2024-11-27 17:31:34', '2024-11-27 17:41:04'),
+(37, 4, '2024-11-27 17:41:11', '2024-11-27 10:01:20', '2024-11-27 10:01:20', 'closed', '2024-11-27 17:41:11', '2024-11-27 18:01:20'),
+(38, 1, '2024-11-28 09:13:48', NULL, '2024-11-28 01:13:48', 'active', '2024-11-28 09:13:48', '2024-11-28 09:13:48'),
+(39, 1, '2024-11-28 09:19:49', '2024-11-28 01:21:18', '2024-11-28 01:21:18', 'closed', '2024-11-28 09:19:49', '2024-11-28 09:21:18'),
+(40, 1, '2024-11-28 09:21:23', '2024-11-28 01:21:27', '2024-11-28 01:21:27', 'closed', '2024-11-28 09:21:23', '2024-11-28 09:21:27'),
+(41, 1, '2024-11-28 09:21:32', '2024-11-28 01:21:36', '2024-11-28 01:21:36', 'closed', '2024-11-28 09:21:32', '2024-11-28 09:21:36'),
+(42, 1, '2024-11-28 09:21:42', '2024-11-28 01:27:04', '2024-11-28 01:27:04', 'closed', '2024-11-28 09:21:42', '2024-11-28 09:27:04'),
+(43, 6, '2024-11-28 09:27:22', '2024-11-28 01:29:09', '2024-11-28 01:29:09', 'closed', '2024-11-28 09:27:22', '2024-11-28 09:29:09'),
+(44, 2, '2024-11-28 09:29:34', '2024-11-28 01:50:00', '2024-11-28 01:50:00', 'closed', '2024-11-28 09:29:34', '2024-11-28 09:50:00'),
+(45, 1, '2024-11-28 09:51:11', '2024-11-28 02:14:51', '2024-11-28 02:14:51', 'closed', '2024-11-28 09:51:11', '2024-11-28 10:14:51'),
+(46, 1, '2024-11-28 10:15:02', '2024-11-28 02:15:05', '2024-11-28 02:15:05', 'closed', '2024-11-28 10:15:02', '2024-11-28 10:15:05'),
+(47, 1, '2024-11-28 10:15:10', '2024-11-28 02:15:19', '2024-11-28 02:15:19', 'closed', '2024-11-28 10:15:10', '2024-11-28 10:15:19'),
+(48, 3, '2024-11-28 10:15:24', '2024-11-28 02:16:15', '2024-11-28 02:16:15', 'closed', '2024-11-28 10:15:24', '2024-11-28 10:16:15'),
+(49, 2, '2024-11-28 10:16:23', '2024-11-28 02:16:35', '2024-11-28 02:16:35', 'closed', '2024-11-28 10:16:23', '2024-11-28 10:16:35'),
+(50, 1, '2024-11-28 10:43:20', '2024-11-28 02:43:31', '2024-11-28 02:43:31', 'closed', '2024-11-28 10:43:20', '2024-11-28 10:43:31'),
+(51, 1, '2024-11-28 10:43:40', '2024-11-28 02:44:32', '2024-11-28 02:44:32', 'closed', '2024-11-28 10:43:40', '2024-11-28 10:44:32'),
+(52, 2, '2024-11-28 10:44:47', '2024-11-28 02:46:10', '2024-11-28 02:46:10', 'closed', '2024-11-28 10:44:47', '2024-11-28 10:46:10'),
+(53, 7, '2024-11-28 10:46:16', '2024-11-28 02:46:33', '2024-11-28 02:46:33', 'closed', '2024-11-28 10:46:16', '2024-11-28 10:46:33'),
+(54, 1, '2024-11-28 10:46:44', '2024-11-28 02:48:55', '2024-11-28 02:48:55', 'closed', '2024-11-28 10:46:44', '2024-11-28 10:48:55'),
+(55, 1, '2024-11-28 11:02:09', NULL, '2024-11-28 03:02:09', 'active', '2024-11-28 11:02:09', '2024-11-28 11:02:09'),
+(56, 1, '2024-11-28 11:03:39', '2024-11-28 03:03:44', '2024-11-28 03:03:44', 'closed', '2024-11-28 11:03:39', '2024-11-28 11:03:44'),
+(57, 3, '2024-11-28 11:03:50', '2024-11-28 03:03:54', '2024-11-28 03:03:54', 'closed', '2024-11-28 11:03:50', '2024-11-28 11:03:54'),
+(58, 1, '2024-11-28 11:10:53', '2024-11-28 03:10:56', '2024-11-28 03:10:56', 'closed', '2024-11-28 11:10:53', '2024-11-28 11:10:56'),
+(59, 4, '2024-11-28 11:11:04', '2024-11-28 03:11:12', '2024-11-28 03:11:12', 'closed', '2024-11-28 11:11:04', '2024-11-28 11:11:12'),
+(60, 1, '2024-11-28 11:12:08', '2024-11-28 03:12:15', '2024-11-28 03:12:15', 'closed', '2024-11-28 11:12:08', '2024-11-28 11:12:15'),
+(61, 4, '2024-11-28 11:20:08', '2024-11-28 03:22:27', '2024-11-28 03:22:27', 'closed', '2024-11-28 11:20:08', '2024-11-28 11:22:27'),
+(62, 1, '2024-11-28 11:24:50', '2024-11-28 03:24:54', '2024-11-28 03:24:54', 'closed', '2024-11-28 11:24:50', '2024-11-28 11:24:54'),
+(63, 1, '2024-11-28 11:45:04', '2024-11-28 03:50:20', '2024-11-28 03:50:20', 'closed', '2024-11-28 11:45:04', '2024-11-28 11:50:20'),
+(64, 1, '2024-11-28 11:51:41', '2024-11-28 09:04:31', '2024-11-28 09:04:31', 'closed', '2024-11-28 11:51:41', '2024-11-28 17:04:31'),
+(65, 2, '2024-11-28 11:55:53', '2024-11-28 03:56:07', '2024-11-28 03:56:07', 'closed', '2024-11-28 11:55:53', '2024-11-28 11:56:07'),
+(66, 1, '2024-11-28 12:00:37', '2024-11-28 04:36:38', '2024-11-28 04:36:38', 'closed', '2024-11-28 12:00:37', '2024-11-28 12:36:38'),
+(67, 1, '2024-11-28 12:45:07', '2024-11-28 04:45:28', '2024-11-28 04:45:28', 'closed', '2024-11-28 12:45:07', '2024-11-28 12:45:28'),
+(68, 4, '2024-11-28 12:45:36', '2024-11-28 04:49:18', '2024-11-28 04:49:18', 'closed', '2024-11-28 12:45:36', '2024-11-28 12:49:18'),
+(69, 1, '2024-11-28 12:49:25', '2024-11-28 05:00:11', '2024-11-28 05:00:11', 'closed', '2024-11-28 12:49:25', '2024-11-28 13:00:11'),
+(70, 6, '2024-11-28 13:00:19', '2024-11-28 05:01:57', '2024-11-28 05:01:57', 'closed', '2024-11-28 13:00:19', '2024-11-28 13:01:57'),
+(71, 1, '2024-11-28 13:40:50', '2024-11-28 06:18:56', '2024-11-28 06:18:56', 'closed', '2024-11-28 13:40:50', '2024-11-28 14:18:56'),
+(72, 4, '2024-11-28 14:19:02', '2024-11-28 06:21:25', '2024-11-28 06:21:25', 'closed', '2024-11-28 14:19:02', '2024-11-28 14:21:25'),
+(73, 1, '2024-11-28 14:21:31', '2024-11-28 06:28:48', '2024-11-28 06:28:48', 'closed', '2024-11-28 14:21:31', '2024-11-28 14:28:48'),
+(74, 4, '2024-11-28 14:28:57', '2024-11-28 06:30:22', '2024-11-28 06:30:22', 'closed', '2024-11-28 14:28:57', '2024-11-28 14:30:22'),
+(75, 1, '2024-11-28 14:30:53', '2024-11-28 06:41:57', '2024-11-28 06:41:57', 'closed', '2024-11-28 14:30:53', '2024-11-28 14:41:57'),
+(76, 4, '2024-11-28 14:42:03', '2024-11-28 06:42:32', '2024-11-28 06:42:32', 'closed', '2024-11-28 14:42:03', '2024-11-28 14:42:32'),
+(77, 1, '2024-11-28 14:42:38', '2024-11-28 06:53:14', '2024-11-28 06:53:14', 'closed', '2024-11-28 14:42:38', '2024-11-28 14:53:14'),
+(78, 4, '2024-11-28 14:53:20', '2024-11-28 06:53:38', '2024-11-28 06:53:38', 'closed', '2024-11-28 14:53:20', '2024-11-28 14:53:38'),
+(79, 1, '2024-11-28 14:53:43', '2024-11-28 06:58:35', '2024-11-28 06:58:35', 'closed', '2024-11-28 14:53:43', '2024-11-28 14:58:35'),
+(80, 4, '2024-11-28 14:58:45', '2024-11-28 06:59:03', '2024-11-28 06:59:03', 'closed', '2024-11-28 14:58:45', '2024-11-28 14:59:03'),
+(81, 1, '2024-11-28 14:59:07', '2024-11-28 07:07:52', '2024-11-28 07:07:52', 'closed', '2024-11-28 14:59:07', '2024-11-28 15:07:52'),
+(82, 4, '2024-11-28 15:07:59', '2024-11-28 07:08:30', '2024-11-28 07:08:30', 'closed', '2024-11-28 15:07:59', '2024-11-28 15:08:30'),
+(83, 1, '2024-11-28 15:08:41', '2024-11-28 07:08:46', '2024-11-28 07:08:46', 'closed', '2024-11-28 15:08:41', '2024-11-28 15:08:46'),
+(84, 1, '2024-11-28 15:09:00', '2024-11-28 07:27:35', '2024-11-28 07:27:35', 'closed', '2024-11-28 15:09:00', '2024-11-28 15:27:35'),
+(85, 4, '2024-11-28 15:27:43', '2024-11-28 07:28:07', '2024-11-28 07:28:07', 'closed', '2024-11-28 15:27:43', '2024-11-28 15:28:07'),
+(86, 1, '2024-11-28 15:28:12', '2024-11-28 07:34:01', '2024-11-28 07:34:01', 'closed', '2024-11-28 15:28:12', '2024-11-28 15:34:01'),
+(87, 4, '2024-11-28 15:34:05', '2024-11-28 07:34:30', '2024-11-28 07:34:30', 'closed', '2024-11-28 15:34:05', '2024-11-28 15:34:30'),
+(88, 1, '2024-11-28 15:34:35', '2024-11-28 08:43:38', '2024-11-28 08:43:38', 'closed', '2024-11-28 15:34:35', '2024-11-28 16:43:38');
 
 -- --------------------------------------------------------
 
@@ -526,11 +620,13 @@ CREATE TABLE `user_status` (
 --
 
 INSERT INTO `user_status` (`Status_ID`, `Status_Name`, `created_at`, `modified_at`) VALUES
-(1, 'active', '2024-11-18 08:03:16', '2024-11-18 08:05:59'),
+(1, 'active', '2024-11-18 08:03:16', '2024-11-28 10:46:04'),
 (2, 'active', '2024-11-18 08:04:01', '2024-11-18 08:05:11'),
-(3, 'active', '2024-11-18 12:08:08', '2024-11-18 12:08:18'),
-(4, 'active', '2024-11-18 13:04:15', '2024-11-18 13:04:32'),
-(5, 'active', '2024-11-22 17:13:29', '2024-11-22 17:14:41');
+(3, 'active', '2024-11-18 12:08:08', '2024-11-28 09:48:59'),
+(4, 'active', '2024-11-18 13:04:15', '2024-11-28 09:49:01'),
+(5, 'active', '2024-11-22 17:13:29', '2024-11-22 17:14:41'),
+(6, 'active', '2024-11-25 06:49:13', '2024-11-28 09:43:15'),
+(7, 'active', '2024-11-28 10:22:16', '2024-11-28 10:44:52');
 
 -- --------------------------------------------------------
 
@@ -555,7 +651,9 @@ INSERT INTO `user_type` (`Type_ID`, `Type_Name`, `Type_Description`, `created_at
 (2, 'Admin', 'Admin', '2024-11-18 08:04:01', '2024-11-18 08:05:05'),
 (3, 'Farmer', 'Local Farmer', '2024-11-18 12:08:08', '2024-11-18 12:08:08'),
 (4, 'Vendor', 'Local Vendor', '2024-11-18 13:04:15', '2024-11-18 13:04:15'),
-(5, 'Farmer', 'Local Farmer', '2024-11-22 17:13:29', '2024-11-22 17:13:29');
+(5, 'Farmer', 'Local Farmer', '2024-11-22 17:13:29', '2024-11-22 17:13:29'),
+(6, 'Organization', 'Agriculture Organization', '2024-11-25 06:49:13', '2024-11-25 06:49:13'),
+(7, 'Vendor', 'Local Vendor', '2024-11-28 10:22:16', '2024-11-28 10:22:16');
 
 -- --------------------------------------------------------
 
@@ -577,7 +675,9 @@ INSERT INTO `user_type_management` (`User_ID`, `Type_ID`) VALUES
 (2, 2),
 (3, 3),
 (4, 4),
-(5, 5);
+(5, 5),
+(6, 6),
+(7, 7);
 
 -- --------------------------------------------------------
 
@@ -602,7 +702,8 @@ CREATE TABLE `vendor_details` (
 --
 
 INSERT INTO `vendor_details` (`Vendor_ID`, `User_ID`, `business_name`, `business_type`, `tax_id`, `years_in_business`, `product_types`, `created_at`, `modified_at`) VALUES
-(4, 4, 'Joe Business', 'Retailer', '05', 5, 'Grains', '2024-11-18 13:04:16', '2024-11-18 13:08:06');
+(4, 4, 'Joe Business', 'Retailer', '05', 5, 'Grains', '2024-11-18 13:04:16', '2024-11-18 13:08:06'),
+(7, 7, NULL, 'Other', NULL, NULL, NULL, '2024-11-28 10:22:16', '2024-11-28 10:22:16');
 
 --
 -- Indexes for dumped tables
@@ -653,6 +754,20 @@ ALTER TABLE `order_status_history`
   ADD KEY `idx_order_status` (`order_ID`,`status`);
 
 --
+-- Indexes for table `organization_details`
+--
+ALTER TABLE `organization_details`
+  ADD PRIMARY KEY (`Organization_ID`),
+  ADD KEY `idx_user_id` (`User_ID`);
+
+--
+-- Indexes for table `organization_notice`
+--
+ALTER TABLE `organization_notice`
+  ADD PRIMARY KEY (`Notice_ID`),
+  ADD KEY `idx_organization_id` (`Organization_ID`);
+
+--
 -- Indexes for table `password_reset`
 --
 ALTER TABLE `password_reset`
@@ -665,7 +780,6 @@ ALTER TABLE `password_reset`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`Product_ID`),
-  ADD UNIQUE KEY `product_SKU` (`product_SKU`),
   ADD KEY `Category_ID` (`Category_ID`),
   ADD KEY `SubCategory_ID` (`SubCategory_ID`),
   ADD KEY `Inventory_ID` (`Inventory_ID`),
@@ -673,7 +787,6 @@ ALTER TABLE `product`
   ADD KEY `idx_average_rating` (`average_rating`),
   ADD KEY `idx_is_organic` (`is_organic`),
   ADD KEY `idx_bulk_available` (`bulk_available`),
-  ADD KEY `idx_product_sku` (`product_SKU`),
   ADD KEY `User_ID` (`User_ID`);
 ALTER TABLE `product` ADD FULLTEXT KEY `idx_product_search` (`Product_Name`,`Product_Desc`);
 
@@ -811,7 +924,7 @@ ALTER TABLE `vendor_details`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `Category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `Category_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `farmer_details`
@@ -823,25 +936,37 @@ ALTER TABLE `farmer_details`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `Inventory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `Inventory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `order_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `orderedItem_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `orderedItem_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `order_status_history`
 --
 ALTER TABLE `order_status_history`
-  MODIFY `history_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `history_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT for table `organization_details`
+--
+ALTER TABLE `organization_details`
+  MODIFY `Organization_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `organization_notice`
+--
+ALTER TABLE `organization_notice`
+  MODIFY `Notice_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `password_reset`
@@ -853,13 +978,13 @@ ALTER TABLE `password_reset`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `Product_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `image_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `image_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `product_qa`
@@ -871,7 +996,7 @@ ALTER TABLE `product_qa`
 -- AUTO_INCREMENT for table `product_quantity_updates`
 --
 ALTER TABLE `product_quantity_updates`
-  MODIFY `Update_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `Update_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT for table `product_review`
@@ -889,13 +1014,13 @@ ALTER TABLE `product_tags`
 -- AUTO_INCREMENT for table `shopping_cart`
 --
 ALTER TABLE `shopping_cart`
-  MODIFY `cart_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `sub_category`
 --
 ALTER TABLE `sub_category`
-  MODIFY `SubCategory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `SubCategory_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -907,37 +1032,37 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_address`
 --
 ALTER TABLE `user_address`
-  MODIFY `Address_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Address_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `Role_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Role_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_session`
 --
 ALTER TABLE `user_session`
-  MODIFY `Session_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `Session_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `user_status`
 --
 ALTER TABLE `user_status`
-  MODIFY `Status_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Status_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_type`
 --
 ALTER TABLE `user_type`
-  MODIFY `Type_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Type_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `vendor_details`
 --
 ALTER TABLE `vendor_details`
-  MODIFY `Vendor_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Vendor_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -950,23 +1075,23 @@ ALTER TABLE `farmer_details`
   ADD CONSTRAINT `farmer_details_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`);
 
 --
--- Constraints for table `order_details`
---
-ALTER TABLE `order_details`
-  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `user` (`User_ID`);
-
---
 -- Constraints for table `order_item`
 --
 ALTER TABLE `order_item`
   ADD CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`order_ID`) REFERENCES `order_details` (`order_ID`),
-  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`product_ID`) REFERENCES `product` (`Product_ID`);
+  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`product_ID`) REFERENCES `product` (`Product_ID`) ON DELETE CASCADE;
 
 --
--- Constraints for table `order_status_history`
+-- Constraints for table `organization_details`
 --
-ALTER TABLE `order_status_history`
-  ADD CONSTRAINT `order_status_history_ibfk_1` FOREIGN KEY (`order_ID`) REFERENCES `order_details` (`order_ID`);
+ALTER TABLE `organization_details`
+  ADD CONSTRAINT `organization_details_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`);
+
+--
+-- Constraints for table `organization_notice`
+--
+ALTER TABLE `organization_notice`
+  ADD CONSTRAINT `organization_notice_ibfk_1` FOREIGN KEY (`Organization_ID`) REFERENCES `organization_details` (`Organization_ID`);
 
 --
 -- Constraints for table `password_reset`
@@ -978,15 +1103,15 @@ ALTER TABLE `password_reset`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`Category_ID`) REFERENCES `category` (`Category_ID`),
-  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`SubCategory_ID`) REFERENCES `sub_category` (`SubCategory_ID`),
-  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`Inventory_ID`) REFERENCES `inventory` (`Inventory_ID`);
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`Category_ID`) REFERENCES `category` (`Category_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`SubCategory_ID`) REFERENCES `sub_category` (`SubCategory_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`Inventory_ID`) REFERENCES `inventory` (`Inventory_ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `product_images`
 --
 ALTER TABLE `product_images`
-  ADD CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`);
+  ADD CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `product_qa`
@@ -998,7 +1123,7 @@ ALTER TABLE `product_qa`
 -- Constraints for table `product_quantity_updates`
 --
 ALTER TABLE `product_quantity_updates`
-  ADD CONSTRAINT `product_quantity_updates_ibfk_1` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`);
+  ADD CONSTRAINT `product_quantity_updates_ibfk_1` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `product_review`
@@ -1024,7 +1149,7 @@ ALTER TABLE `product_tag_relation`
 -- Constraints for table `shopping_cart`
 --
 ALTER TABLE `shopping_cart`
-  ADD CONSTRAINT `shopping_cart_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`),
+  ADD CONSTRAINT `shopping_cart_ibfk_1` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `shopping_cart_ibfk_2` FOREIGN KEY (`Product_ID`) REFERENCES `product` (`Product_ID`);
 
 --

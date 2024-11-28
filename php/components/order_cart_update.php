@@ -2,6 +2,11 @@
 session_start();
 include 'connect.php';
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+
 if (isset($_POST['cancel'])) {
     // Get the order ID from the form
     $order_id = $_POST['order_id'];

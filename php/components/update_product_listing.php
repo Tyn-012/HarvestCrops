@@ -4,11 +4,15 @@ include 'connect.php';
 
 $product_id = $_SESSION['product_id'];
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+
 if(isset($_POST['submit'])) {
     // Collect product data from the form 
     $productName = $_POST['product-name'];
     $productDesc = $_POST['product-desc'];
-    $productSKU = $_POST['product-SKU'];
     $productPrice = $_POST['product-price'];
     $shelfLife = $_POST['shelf-life'];
     $shelfLifeUnit = $_POST['shelf-life-unit'];
@@ -71,14 +75,14 @@ if(isset($_POST['submit'])) {
 
     // Insert product details into the `product` table
     $product_query = "UPDATE product 
-    SET Product_Name = ?, Product_Desc = ?, product_SKU = ?, product_price = ?, shelf_life = ?, shelf_life_unit = ?, is_organic = ?, bulk_available = ? 
+    SET Product_Name = ?, Product_Desc = ?, product_price = ?, shelf_life = ?, shelf_life_unit = ?, is_organic = ?, bulk_available = ? 
     WHERE Product_ID = ?";
 
     $stmt = $connect->prepare($product_query);
 
     // Bind the parameters correctly
-    $stmt->bind_param("sssdssiii", 
-    $productName, $productDesc, $productSKU, $productPrice, 
+    $stmt->bind_param("ssdssiii", 
+    $productName, $productDesc, $productPrice, 
     $shelfLife, $shelfLifeUnit, $isOrganic, $bulkAvailable, 
     $product_id);  // Bind the Product_ID
 

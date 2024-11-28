@@ -2,6 +2,11 @@
 include 'connect.php';
 session_start();
 
+if (!isset($_SESSION['name'])) {
+  header('Location: ../../src/sign_in.html'); // Redirect to login page if not logged in
+  exit();
+}
+
 // Get the current session details
 $session_time = gmdate('Y-m-d H:i:s');
 $session_id = $_SESSION['session_id'];

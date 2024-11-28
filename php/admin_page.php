@@ -1,6 +1,11 @@
 <?php
 session_start();
 include 'components/connect.php';
+
+if (!isset($_SESSION['name'])) {
+    header('Location: ../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +18,9 @@ include 'components/connect.php';
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
     <script src="../css/bootstrap-5.3.3-dist/js/bootstrap.min.js" rel="script"></script>
-    <title>HarvestCrops</title>
+    <title>HarvestCrops - Admin Page</title>
 </head>
-<body>
+<body class="bg-cfe1b9">
     <nav class="nav pt-5 mx-5">
         <div class="container">
             <div class="section">
@@ -41,7 +46,7 @@ include 'components/connect.php';
         </div>
     </div>
     <div class="p-2 bg-warning"></div>
-    <nav class="p-3 bg-success">
+    <nav class="p-3 bg-397F35">
         <div class="container">
             <div class="section">
                 <div class="row">
@@ -49,9 +54,10 @@ include 'components/connect.php';
                         <img src="../images/plots.jpg" class="border rounded-circle" width="60px" height="60px" alt="">
                         <p class="anc-page px-2 pt-2"><?php echo $_SESSION['name']; ?></p>
                     </div>
-                    <div class="col-md-8 d-flex align-items-center justify-content-end">
-                        <input class="p-1" id="search-input" type="text" placeholder="Search..">
-                        <a href="#" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></a>
+                    <div class="col-md-8 d-flex justify-content-end align-items-center">
+                        <form action="components/logout.php" method="post">
+                            <button class="btn btn-sm text-md text-light bg-dark" type="submit">Logout</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -59,46 +65,6 @@ include 'components/connect.php';
     </nav>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                    <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline">Menu</span>
-                    </a>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
-                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                                <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
-                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Manage Users</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <div class="col-md-12 d-flex justify-content-center align-items-center">
-                        <a href="#" class="text-decoration-none text-light fw-bolder">SETTINGS</a>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-center align-items-center pb-5">
-                        <form action="components/logout.php" method="post">
-                            <button class="btn btn-sm text-md text-light bg-dark" type="submit">Logout</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
             <div class="col py-5">
                 <div class="container">
                     <div class="section">
@@ -145,7 +111,7 @@ include 'components/connect.php';
                             }
                             
                             // Only show 'Farmer' or 'Vendor'
-                            if ($user_type == "Farmer" || $user_type == "Vendor") {
+                            if ($user_type == "Farmer" || $user_type == "Vendor" || $user_type == "Organization") {
 
                                 echo '
                                 <div class="row d-flex align-items-center mb-2 ps-2 border">
@@ -178,14 +144,14 @@ include 'components/connect.php';
         </div>
     </div>
     <div class="p-2 bg-warning"></div>
-    <footer class="nav bg-success">
+    <footer class="nav bg-397F35">
         <div class="container">
             <div class="section">
                 <div class="row d-flex mb-4">
                     <div class="col-md-12 pt-2">
                         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                             <li class="nav-item"><a href="admin_page.php" class="nav-link px-2 text-body-secondary">Home</a></li>
-                            <li class="nav-item"><a href="../customer_support_page.html" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                            <li class="nav-item"><a href="customer_support_page.php" class="nav-link px-2 text-body-secondary">FAQs</a></li>
                         </ul>
                     </div>
                     <div class="col-md-12 mt-4 d-flex justify-content-center align-items-center">

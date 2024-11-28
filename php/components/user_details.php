@@ -4,6 +4,11 @@ include 'connect.php';
 
 $userid = $_SESSION['user_id'];
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+
 $getuser_info_qry = "SELECT * FROM user WHERE User_ID = ?";
 $stmt = $connect->prepare($getuser_info_qry);
 $stmt->bind_param('s', $userid);

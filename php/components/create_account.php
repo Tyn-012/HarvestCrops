@@ -161,7 +161,11 @@ include 'connect.php';
                 VALUES ('$personal_acc_id', '$id_db')";
                 if (mysqli_query($connect, $vendor_det_query));
             }
-            else if($user_type=="Organization");
+            else if($user_type=="Organization"){
+                $org_det_query = "INSERT INTO organization_details (Organization_ID, User_ID) 
+                VALUES ('$personal_acc_id', '$id_db')";
+                if (mysqli_query($connect, $org_det_query));
+            }
     }
     echo "<script language = 'JavaScript'>
     window.location = \"../../src/sign_in.html\";";

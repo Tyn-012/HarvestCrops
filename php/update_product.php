@@ -2,6 +2,11 @@
 session_start();
 include 'components/connect.php';
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+
 if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
     $_SESSION['product_id'] = $product_id;
@@ -18,15 +23,15 @@ if (isset($_GET['product_id'])) {
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
     <script src="../css/bootstrap-5.3.3-dist/js/bootstrap.min.js" rel="script"></script>
-    <title>HarvestCrops</title>
+    <title>HarvestCrops - Product Update</title>
 </head>
-<body>
+<body class="product_update_bg">
     <div class="container">
         <div class="section">
             <div class="row">
-                <div class="col-md-12 d-flex justify-content-start align-items-center pt-4">
+                <div class="col-md-12 d-flex justify-content-start align-items-center">
                 </div>
-                <a href="javascript:history.back();" class="text-decoration-none text-dark m-2"><i class="fa-solid fa-backward"></i> back</a>
+                <a href="seller_store_page.php" class="text-decoration-none text-dark m-2"><i class="fa-solid fa-backward"></i> back</a>
                 <div class="col-md-12 d-flex justify-content-center mt-4 bg-dark">
                     <h4 class="text-light m-2">Product Update</h4>
                 </div>
@@ -45,9 +50,6 @@ if (isset($_GET['product_id'])) {
                             <label class="fw-bold">Product Description</label>
                             <input type="text" name="product-desc" class="form-control mb-2"
                                 placeholder="Product Description" required autofocus>
-                            <label class="fw-bold">Product SKU</label>
-                            <input type="text" name="product-SKU" class="form-control mb-2"
-                                placeholder="Product SKU" required autofocus>
                             <label class="fw-bold">Quantity</label>
                             <input type="text" name="product-quantity" class="form-control mb-2"
                                 placeholder="Product Quantity" required autofocus>

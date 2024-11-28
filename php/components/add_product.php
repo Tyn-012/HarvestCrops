@@ -3,6 +3,11 @@ session_start();
 include 'connect.php';
 $userid = $_SESSION['user_id'];
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Directory to save uploaded images
@@ -36,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Collect product data from the form 
             $productName = $_POST['product-name'];
             $productDesc = $_POST['product-desc'];
-            $productSKU = $_POST['product-SKU'];
             $productPrice = $_POST['product-price'];
             $shelfLife = $_POST['shelf-life'];
             $shelfLifeUnit = $_POST['shelf-life-unit'];
@@ -86,10 +90,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             // Insert product details into the `product` table
-            $product_query = "INSERT INTO product (Category_ID, SubCategory_ID, Inventory_ID, Product_Name, Product_Desc, product_SKU, product_price, shelf_life, shelf_life_unit, is_organic, bulk_available, User_ID)
-                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $product_query = "INSERT INTO product (Category_ID, SubCategory_ID, Inventory_ID, Product_Name, Product_Desc,  product_price, shelf_life, shelf_life_unit, is_organic, bulk_available, User_ID)
+                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $connect->prepare($product_query);
-            $stmt->bind_param("iiisssdssiii", $categoryID, $subcategoryID, $inventoryID, $productName, $productDesc, $productSKU, $productPrice, $shelfLife, $shelfLifeUnit, $isOrganic, $bulkAvailable, $userid);
+            $stmt->bind_param("iiissdssiii", $categoryID, $subcategoryID, $inventoryID, $productName, $productDesc,  $productPrice, $shelfLife, $shelfLifeUnit, $isOrganic, $bulkAvailable, $userid);
             if ($stmt->execute()) {
                 $productID = $stmt->insert_id; // Get the auto-incremented ID of the inserted product
 

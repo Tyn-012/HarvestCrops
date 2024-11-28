@@ -2,6 +2,11 @@
 session_start();
 include 'components/connect.php';
 
+if (!isset($_SESSION['name'])) {
+    header('Location: ../src/sign_in.html'); // Redirect to login page if not logged in
+    exit();
+}
+
 // Assuming the user is logged in and has a session
 $User_ID = $_SESSION['user_id']; // Get the logged-in user ID
 
@@ -26,9 +31,9 @@ $order_result = $stmt->get_result();
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
     <script src="../css/bootstrap-5.3.3-dist/js/bootstrap.min.js" rel="script"></script>
-    <title>HarvestCrops</title>
+    <title>HarvestCrops - Cart Page</title>
 </head>
-<body>
+<body class="bg-cfe1b9">
     <nav class="nav pt-5 mx-5">
         <div class="container">
             <div class="section">
@@ -49,9 +54,6 @@ $order_result = $stmt->get_result();
     <div class="container">
         <div class="section mx-5 mb-3">
             <div class="col-md-12 d-flex justify-content-end">
-                <a href="#" class="fa-regular fa-envelope icon-ds p-1 m-1"></a>
-                <a href="#" class="fa-solid fa-globe icon-ds p-1 m-1"></a>
-                <a href="#" class="fa-regular fa-bell icon-ds p-1 m-1"></a>
                 <form action="components/logout.php" method="post">
                     <button class="btn btn-sm text-md fw-bold m-1" type="submit">Logout</button>
                 </form>
@@ -59,18 +61,13 @@ $order_result = $stmt->get_result();
             </div>
         </div>
     </div>
-    <nav class="p-3 bg-success">
+    <nav class="p-3 bg-397F35">
         <div class="container">
             <div class="section">
                 <div class="row">
                     <div class="col-md-6 d-flex">
                         <a class="anc-page px-3" href="vendor_account_page.php">My Account</a>
-                        <a class="anc-page px-3" href="../src/customer_support_page.html">Customer Support</a>
                         <a class="anc-page px-3" href="cart_page.php">Cart</a>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <input class="p-1" id="search-input" type="text" placeholder="Search..">
-                        <a href="#" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></a>
                     </div>
                 </div>
             </div>
