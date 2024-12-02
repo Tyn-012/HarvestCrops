@@ -51,28 +51,29 @@ include 'components/user_details.php';
         <div class="container">
             <div class="section">
                 <div class="row d-flex justify-content-center align-items-center">
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-1">
                         <a class="anc-page px-3" href="farmer_account_page.php">My Account</a>
                         <a class="anc-page px-3" href="seller_store_page.php">Shop</a>
                     </div>
                     <div class="col-md-6">
-                    <form action="seller_store_page.php" method="get">
-                        <input class="p-1" id="search-input" name="search" type="text" placeholder="Search..">
-                        <button type="submit" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></button>
-                    </form>
+                        <form action="seller_store_page.php" method="get">
+                            <div class="col-md-12 d-flex align-items-center">
+                                <input class="p-1" id="search-input" name="search" type="text" placeholder="Search..">
+                                <button type="submit" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
-    <div class="p-2 bg-dark"></div>
     <div class="bg-F5BD22">
         <div class="container">
             <div class="section">
                 <div class="row p-4">
                     <div class="col-md-2">
                         <span>
-                            <img class ="card-img card-img-ds" src="../images/plots.jpg" class="opacity-100">
+                            <img class ="card-img card-img-ds mb-3" src="../images/plots.jpg" class="opacity-100">
                         </span>
                     </div>
                     <div class="col-md-7 d-flex align-items-center">
@@ -86,8 +87,6 @@ include 'components/user_details.php';
                     <div class="col-md-3">
                         <div class="row">
                             <div class="col-md-12 d-flex justify-content-end">
-                                <a href="#" id="icon-heart" class="fa-regular fa-heart p-2 m-2"></a>
-                                <a href="#" id="icon-flag" class="fa-regular fa-flag p-2 m-2 mb-5"></a>
                                 <a href="product_listing_page.php" class="btn btn-sm bg-dark text-light p-2 m-2 mb-5">Add Product</a>
                             </div>
                         </div>
@@ -200,18 +199,18 @@ include 'components/user_details.php';
                                     $img_url = htmlspecialchars($row['image_url']); // Ensure the URL is safe
 
                                     echo '
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="card card-ds m-2">
-                                            <img class="card-img card-img-ds opacity-75" src="' . $img_url . '" width="50px" height="200px">
+                                            <img class="card-img card-img-ds opacity-100" src="' . $img_url . '" width="80px" height="260px">
                                             <div class="card-img-overlay">
                                                 <h4 class="card-title text-light pt-2">' . $product_name . '</h4> 
                                                 <p class="card-text text-light pt-3">PHP ' . $product_price . ' - each</p>
                                                 <p class="text-light">Category: ' . $category_name . '</p>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <a class="btn text-light fw-bolder text-decoration-none" href="update_product.php?product_id=' . $productid . '">Update</a>
+                                                <div class="row d-flex justify-content-start mt-4">
+                                                    <div class="col-md-3">
+                                                        <a class="btn update_button-ds text-light fw-bolder mb-2" href="update_product.php?product_id=' . $productid . '">Update</a>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <form action="components/delete_product.php" method="post">
                                                             <input type="hidden" name="product_id" value="' . $productid . '">
                                                             <button class="btn text-light fw-bolder" type="submit" name="delete_product">Delete</button>

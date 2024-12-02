@@ -103,7 +103,7 @@ if (!isset($_SESSION['name'])) {
                                                     <textarea class="form-control" placeholder="input your text here..." rows="3" name="custom-question" required></textarea>
                                                 </div>
                                                 <div class="col-md-12 mb-4 d-flex justify-content-center align-items-center">
-                                                    <button class="btn btn-md bg-dark text-light rounded button-ds" type="submit"
+                                                    <button class="btn btn-md bg-dark text-light button-ds" type="submit"
                                                         name="submit">Submit</button>
                                                 </div>
                                             </div>
@@ -151,10 +151,8 @@ if (!isset($_SESSION['name'])) {
                                                 <div class="col-md-12">
                                                     <h5>Follow Us</h5>
                                                     <p>
-                                                        <a href="https://www.facebook.com" class="btn btn-primary btn-sm"><i class="fab fa-facebook"></i> Facebook</a>
-                                                        <a href="https://x.com/?lang=en-my" class="btn btn-info btn-sm"><i class="fab fa-twitter"></i> Twitter</a>
-                                                        <a href="https://www.youtube.com/" class="btn btn-danger btn-sm"><i class="fab fa-youtube"></i> YouTube</a>
-                                                        <a href="https://www.linkedin.com/" class="btn btn-success btn-sm"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                                                        <a href="https://www.facebook.com" class="btn-primary btn-sm mb-2 text-decoration-none me-2"><i class="fab fa-facebook"></i> Facebook</a>
+                                                        <a href="https://x.com/?lang=en-my" class="btn-info btn-sm mb-2 text-decoration-none"><i class="fab fa-twitter"></i> Twitter</a>
                                                     </p>
                                                 </div>
                                             </div>

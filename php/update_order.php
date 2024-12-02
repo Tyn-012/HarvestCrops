@@ -144,18 +144,18 @@ if (isset($_GET['product_id']) && isset($_GET['order_id']) && isset($_GET['img_u
                                         <form action="../php/components/order_cart_update.php" method="post">
                                             <input type="hidden" name="order_id" value="<?php echo $order_id; ?>"> <!-- Pass order_id -->
                                             <div class="col-md-6 mb-4">
-                                                <div class="row">
-                                                    <div class="col-md-2 mx-2">
-                                                        <label class="m-2">Quantity:</label>
+                                                 <div class="row d-flex align-items-center">
+                                                    <div class="col-md-4">
+                                                        <label class="fw-bold mb-2">Quantity:</label>
                                                     </div>
-                                                    <div class="col-md-4 mx-4">
-                                                        <input type="text" name="new_quantity" class="form-control mb-2" placeholder="0" required autofocus>
+                                                    <div class="col-md-4">
+                                                        <input type="text" name="new_quantity" class="form-control"
+                                                        placeholder="0" required autofocus>
                                                     </div>
-                                                    <div class="col-md-6"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 d-flex justify-content-end">
-                                                <button class="btn btn-md bg-secondary rounded m-4" type="submit" name="modify">Update Product</button>
+                                            <div class="col-md-12 d-flex justify-content-center">
+                                                <button class="btn btn-md rounded m-4 button-ds" type="submit" name="modify">Update Product</button>
                                             </div>
                                         </form>
                                     </div>

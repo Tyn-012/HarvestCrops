@@ -33,7 +33,7 @@ if (!$result) {
     <title>HarvestCrops - Notice Page</title>
 </head>
 
-<body>
+<body class="bg-cfe1b9">
     <nav class="nav pt-5 mx-5">
         <div class="container">
             <div class="section">
@@ -78,7 +78,7 @@ if (!$result) {
             <div class="col py-5">
                 <div class="container">
                     <div class="section">
-                        <div class="row bg-warning mb-2 ps-2">
+                        <div class="row bg-warning mb-2 p-2 m-4 notice_display rounded-3">
                             <div class="col-md-2 d-flex justify-content-center">
                                 <p>Organization Name</p>
                             </div>
@@ -88,32 +88,35 @@ if (!$result) {
                             <div class="col-md-3 d-flex justify-content-center">
                                 <p>Notice Title</p>
                             </div>
-                            <div class="col-md-4 d-flex justify-content-center">
+                            <div class="col-md-3 d-flex justify-content-center">
                                 <p>Notice Content</p>
                             </div>
-                            <div class="col-md-1 d-flex justify-content-center">
+                            <div class="col-md-2 d-flex justify-content-center">
                                 <p>Action</p>
                             </div>
                         </div>
-
                         <?php
                         // Loop through fetched organization notice records
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $notice_id = $row['Notice_ID']; // Correct assignment of the Notice_ID
-                            echo '
-                            <div class="row d-flex align-items-center mb-2 ps-2 border">
-                                <div class="col-md-2 d-flex justify-content-center p-4">' . htmlspecialchars($row['Organization_Name']) . '</div>
-                                <div class="col-md-2 d-flex justify-content-center p-4">' . htmlspecialchars($row['Notice_Schedule']) . '</div>
-                                <div class="col-md-3 d-flex justify-content-center p-4">' . htmlspecialchars($row['Notice_Title']) . '</div>
-                                <div class="col-md-4 d-flex justify-content-center p-4">' . htmlspecialchars($row['Notice_Content']) . '</div>
-                                <div class="col-md-1 d-flex justify-content-center">
-                                    <form action="components/remove_notice.php" method="post">
-                                        <input type="hidden" name="notice_id" value="' . $notice_id . '">
-                                        <button name="cancel" class="btn btn-sm bg-dark text-light mx-2">Cancel</button>
-                                    </form>
-                                </div>
-                            </div>';
-                        }
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $notice_id = $row['Notice_ID']; // Correct assignment of the Notice_ID
+                                $org_name = $row['Organization_Name'];
+                                $notice_sched = $row['Notice_Schedule'];
+                                $notice_title = $row['Notice_Title'];
+                                $notice_content = $row['Notice_Content'];
+                                echo '
+                                <div class="row d-flex align-items-center mb-2 ps-2 border m-4 rounded-3 bg-ECF39E">
+                                    <div class="col-md-2 d-flex justify-content-start px-4 py-3">' . htmlspecialchars($org_name) . '</div>
+                                    <div class="col-md-2 d-flex justify-content-start px-4 py-3">' . htmlspecialchars($notice_sched) . '</div>
+                                    <div class="col-md-3 d-flex justify-content-start px-4 py-3">' . htmlspecialchars($notice_title) . '</div>
+                                    <div class="col-md-3 d-flex justify-content-start px-4 py-3">' . htmlspecialchars($notice_content) . '</div>
+                                    <div class="col-md-2 d-flex justify-content-center pb-2"><hr>
+                                        <form action="components/remove_notice.php" method="post">
+                                            <input type="hidden" name="notice_id" value="' . $notice_id . '">
+                                            <button name="cancel" class="btn btn-sm bg-dark text-light mx-4">Cancel</button>
+                                        </form>
+                                    </div>
+                                </div>';
+                            }
                         ?>
                     </div>
                 </div>

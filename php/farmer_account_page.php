@@ -63,12 +63,12 @@ $name = $_SESSION['name'];
             </div>
         </div>
     </nav>
-    <div class="container-fluid mt-4">
-        <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
-                    <div class="container">
-                        <div class="row">
+    <div class="container mt-4 p-4">
+        <div class="row">
+            <div class="col">
+                <div class="section">
+                    <div class="row py-5">
+                        <div class="col-md-4 mb-5">
                             <div class="col-md-12">
                                 <div class="section d-flex justify-content-center align-items-center">
                                     <img src="../images/farm.jpg" class="border rounded-circle" height="150px" width="150px" alt=""><br>
@@ -77,41 +77,28 @@ $name = $_SESSION['name'];
                             <div class="col-md-12 d-flex justify-content-center align-items-center mt-2">
                                 <h4><?php echo $name; ?></h4>
                             </div>
-                            <div class="p-1 bg-dark mb-4"></div>
                             <div class="col-md-12">
                                 <a href="user_notice.php" class="d-flex align-items-center justify-content-center pb-3 mb-md-0 me-md-auto text-decoration-none">
-                                    <span class="fs-5 d-none d-sm-inlin text-dark">Notices</span>
+                                    <span class="fs-5 d-sm-inline text-dark mb-4">Notices</span>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="container border">
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-12 p-2 m-2">
+                        <div class="col-md-8 mb-5">
+                            <div class="col-md-12">
                                 <p>Profile<br>
                                 Manage your profile information
                                 </p>
                                 <div class="bg-dark p-1 mb-4 me-3"></div>
                             </div>
-                            <div class="col-md-6 p-2 m-2 mx-4">
+                            <div class="col-md-6">
                                 <h4>Account Modification & Updates</h4>
-                                <a class="btn btn-md bg-dark text-light my-4 py-2" href="account_info_update.php">Modify Personal Account Details</a>
-                                <a class="btn btn-md bg-dark text-light my-4 py-2" href="farmer_details_update.php">Modify Farmer Information</a>
-                            </div>
-                            <div class="col-md-5">
                                 <div class="row">
-                                    <!--
-                                    <div class="col-md-12 d-flex justify-content-center">
-                                        <img src="../images/plots.jpg" class="border rounded-circle" height="150px" width="150px" alt="">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-md bg-dark text-light my-4 py-1" href="account_info_update.php">Modify Personal Account Details</a>
                                     </div>
-                                    <div class="col-md-12 d-flex justify-content-center">
-                                        <a class="btn btn-md bg-dark text-light py-2">Edit</a>
+                                    <div class="col-md-6">
+                                        <a class="btn btn-md bg-dark text-light my-4 py-1" href="farmer_details_update.php">Modify Farmer Information</a>
                                     </div>
-                                    -->
                                 </div>
                             </div>
                         </div>
@@ -121,7 +108,7 @@ $name = $_SESSION['name'];
         </div>
     </div>
     <div class="p-2 bg-warning"></div>
-    <footer class="nav bg-397F35">
+    <footer class="nav bg-397F35" >
         <div class="container">
             <div class="section">
                 <div class="row d-flex mb-4">

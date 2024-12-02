@@ -112,10 +112,6 @@ if (isset($_GET['product_id']) && isset($_GET['img_url']) && isset($_GET['produc
                         <a class="anc-page px-3" href="vendor_account_page.php">My Account</a>
                         <a class="anc-page px-3" href="store_page.php">Shop</a>
                     </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <input class="p-1" id="search-input" type="text" placeholder="Search..">
-                        <a href="#" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -126,8 +122,8 @@ if (isset($_GET['product_id']) && isset($_GET['img_url']) && isset($_GET['produc
                 <div class="row">
                 <span class="bg-397F35 p-2"></span>
                     <div class="col-md-6">
-                        <div class="card">
-                            <img src="<?php echo $img_url; ?>" class="card-img rounded" alt="Product Image" height="500px" width="150">
+                        <div class="card prod_img_rs_size">
+                            <img src="<?php echo $img_url; ?>" class="card-img rounded" alt="Product Image" height="500px" width="150px">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -143,19 +139,18 @@ if (isset($_GET['product_id']) && isset($_GET['img_url']) && isset($_GET['produc
                                         <p><strong>Price:</strong> <?php echo $product_price; ?></p>
                                         <form action="../php/components/product_order.php" method="post"> 
                                             <div class="col-md-6 mb-4">
-                                                <div class="row">
-                                                    <div class="col-md-2 mx-2">
-                                                        <label class="m-2">Quantity:</label>
+                                                 <div class="row d-flex align-items-center">
+                                                    <div class="col-md-4">
+                                                        <label class="fw-bold mb-2">Quantity:</label>
                                                     </div>
-                                                    <div class="col-md-4 mx-4">
-                                                        <input type="text" name="order_quantity" class="form-control mb-2"
+                                                    <div class="col-md-4">
+                                                        <input type="text" name="order_quantity" class="form-control"
                                                         placeholder="0" required autofocus>
                                                     </div>
-                                                    <div class="col-md-6"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 d-flex justify-content-end">
-                                                    <button class="btn btn-md bg-secondary rounded m-4 button-ds" type="submit"name="submit">Order Product</button>
+                                            <div class="col-md-12 d-flex justify-content-center">
+                                                    <button class="btn btn-md rounded m-4 button-ds" type="submit"name="submit">Order Product</button>
                                             </div>
                                         </form>
                                     </div>

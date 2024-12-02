@@ -32,8 +32,8 @@ if (isset($_GET['user_id'])) {
         <form class="rounded" action="components/account_updates.php" method="post">
             <div class="container">
                 <div class="section bg-cfe1b9 mb-4 rounded-4">
-                    <div class="row p-4 m-4 d-flex align-items-center">
-                        <a href="javascript:history.back();" class="text-decoration-none text-dark"><i class="fa-solid fa-backward"></i> back</a>
+                    <div class="row p-4 m-4 d-flex justify-content-start align-items-center">
+                        <a href="javascript:history.back();" class="text-decoration-none text-dark mb-5"><i class="fa-solid fa-backward"></i> back</a>
                         <h1 class="h3 mb-3 d-flex justify-content-center mb-5">Update User Account</h1>
                         <div class="col-md-1"></div>
                         <div class="col-md-10"><hr class="rounded bg-dark p-1"></div>
@@ -51,11 +51,8 @@ if (isset($_GET['user_id'])) {
                             <input type="text" name="lastname" class="form-control mb-2"
                                 placeholder="Last Name" required autofocus>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <label class="pt-3 mb-2 fw-bold">Birth Date</label>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="pt-3 mb-2 fw-bold">Gender</label>
                         </div>
                         <div class="col-md-3">
                             <select name="birth-month" class="form-control" id="Month" required onchange="updateDays()">
@@ -156,7 +153,7 @@ if (isset($_GET['user_id'])) {
 
                         
                         <div class="col-md-3">
-                            <select name="userGender" class="form-control" id="Gender" required>
+                            <select name="userGender" class="form-control" id="gender" required>
                                 <option value="Gender" disabled selected>Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -182,7 +179,7 @@ if (isset($_GET['user_id'])) {
                         <div class="col-md-12">
                             <hr>
                         </div>
-                        <div class="col-md-12 d-flex justify-content-end align-items-center pt-4">
+                        <div class="col-md-12 acc_updates_ds align-items-center pt-4">
                             <button class="btn btn-lg bg-secondary rounded button-ds" type="submit"
                                 name="submit">Update
                                 Account</button>

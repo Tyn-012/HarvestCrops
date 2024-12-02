@@ -52,11 +52,11 @@ if (!isset($_SESSION['name'])) {
                 <div class="row">
                     <div class="col-md-4 d-flex align-items-center">
                         <img src="../images/plots.jpg" class="border rounded-circle" width="60px" height="60px" alt="">
-                        <p class="anc-page px-2 pt-2"><?php echo $_SESSION['name']; ?></p>
+                        <p class="anc-page px-2 pt-2 admin_txt_ds"><?php echo $_SESSION['name']; ?></p>
                     </div>
                     <div class="col-md-8 d-flex justify-content-end align-items-center">
                         <form action="components/logout.php" method="post">
-                            <button class="btn btn-sm text-md text-light bg-dark" type="submit">Logout</button>
+                            <button class="admin_btn btn-sm text-md " type="submit">Logout</button>
                         </form>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ if (!isset($_SESSION['name'])) {
         <div class="row flex-nowrap">
             <div class="col py-5">
                 <div class="container">
-                    <div class="section">
+                    <div class="section desktop_display">
                         <div class="row bg-warning mb-2 ps-2">
                             <div class="col-md-1 d-flex justify-content-center">
                                 <p>ID</p>
@@ -139,28 +139,64 @@ if (!isset($_SESSION['name'])) {
                         }
                         ?>
                     </div>
+                    <div class="section med_mobile_display">                        
+                        <?php
+                        // SQL Query to join 'user' and 'user_type' tables
+                        $getuser_info_qry = "
+                            SELECT u.User_ID, u.User_FirstName, u.User_MiddleName, u.User_LastName, u.User_MobileNumber, ut.Type_Name 
+                            FROM user u
+                            JOIN user_type ut ON u.Type_ID = ut.Type_ID
+                        ";
+
+                        $stmt = $connect->prepare($getuser_info_qry);
+                        $stmt->execute();
+                        $user_info_result = $stmt->get_result();  
+
+                        // Loop through users and display only Farmer or Vendor
+                        while ($row = $user_info_result->fetch_assoc()) {
+                            $user_id = $row['User_ID'];
+                            $name = $row['User_FirstName'] . " " . $row['User_MiddleName'] . " " . $row['User_LastName'];
+                            $mobile_number = $row['User_MobileNumber'];
+                            $user_type = $row['Type_Name'];  // Now fetched directly from the JOIN
+
+                            // Skip 'Admin' users
+                            if ($user_type == "Admin") {
+                                continue; // Skip this user
+                            }
+                            
+                            // Only show 'Farmer' or 'Vendor'
+                            if ($user_type == "Farmer" || $user_type == "Vendor" || $user_type == "Organization") {
+
+                                echo '
+                                <div class="row d-flex align-items-center mb-2 ps-2 rounded-3 bg-ECF39E p-3 m-3">
+                                    <div class="col-md-7 d-flex justify-content-center mb-3">' .   
+                                        '<img src="../images/farm.jpg" class="rounded-circle mx-2 me-4" alt="Specific Image" height="80px" width="80px">' . 
+                                        'ID: '. htmlspecialchars($user_id) . '<br>' .
+                                        'Name: '. htmlspecialchars($name) . '<br>' .
+                                        'Mobile Number: '. htmlspecialchars($mobile_number) . '<br>' .
+                                        'Type: '. htmlspecialchars($user_type) . '<br>' .
+                                    '</div>' .
+
+                                    '<div class="col-md-5 d-flex admin_btn_scale_ds justify-content-center">
+                                        <span class="mx-2">
+                                            <a href="admin_account_update.php?user_id=' . htmlspecialchars($user_id) . '" class="btn btn-sm bg-dark text-light">Edit</a>
+                                        </span>
+                                        <span>
+                                            <form action="components/account_status_update.php" method="post">
+                                                <input type="hidden" name="user_id" value="' . htmlspecialchars($user_id) . '">
+                                                <button name="activate" class="btn btn-sm bg-dark text-light mx-1">Activate</button>
+                                                <button name="deactivate" class="btn btn-sm bg-dark text-light mx-1">Deactivate</button>
+                                            </form>
+                                        </span>
+                                    </div>' . 
+                                '</div>' . '<hr>';                                                   
+                            }
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="p-2 bg-warning"></div>
-    <footer class="nav bg-397F35">
-        <div class="container">
-            <div class="section">
-                <div class="row d-flex mb-4">
-                    <div class="col-md-12 pt-2">
-                        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                            <li class="nav-item"><a href="admin_page.php" class="nav-link px-2 text-body-secondary">Home</a></li>
-                            <li class="nav-item"><a href="customer_support_page.php" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-12 mt-4 d-flex justify-content-center align-items-center">
-                        <span> &copy; Copyrights. All rights reserved to Leila Aliyah J. Manalo | John Lloyd B. Dela Cruz | Vince Wackie Espera
-                            | Jezreel Anne C. Jaynos</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>

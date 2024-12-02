@@ -91,13 +91,10 @@ if (!$result) {
                                     <p class="fs-5">' . htmlspecialchars($row['Notice_Title']) . '</p> 
                                 </div>
                             </div>
-                            <div class="col-md-9 p-3 my-3 bg-F5BD22">
+                            <div class="col-md-10 p-3 my-3 bg-F5BD22 rounded-2">
                                 <div class="pt-2 text-decoration-underline">' . htmlspecialchars($row['Organization_Name']) . '</div>
                                 <div class="pt-2 fst-italic">' . htmlspecialchars($row['Notice_Schedule']) . '</div>
                                 <div class="pt-2">' . htmlspecialchars($row['Notice_Content']) . '</div>
-                            </div>
-                            <div class="col-md-1 p-3 my-3 bg-F5BD22">
-                                
                             </div>
                         </div>
                         <hr>

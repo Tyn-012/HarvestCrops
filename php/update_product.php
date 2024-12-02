@@ -31,7 +31,7 @@ if (isset($_GET['product_id'])) {
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-start align-items-center">
                 </div>
-                <a href="seller_store_page.php" class="text-decoration-none text-dark m-2"><i class="fa-solid fa-backward"></i> back</a>
+                <a href="seller_store_page.php" class="text-decoration-none text-light m-2"><i class="fa-solid fa-backward"></i> back</a>
                 <div class="col-md-12 d-flex justify-content-center mt-4 bg-dark">
                     <h4 class="text-light m-2">Product Update</h4>
                 </div>

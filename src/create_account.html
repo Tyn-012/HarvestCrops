@@ -38,11 +38,8 @@
                             <input type="text" name="lastname" class="form-control mb-2"
                                 placeholder="Last Name" required autofocus>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <label class="pt-3 mb-2 fw-bold">Birth Date</label>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="pt-3 mb-2 fw-bold">Gender</label>
                         </div>
                         <div class="col-md-3">
                             <select name="birth-month" class="form-control" id="Month" required onchange="updateDays()">
@@ -142,7 +139,7 @@
                         </script>                        
                         
                         <div class="col-md-3">
-                            <select name="userGender" class="form-control" id="Gender" required>
+                            <select name="userGender" class="form-control" id="gender" required>
                                 <option value="Gender" disabled selected>Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -150,6 +147,9 @@
                             </select>
                         </div>
 
+                        <div class="add_ds">
+
+                        </div>
                         <div class="col-md-12">
                             <label class="pt-5 mb-2 fw-bold">Address</label>
                         </div>
@@ -157,21 +157,21 @@
                             <input type="text" name="HomeAdd" class="form-control mb-2"
                             placeholder="Home Address" required autofocus>
                         </div>
-                        <div class="col-md-5 mt-2">
-                            <input class="address-inp-ds form-control" name="IslandGroup" id="Island" placeholder="Island Group" required>
+                        <div class="col-md-5">
+                            <input class=" form-control mb-2" name="IslandGroup" id="Island" placeholder="Island Group" required>
                         </div>
-                        <div class="col-md-5 mt-2">
-                            <input class="address-inp-ds form-control" name="City" id="City" placeholder="City" required>
+                        <div class="col-md-5">
+                            <input class=" form-control mb-2" name="City" id="City" placeholder="City" required>
                         </div>
                         <div class="col-md-2">
                             <input type="text" name="ZIP" class="mt-3 form-control mb-2"
                             placeholder="ZIP Code" required autofocus>
                         </div>
                         <div class="col-md-5">
-                            <input class="address-inp-ds form-control" name="Region" id="Region" placeholder="Region" required>
+                            <input class="form-control mb-2" name="Region" id="Region" placeholder="Region" required>
                         </div>
                         <div class="col-md-5">
-                            <input class="address-inp-ds form-control" name="Barangay" id="Barangay" placeholder="Barangay" required>
+                            <input class="form-control mb-2" name="Barangay" id="Barangay" placeholder="Barangay" required>
                         </div>
                         <div class="col-md-2"></div>
                         <div class="col-md-12">

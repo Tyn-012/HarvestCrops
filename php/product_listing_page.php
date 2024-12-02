@@ -75,7 +75,7 @@ if (!isset($_SESSION['name'])) {
                                             <input type="file" id="imageInput" name="image" accept="image/*" required>
                                         </div>
                                         <div class="col-md-12 border">
-                                        <img class="" id="imagePreview" alt="Image Preview" width="622px" height="500px">
+                                        <img class="card-img" id="imagePreview" alt="Image Preview" width="622px" height="500px">
                                         </div>
                                         <script>
                                             const imageInput = document.getElementById('imageInput');

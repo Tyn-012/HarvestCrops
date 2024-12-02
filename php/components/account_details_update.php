@@ -52,6 +52,8 @@ $user_id = $_SESSION['user_id'];
                     </script>";
         }
 
+        $password = password_hash($cn_pass, PASSWORD_DEFAULT);
+
         $getaddress_type_qry = "SELECT Address_Type FROM user_address WHERE User_ID = ?";
         $stmt = $connect->prepare($getaddress_type_qry);
         $stmt->bind_param('s', $user_id);
@@ -68,7 +70,7 @@ $user_id = $_SESSION['user_id'];
             User_LastName = '$lname', 
             User_BirthDate = '$birth_date', 
             User_Gender = '$gender', 
-            User_Password = '$cr_pass', 
+            User_Password = '$password', 
             User_MobileNumber = '$num'
         WHERE User_ID = '$user_id'";
         

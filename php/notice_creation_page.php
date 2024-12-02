@@ -26,8 +26,8 @@ if (!isset($_SESSION['name'])) {
             <div class="container">
                 <div class="section bg-cfe1b9 mb-4">
                     <div class="row p-5 m-4 d-flex align-items-center">
-                        <a href="javascript:history.back();" class="text-decoration-none text-dark"><i class="fa-solid fa-backward"></i> back</a>
-                        <h1 class="h3 mb-3 d-flex justify-content-center mb-5">Notice Set-up</h1>
+                        <a href="javascript:history.back();" class="text-decoration-none text-dark mb-4"><i class="fa-solid fa-backward"></i> back</a>
+                        <h1 class="h3 mb-3 d-flex justify-content-center">Notice Set-up</h1>
                         <div class="col-md-1"></div>
                         <div class="col-md-10"><hr class="rounded bg-dark p-1"></div>
                         <div class="col-md-1"></div>

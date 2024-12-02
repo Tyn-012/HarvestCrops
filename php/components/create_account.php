@@ -123,8 +123,7 @@ include 'connect.php';
             VALUES ('$role_id', '$user_role')";
             if (mysqli_query($connect, $role_query));
             
-            $password = $cr_pass;
-            //$password = password_hash($_POST['createPassword'], PASSWORD_DEFAULT);
+            $password = password_hash($cn_pass, PASSWORD_DEFAULT);
         
             $query = "INSERT INTO user 
              (User_ID, User_FirstName, User_MiddleName, User_LastName, User_BirthDate, User_Gender, User_EmailAddress, User_Password, User_MobileNumber, Status_ID, Type_ID, Role_ID) 

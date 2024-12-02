@@ -78,7 +78,7 @@ $order_result = $stmt->get_result();
             <div class="col py-5">
                 <div class="container">
                     <div class="section">
-                        <div class="row bg-warning mb-2 ps-2">
+                        <div class="row bg-warning mb-2 ps-2 desktop_display">
                             <div class="col-md-1 d-flex justify-content-center">
                                 <p>Order ID</p>
                             </div>
@@ -147,6 +147,7 @@ $order_result = $stmt->get_result();
                                     $modified_at_formatted = date("Y-m-d H:i:s", strtotime($modified_at));
 
                                     // Output the order details
+                                    echo '<div class="desktop_display">';
                                     echo '
                                     <div class="row d-flex align-items-center mb-2 ps-2 border">
                                         <div class="col-md-1 d-flex justify-content-center p-4">' . htmlspecialchars($order_id) . '</div>
@@ -166,6 +167,31 @@ $order_result = $stmt->get_result();
                                             </span>
                                         </div>
                                     </div>';
+                                    echo '</div>';
+                                    echo '<div class="med_mobile_display">';
+                                    echo '
+                                    <div class="row d-flex align-items-center mb-2 ps-2 rounded-3 bg-ECF39E p-3 m-3">
+                                        <div class="col-md-7 d-flex justify-content-center mb-3">' .   
+                                            '<img src="../images/farm.jpg" class="rounded-circle mx-2 me-4" alt="Specific Image" height="80px" width="80px">' . 
+                                            'ID: '. htmlspecialchars($order_id) . '<br>' .
+                                            'Name: ' . htmlspecialchars($product_name) . '<br>' .
+                                            'Total: '. htmlspecialchars($total) . '<br>' .
+                                            'Order Status: '. htmlspecialchars($order_status) . '<br>' .
+                                        '</div>' .
+                                        '<div class="col-md-5 d-flex admin_btn_scale_ds justify-content-center">
+                                            <span>
+                                                <form action="components/order_cart_update.php" method="post">
+                                                    <input type="hidden" name="order_id" value="' . htmlspecialchars($order_id) . '">
+                                                    <button name="cancel" class="btn btn-sm bg-dark text-light mx-2">Cancel</button>
+                                                    <a class="btn btn-sm text-light bg-dark text-decoration-none" href="update_order.php?product_id='. $product_id . 
+                                                    ' &order_id='. $order_id . '&img_url=' 
+                                                    . urlencode($img_url) . '&product_name=' . urlencode($product_name) . '&product_price=' 
+                                                    . urlencode($product_price) . '">Update</a>
+                                                </form>
+                                            </span>
+                                        </div>' . 
+                                    '</div>';
+                                    echo '</div>';
                                 }
                             }
                         } else {

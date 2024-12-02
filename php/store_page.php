@@ -37,7 +37,7 @@ include 'components/user_details.php';
         </div>
     </nav>
     <div class="container">
-        <div class="section mx-5 mb-3">
+        <div class="section mx-5 mb-1">
             <div class="col-md-12 d-flex justify-content-end">
                 <form action="components/logout.php" method="post">
                     <button class="btn btn-sm text-md fw-bold m-1" type="submit">Logout</button>
@@ -50,15 +50,17 @@ include 'components/user_details.php';
         <div class="container">
             <div class="section">
                 <div class="row">
-                    <div class="col-md-6 d-flex">
+                    <div class="col-md-6">
                         <a class="anc-page px-3" href="vendor_account_page.php">My Account</a>
                         <a class="anc-page px-3" href="store_page.php">Shop</a>
                     </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                    <form action="store_page.php" method="get">
-                        <input class="p-1" id="search-input" name="search" type="text" placeholder="Search..">
-                        <button type="submit" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></button>
-                    </form>
+                    <div class="col-md-6">
+                        <form action="seller_store_page.php" method="get">
+                            <div class="col-md-12 d-flex align-items-center">
+                                <input class="p-1" id="search-input" name="search" type="text" placeholder="Search..">
+                                <button type="submit" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -169,15 +171,15 @@ include 'components/user_details.php';
 
                                 // Display product
                                 echo ' 
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="card card-ds m-2">
-                                        <img class="card-img card-img-ds opacity-75" width="50px" height="200px" src="' . $img_url . '" alt="' . $product_name . '">
+                                        <img class="card-img card-img-ds opacity-100" width="80px" height="260px" src="' . $img_url . '" alt="' . $product_name . '">
                                         <div class="card-img-overlay">
                                                 <h4 class="card-title text-light pt-2">' . $product_name . '</h4> 
                                                 <p class="card-text text-light pt-3">PHP ' . $product_price . ' - each</p>
                                                 <p class="text-light">Category: ' . $category_name . '</p>
-                                            <div class="col-md-4">
-                                                <a class="btn text-light fw-bolder text-decoration-none" href="product_page.php?product_id='. $productid . '&img_url=' 
+                                            <div class="col-md-4 d-flex justify-content-start mt-4">
+                                                <a class="btn update_button-ds text-light fw-bolder mb-2" href="product_page.php?product_id='. $productid . '&img_url=' 
                                                 . urlencode($img_url) . '&product_name=' . urlencode($product_name) . '&product_price=' 
                                                 . urlencode($product_price) . '">Order</a>
                                             </div> 
@@ -186,7 +188,6 @@ include 'components/user_details.php';
                                 </div>';
                             }
                         }
-
                         // Pagination Logic
                         $total_query = "SELECT COUNT(*) as total_products FROM product JOIN category ON product.Category_ID = category.Category_ID WHERE 1=1 $categoryFilter $search_filter";
                         $total_result = mysqli_query($connect, $total_query);

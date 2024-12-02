@@ -80,6 +80,20 @@
       font-size: 50px;
     }
   }
+
+  @media (max-width: 640px) {
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .featurette-heading {
+      font-size: 30px;
+    }
+    
+  }
   
   @media (min-width: 62em) {
     .featurette-heading {
@@ -145,9 +159,14 @@
     margin-bottom: 1rem;
   }
   
-  #Month, #Day, #Year, #Gender{
+  #Month, #Day, #Year{
     width: 17rem;
     height: 2.5rem;
+  }
+
+  #gender{
+    height: 2.5rem;
+    width: 10rem;
   }
   
 
@@ -155,11 +174,6 @@
     width: 300px;
     height: 200px;
     resize: none;
-  }
-
-  #Month-myacc, #Day-myacc, #Year-myacc{
-    width: 10rem;
-    height: 2rem;
   }
 
   /*Class*/
@@ -227,13 +241,6 @@
   .sign-button-ds:hover{
     background-color: gold !important;
     color: gray !important;
-  }
-  
-  
-  .address-inp-ds{
-    margin-top: 5px;
-    width: 25rem;
-    height: 2.5rem;
   }
   
   .create-acc-form-ds{
@@ -340,8 +347,11 @@
     transition: 1s ease-in;
   }
   
-  .forgot_password_pad_top{
-    padding-top: 12rem;
+  .forgot_password_ds{
+    min-height:100vh;
+    padding-top: 8rem;
+    height:auto;
+    width:auto;
   }
   
   /*Color ThemesFlog - BACKGROUNDS */
@@ -430,7 +440,6 @@
   /*Button Designs*/
   .button-ds{
     width: 15rem;
-    border: 2px solid black;
     background-color: black !important;
     color:white;
   }
@@ -442,12 +451,203 @@
 
   .farmer_up_button-ds{
     width: 20rem;
-    border: 2px solid black;
     background-color: black !important;
     color:white;
   }
 
   .farmer_up_button-ds:hover{
     background-color: gold !important;
+    color: gray !important;
+  }
+
+  .acc_updates_ds{
+    display: flex; 
+    justify-content: end;
+  }
+
+  .admin_txt_ds{
+    font-size: 18px !important;
+  }
+
+  /** Responsiveness */
+
+  .logo_sign_in{
+    padding:0;
+    margin-right:5rem;
+  }
+
+  @media (max-width: 1400px) {
+    #logo_part {
+      display: none;
+    }
+
+    .split{
+      height: 100%;
+      width: 40%;
+      position: fixed;
+    }
+    
+    .anc-page{
+      font-size: 20px;
+    }
+
+  }
+
+  @media (max-width:992px) {
+    .card{
+      transform: scale(0.9);
+    }
+
+    .card-ds:hover{
+      transform: scale(1.05);
+    }
+  }
+
+  @media (max-width: 870px) {
+    #logo_part {
+      display: none;
+    }
+
+    .split{
+      height: 100%;
+      width: 50%;
+      position: fixed;
+    }
+
+  }
+
+  @media (max-width: 685px) {
+    #logo_part {
+      display: none;
+    }
+
+    .split-2{
+      display: none;
+    }
+
+    .split{
+      height: 100%;
+      width: 100%;
+      position: fixed;
+    }
+
+    .anc-page{
+      font-size: 13px;
+    }
+
+    .card{
+      transform: scale(0.8);
+    }
+
+    .card-ds:hover{
+      transform: scale(0.85);
+    }
+
+  }
+
+  .med_mobile_display{
+    display:none;
+  }
+
+  @media(max-width: 1399px){
+    #Month, #Day, #Year{
+      height: 2.5rem;
+      width: 15rem;
+    }
+
+    #search-input{
+      width: 30rem;
+    }
+
+    
+  } 
+
+  .prod_img_rs_size{
+    transform: scale(1);
+  }
+
+  @media(max-width: 1200px){
+    #Month, #Day, #Year{
+      height: 2.5rem;
+      width: 12rem;
+    }
+    .desktop_display{
+      display:none;
+    }
+
+    .med_mobile_display{
+      display:contents;
+    }
+
+    .prod_img_rs_size{
+      transform:scale(0.8);
+      height:auto !important;
+    }
+
+    #search-input{
+      width: 25rem;
+    }
+  }
+
+
+  @media(max-width: 992px){
+    #Month, #Day, #Year, #gender{
+      height: 2.5rem;
+      width: 9rem;
+    }
+
+    .button-ds{
+      display: flex;
+      justify-content: center;
+    }
+
+    .acc_updates_ds{
+      display: flex;
+      justify-content: center;
+    }
+
+    .admin_btn_scale_ds{
+      justify-content: center;
+      transform: scale(0.8);
+    }
+
+    #search-input{
+      width: 18rem;
+    }
+  }
+
+  @media(max-width: 767px){
+
+    .admin_btn_scale_ds{
+      justify-content: end;
+      transform: scale(0.8);
+    }
+
+    .notice_display{
+      display:none;
+    }
+
+    #search-input{
+      width: 13rem;
+    }
+  }
+
+  .btn{
+    background: #397F35 !important;
+    color: light !important;
+  }
+
+  .btn:hover{
+    background-color: gold !important;
+    color: gray !important;
+  }
+
+  .admin_btn{
+    background: black;
+    color: white !important;
+  }
+
+  .admin_btn:hover{
+    background-color: gold;
     color: gray !important;
   }

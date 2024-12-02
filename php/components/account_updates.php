@@ -27,6 +27,8 @@ if (!isset($_SESSION['name'])) {
         $num = $_POST['MobileNum'];
         $cr_pass = $_POST['Password'];
 
+        $password = password_hash($cr_pass, PASSWORD_DEFAULT);
+
         $user_query = "UPDATE user 
         SET User_FirstName = '$fname', 
             User_MiddleName = '$mname', 
@@ -34,7 +36,7 @@ if (!isset($_SESSION['name'])) {
             User_BirthDate = '$birth_date', 
             User_Gender = '$gender', 
             User_EmailAddress ='$email',
-            User_Password = '$cr_pass', 
+            User_Password = '$password', 
             User_MobileNumber = '$num'
         WHERE User_ID = '$user_id'";
         
