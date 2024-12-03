@@ -10,8 +10,6 @@ if (!isset($_SESSION['name'])) {
 if (isset($_POST['accept']) || isset($_POST['complete'])) {
     $order_id = $_POST['order_id'];
 
-    // Debugging echo (you can remove this later)
-    echo $order_id;
 
     // Set order status based on action
     if (isset($_POST['accept'])) {

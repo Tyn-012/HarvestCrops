@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Move the uploaded file to the target directory with the new name
         if (move_uploaded_file($fileTmpPath, $targetFilePath)) {
-            echo "The file has been uploaded successfully as " . htmlspecialchars($newFileName);
 
             // Collect product data from the form 
             $productName = $_POST['product-name'];
@@ -64,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $category_query = "INSERT INTO category (Category_Name, Category_Desc) VALUES ('$product_type', '$category_description')";
             if (mysqli_query($connect, $category_query)) {
                 $categoryID = mysqli_insert_id($connect);
-                echo "Category added with ID: $categoryID<br>";
             } else {
                 echo "Error inserting category: " . mysqli_error($connect);
                 exit;
@@ -73,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $subcategory_query = "INSERT INTO sub_category (Category_ID, SubCategory_Name) VALUES ('$categoryID', '$product_type')";
             if (mysqli_query($connect, $subcategory_query)) {
                 $subcategoryID = mysqli_insert_id($connect);
-                echo "SubCategory added with ID: $subcategoryID<br>";
             } else {
                 echo "Error inserting subcategory: " . mysqli_error($connect);
                 exit;
@@ -83,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $inventory_query = "INSERT INTO inventory (harvest_date, quantity) VALUES ('$harvestdate', '$quantity')";
             if (mysqli_query($connect, $inventory_query)) {
                 $inventoryID = mysqli_insert_id($connect); // Get the last inserted Inventory_ID
-                echo "Inventory added with ID: $inventoryID<br>";
             } else {
                 echo "Error inserting inventory: " . mysqli_error($connect);
                 exit;

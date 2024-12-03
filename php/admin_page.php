@@ -117,7 +117,7 @@ if (!isset($_SESSION['name'])) {
                                 <div class="row d-flex align-items-center mb-2 ps-2 border">
                                     <div class="col-md-1 d-flex justify-content-center">' . htmlspecialchars($user_id) . '</div>
                                     <div class="col-md-4 d-flex align-items-center">
-                                        <img src="../images/farm.jpg" class="rounded-circle mx-2" alt="Specific Image" height="80px" width="80px">' . htmlspecialchars($name) . '
+                                        <img src="../images/temp_icon.jpg" class="rounded-circle mx-2" alt="Specific Image" height="80px" width="80px">' . htmlspecialchars($name) . '
                                     </div>
                                     <div class="col-md-2 d-flex justify-content-center">' . htmlspecialchars($mobile_number) . '</div>
                                     <div class="col-md-2 d-flex justify-content-center">' . htmlspecialchars($user_type) . '</div>

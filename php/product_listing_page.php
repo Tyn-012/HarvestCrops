@@ -110,7 +110,7 @@ if (!isset($_SESSION['name'])) {
                                         <span class="account-add-tab">
                                         </span>
                                     </span>
-                                    <div class="container bg-warning">
+                                    <div class="container bg-peru">
                                         <div class="section">
                                             <div class="row">
                                                 <div class="col-md-12 p-4">
