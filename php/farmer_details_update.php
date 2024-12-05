@@ -7,6 +7,19 @@ if (!isset($_SESSION['name'])) {
     exit();
 }
 
+$user_id = $_SESSION['user_id'];
+$getfarmer_info_qry = "SELECT * FROM farmer_details WHERE User_ID = ?";
+$stmt = $connect->prepare($getfarmer_info_qry);
+$stmt->bind_param('s', $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($row = $result->fetch_assoc()) {
+    $farm_name = $row['farm_name'];
+    $farm_size = $row['farm_size'];
+    $farm_size_unit = $row['farm_size_unit'];
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,19 +46,19 @@ if (!isset($_SESSION['name'])) {
                         <div class="col-md-1"></div>
                         <label class="p-3 fw-bold">Farmer Account Information</label>
                         <div class="col-md-4 mb-4">
-                            <input type="text" name="farm_name" class="form-control mb-2"
+                            <input type="text" value="<?php echo $farm_name; ?>" name="farm_name" class="form-control mb-2"
                                 placeholder="Farm Name" required autofocus>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <input type="text" name="farm_size" class="form-control mb-2"
+                            <input type="text" value="<?php echo $farm_size; ?>" name="farm_size" class="form-control mb-2"
                                 placeholder="Farm Size" required autofocus>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <select name="farm_size_unit" class="form-control" id="farm_size_unit" required>
-                                <option value="Unit" disabled selected>Farm Size unit</option>
-                                <option value="hectares">Hectares</option>
-                                <option value="acres">Acres</option>
-                            </select>
+                        <select name="farm_size_unit" class="form-control" id="farm_size_unit" required>
+                            <option value="Unit" disabled selected>Farm Size unit</option>
+                            <option value="hectares" <?php echo ($farm_size_unit == 'hectares') ? 'selected' : ''; ?>>Hectares</option>
+                            <option value="acres" <?php echo ($farm_size_unit == 'acres') ? 'selected' : ''; ?>>Acres</option>
+                        </select>
                         </div>
                         <hr>
                         <div class="col-md-12 d-flex justify-content-end align-items-center pt-4">

@@ -416,6 +416,7 @@
 
   .modify_account_details_body{
     background-image: url('../images/modify_account_img/modify_account.jpg');
+    size: 100vh;
     display:cover; 
   }
 
@@ -653,4 +654,9 @@
   .admin_btn:hover{
     background-color: gold;
     color: gray !important;
+  }
+
+  .back-ds{
+    color: white !important;
+    font-weight: bold;
   }

@@ -13,6 +13,27 @@ if (isset($_GET['user_id'])) {
 } else {
 }
 
+$getuser_info_qry = "SELECT * FROM user WHERE User_ID = ?";
+$stmt = $connect->prepare($getuser_info_qry);
+$stmt->bind_param('s', $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($row = $result->fetch_assoc()) {
+    $user_firstN = $row['User_FirstName'];
+    $user_MiddleN = $row['User_MiddleName'];
+    $user_LastN = $row['User_LastName'];
+    $dateofBirth = $row['User_BirthDate'];
+    $gender = $row['User_Gender'];
+    $mobile = $row['User_MobileNumber'];
+    $emailadd = $row['User_EmailAddress'];
+    $dateTime = new DateTime($dateofBirth);
+
+    $year = $dateTime->format('Y');   // 1981
+    $month = $dateTime->format('m');  // 02
+    $day = $dateTime->format('d');    // 02
+    
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -40,15 +61,15 @@ if (isset($_GET['user_id'])) {
                         <div class="col-md-1"></div>
                         <label class="p-3 fw-bold">Account Name</label>
                         <div class="col-md-4">
-                            <input type="text" name="firstname" class="form-control mb-2"
+                            <input type="text" name="firstname" value="<?php echo $user_firstN; ?>" class="form-control mb-2"
                                 placeholder="First Name" required autofocus>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" name="middlename" class="form-control mb-2"
+                            <input type="text" name="middlename" value="<?php echo $user_MiddleN; ?>" class="form-control mb-2"
                                 placeholder="Middle Name" required autofocus>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" name="lastname" class="form-control mb-2"
+                            <input type="text" name="lastname" value="<?php echo $user_LastN; ?>" class="form-control mb-2"
                                 placeholder="Last Name" required autofocus>
                         </div>
                         <div class="col-md-12">
@@ -56,108 +77,117 @@ if (isset($_GET['user_id'])) {
                         </div>
                         <div class="col-md-3">
                             <select name="birth-month" class="form-control" id="Month" required onchange="updateDays()">
-                                <option value="" disabled selected>Month</option>
-                                <option value="1">January</option>
-                                <option value="2">February</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                                <option value="6">June</option>
-                                <option value="7">July</option>
-                                <option value="8">August</option>
-                                <option value="9">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
+                                <option value="" disabled>Month</option>
+                                <option value="1" <?php echo ($month == 1) ? 'selected' : ''; ?>>January</option>
+                                <option value="2" <?php echo ($month == 2) ? 'selected' : ''; ?>>February</option>
+                                <option value="3" <?php echo ($month == 3) ? 'selected' : ''; ?>>March</option>
+                                <option value="4" <?php echo ($month == 4) ? 'selected' : ''; ?>>April</option>
+                                <option value="5" <?php echo ($month == 5) ? 'selected' : ''; ?>>May</option>
+                                <option value="6" <?php echo ($month == 6) ? 'selected' : ''; ?>>June</option>
+                                <option value="7" <?php echo ($month == 7) ? 'selected' : ''; ?>>July</option>
+                                <option value="8" <?php echo ($month == 8) ? 'selected' : ''; ?>>August</option>
+                                <option value="9" <?php echo ($month == 9) ? 'selected' : ''; ?>>September</option>
+                                <option value="10" <?php echo ($month == 10) ? 'selected' : ''; ?>>October</option>
+                                <option value="11" <?php echo ($month == 11) ? 'selected' : ''; ?>>November</option>
+                                <option value="12" <?php echo ($month == 12) ? 'selected' : ''; ?>>December</option>
                             </select>
                         </div>
-
+                        
                         <div class="col-md-3">
                             <select name="birth-day" class="form-control" id="Day" required>
-                                <option value="" disabled selected>Day</option>
+                                <!-- Dynamically populate the days -->
+                                <option value="" disabled <?php echo ($day == "") ? 'selected' : ''; ?>>Day</option>
                             </select>
                         </div>
 
                         <div class="col-md-3">
                             <select name="birth-year" class="form-control" id="Year" required onchange="updateDays()">
-                                <option value="" disabled selected>Year</option>
+                                <option value="" disabled <?php echo ($year == "") ? 'selected' : ''; ?>>Year</option>
                             </select>
 
                             <script>
-                            // JavaScript to dynamically populate the year options
-                            window.onload = function() {
-                                const yearSelect = document.getElementById("Year");
-                                const startYear = 1980;
-                                const endYear = 2024;
-                                
-                                // Loop to add options from 1980 to 2024
-                                for (let year = startYear; year <= endYear; year++) {
-                                    const option = document.createElement("option");
-                                    option.value = year;
-                                    option.textContent = year;
-                                    yearSelect.appendChild(option);
+                                // JavaScript to dynamically populate the year options
+                                window.onload = function() {
+                                    const yearSelect = document.getElementById("Year");
+                                    const startYear = 1980;
+                                    const endYear = 2024;
+
+                                    // Loop to add options from 1980 to 2024
+                                    for (let year = startYear; year <= endYear; year++) {
+                                        const option = document.createElement("option");
+                                        option.value = year;
+                                        option.textContent = year;
+
+                                        // Check if the year matches the user's birth year, if so, select it
+                                        if (year === <?php echo $year; ?>) {
+                                            option.selected = true;
+                                        }
+
+                                        yearSelect.appendChild(option);
+                                    }
+
+                                    // Initialize the day options based on the selected month and year
+                                    updateDays();
+                                };
+
+                                // Function to update the number of days based on the month and year
+                                function updateDays() {
+                                    const month = document.getElementById("Month").value;
+                                    const year = document.getElementById("Year").value;
+                                    const daySelect = document.getElementById("Day");
+
+                                    // Clear previous day options
+                                    daySelect.innerHTML = '<option value="" disabled selected>Day</option>';
+
+                                    if (!month || !year) return;  // If either month or year is not selected, do nothing
+
+                                    // Determine the number of days in the selected month/year
+                                    let daysInMonth = getDaysInMonth(month, year);
+
+                                    // Add day options dynamically based on the number of days
+                                    for (let i = 1; i <= daysInMonth; i++) {
+                                        const option = document.createElement("option");
+                                        option.value = i;
+                                        option.text = i;
+
+                                        // Check if the day matches the user's birth day, if so, select it
+                                        if (i == <?php echo $day; ?>) {
+                                            option.selected = true;
+                                        }
+
+                                        daySelect.appendChild(option);
+                                    }
                                 }
-                            };
+
+                                // Function to get the number of days in a given month and year
+                                function getDaysInMonth(month, year) {
+                                    // January, March, May, July, August, October, December have 31 days
+                                    if ([1, 3, 5, 7, 8, 10, 12].includes(parseInt(month))) {
+                                        return 31;
+                                    }
+                                    // April, June, September, November have 30 days
+                                    if ([4, 6, 9, 11].includes(parseInt(month))) {
+                                        return 30;
+                                    }
+                                    // February - check for leap year
+                                    if (parseInt(month) === 2) {
+                                        return isLeapYear(year) ? 29 : 28;
+                                    }
+                                    return 0; // Invalid month
+                                }
+
+                                // Function to check if a year is a leap year
+                                function isLeapYear(year) {
+                                    return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
+                                }
                             </script>
-                        </div>
-
-                        <script>
-                            // Function to update the number of days based on month and year
-                            function updateDays() {
-                                const month = document.getElementById("Month").value;
-                                const year = document.getElementById("Year").value;
-                                const daySelect = document.getElementById("Day");
-                                
-                                // Clear previous day options
-                                daySelect.innerHTML = '<option value="" disabled selected>Day</option>';
-                                
-                                if (!month || !year) return;  // If either month or year is not selected, do nothing
-                                
-                                // Determine the number of days in the selected month/year
-                                let daysInMonth = getDaysInMonth(month, year);
-                                
-                                // Add day options dynamically based on the number of days
-                                for (let i = 1; i <= daysInMonth; i++) {
-                                    const option = document.createElement("option");
-                                    option.value = i;
-                                    option.text = i;
-                                    daySelect.appendChild(option);
-                                }
-                            }
-
-                            // Function to get the number of days in a given month and year
-                            function getDaysInMonth(month, year) {
-                                // January, March, May, July, August, October, December have 31 days
-                                if ([1, 3, 5, 7, 8, 10, 12].includes(parseInt(month))) {
-                                    return 31;
-                                }
-                                // April, June, September, November have 30 days
-                                if ([4, 6, 9, 11].includes(parseInt(month))) {
-                                    return 30;
-                                }
-                                // February - check for leap year
-                                if (parseInt(month) === 2) {
-                                    return isLeapYear(year) ? 29 : 28;
-                                }
-                                return 0; // Invalid month
-                            }
-
-                            // Function to check if a year is a leap year
-                            function isLeapYear(year) {
-                                return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
-                            }
-
-                            // Initialize the day options on page load (in case the month/year is pre-selected)
-                            updateDays();
-                        </script>
-
-                        
+                        </div>                                    
                         <div class="col-md-3">
                             <select name="userGender" class="form-control" id="gender" required>
-                                <option value="Gender" disabled selected>Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
+                                <option value="Gender" disabled <?php echo ($gender == "") ? 'selected' : ''; ?>>Gender</option>
+                                <option value="Male" <?php echo ($gender == "Male") ? 'selected' : ''; ?>>Male</option>
+                                <option value="Female" <?php echo ($gender == "Female") ? 'selected' : ''; ?>>Female</option>
+                                <option value="Other" <?php echo ($gender == "Other") ? 'selected' : ''; ?>>Other</option>
                             </select>
                         </div>
                         <div class="col-md-2"></div>
@@ -166,15 +196,15 @@ if (isset($_GET['user_id'])) {
                         </div>
                         <div class="col-md-4">
                             <input type="text" name="EmailAdd" class="mt-3 form-control mb-2"
-                            placeholder="Email Address" required autofocus>
+                            placeholder="Email Address" value="<?php echo $emailadd; ?>" required autofocus>
                         </div>
                         <div class="col-md-4">
                             <input type="text" name="MobileNum" class="mt-3 form-control mb-2"
-                            placeholder="Mobile Number" required autofocus>
+                            placeholder="Mobile Number" value="<?php echo $mobile; ?>" required autofocus>
                         </div>
                         <div class="col-md-4">
                             <input type="password" name="Password" class="mt-3 form-control mb-2"
-                            placeholder="Password" required autofocus>
+                            placeholder="Password" autofocus>
                         </div>
                         <div class="col-md-12">
                             <hr>
@@ -192,3 +222,5 @@ if (isset($_GET['user_id'])) {
     </section>
 </body>
 </html>
+
+

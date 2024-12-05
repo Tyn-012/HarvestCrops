@@ -27,19 +27,29 @@ if (!isset($_SESSION['name'])) {
         $num = $_POST['MobileNum'];
         $cr_pass = $_POST['Password'];
 
-        $password = password_hash($cr_pass, PASSWORD_DEFAULT);
-
-        $user_query = "UPDATE user 
-        SET User_FirstName = '$fname', 
-            User_MiddleName = '$mname', 
-            User_LastName = '$lname', 
-            User_BirthDate = '$birth_date', 
-            User_Gender = '$gender', 
-            User_EmailAddress ='$email',
-            User_Password = '$password', 
-            User_MobileNumber = '$num'
-        WHERE User_ID = '$user_id'";
-        
+        if($cr_pass == null){
+            $user_query = "UPDATE user 
+            SET User_FirstName = '$fname', 
+                User_MiddleName = '$mname', 
+                User_LastName = '$lname', 
+                User_BirthDate = '$birth_date', 
+                User_Gender = '$gender', 
+                User_EmailAddress ='$email',
+                User_MobileNumber = '$num'
+            WHERE User_ID = '$user_id'";
+        }else{
+            $password = password_hash($cr_pass, PASSWORD_DEFAULT);
+            $user_query = "UPDATE user 
+            SET User_FirstName = '$fname', 
+                User_MiddleName = '$mname', 
+                User_LastName = '$lname', 
+                User_BirthDate = '$birth_date', 
+                User_Gender = '$gender', 
+                User_EmailAddress ='$email',
+                User_Password = '$password', 
+                User_MobileNumber = '$num'
+            WHERE User_ID = '$user_id'";
+        }
        if (mysqli_query($connect, $user_query)) {
             echo "<script language = 'JavaScript'>
                    alert('Account Updated');";

@@ -49,7 +49,6 @@ if(isset($_POST['submit'])) {
     // Insert category, subcategory, and inventory
     $category_query = "UPDATE category SET Category_Name = '$product_type', Category_Desc = '$category_description' WHERE Category_ID = $category_id";
     if (mysqli_query($connect, $category_query)) {
-        echo "Category updated successfully.<br>";
     } else {
         echo "Error updating category: " . mysqli_error($connect);
         exit;
@@ -57,7 +56,6 @@ if(isset($_POST['submit'])) {
 
     $subcategory_query = "UPDATE sub_category SET SubCategory_Name = '$product_type'  WHERE SubCategory_ID = $subcategory_id";
     if (mysqli_query($connect, $subcategory_query)) {
-        echo "SubCategory updated successfully.<br>";
     } else {
         echo "Error updating subcategory: " . mysqli_error($connect);
         exit;
@@ -66,7 +64,6 @@ if(isset($_POST['submit'])) {
     // Insert inventory and get the last inserted Inventory_ID
     $inventory_query = "UPDATE inventory SET harvest_date = '$harvestdate', quantity = '$quantity' WHERE Inventory_ID = $inventory_id";
     if (mysqli_query($connect, $inventory_query)) {
-        echo "Inventory updated successfully.<br>";
     } else {
         echo "Error updating inventory: " . mysqli_error($connect);
         exit;

@@ -36,24 +36,6 @@ $user_id = $_SESSION['user_id'];
         $barangay = $_POST['Barangay'];
         $zip_code = $_POST['ZIP'];
 
-        // Password Verification
-        $count_char = mb_strlen($cr_pass);
-
-
-        if ($count_char <= 7) {
-            echo "<script language = 'JavaScript'>
-                alert('Password Must Have Atleast 8 Characters or More');";
-            echo "window.location = \"../account_info_update.php\";
-                </script>";
-        } else if ($cn_pass != $cr_pass) {
-            echo "<script language = 'JavaScript'>
-                    alert('Unable to create account, Kindly Re-check if the passwords are the same.');";
-            echo "window.location = \"../account_info_update.php\";
-                    </script>";
-        }
-
-        $password = password_hash($cn_pass, PASSWORD_DEFAULT);
-
         $getaddress_type_qry = "SELECT Address_Type FROM user_address WHERE User_ID = ?";
         $stmt = $connect->prepare($getaddress_type_qry);
         $stmt->bind_param('s', $user_id);
@@ -64,15 +46,46 @@ $user_id = $_SESSION['user_id'];
             $address_type = $row['Address_Type'];
         }
 
-        $user_query = "UPDATE user 
-        SET User_FirstName = '$fname', 
-            User_MiddleName = '$mname', 
-            User_LastName = '$lname', 
-            User_BirthDate = '$birth_date', 
-            User_Gender = '$gender', 
-            User_Password = '$password', 
-            User_MobileNumber = '$num'
-        WHERE User_ID = '$user_id'";
+        if($cn_pass == null){
+            $user_query = "UPDATE user 
+            SET User_FirstName = '$fname', 
+                User_MiddleName = '$mname', 
+                User_LastName = '$lname', 
+                User_BirthDate = '$birth_date', 
+                User_Gender = '$gender', 
+                User_MobileNumber = '$num'
+            WHERE User_ID = '$user_id'";
+        }
+
+        else{
+            // Password Verification
+            $count_char = mb_strlen($cr_pass);
+
+            if ($count_char <= 7) {
+                echo "<script language = 'JavaScript'>
+                    alert('Password Must Have Atleast 8 Characters or More');";
+                echo "window.location = \"../account_info_update.php\";
+                    </script>";
+            } else if ($cn_pass != $cr_pass) {
+                echo "<script language = 'JavaScript'>
+                        alert('Unable to create account, Kindly Re-check if the passwords are the same.');";
+                echo "window.location = \"../account_info_update.php\";
+                        </script>";
+            }
+            else{
+                $password = password_hash($cn_pass, PASSWORD_DEFAULT);
+                $user_query = "UPDATE user 
+                SET User_FirstName = '$fname', 
+                    User_MiddleName = '$mname', 
+                    User_LastName = '$lname', 
+                    User_BirthDate = '$birth_date', 
+                    User_Gender = '$gender', 
+                    User_Password = '$password', 
+                    User_MobileNumber = '$num'
+                WHERE User_ID = '$user_id'";
+            }
+        }
+
         
        if (mysqli_query($connect, $user_query)) {
             echo "<script language = 'JavaScript'>

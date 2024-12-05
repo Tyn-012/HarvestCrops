@@ -7,6 +7,18 @@ if (!isset($_SESSION['name'])) {
     exit();
 }
 
+$user_id = $_SESSION['user_id'];
+$getorg_info_qry = "SELECT * FROM organization_details WHERE User_ID = ?";
+$stmt = $connect->prepare($getorg_info_qry);
+$stmt->bind_param('s', $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($row = $result->fetch_assoc()) {
+    $Organization_Name = $row['Organization_Name'];
+    $Contact_Number = $row['Contact_Number'];
+    $Email_Address = $row['Email_Address'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,15 +45,15 @@ if (!isset($_SESSION['name'])) {
                         <div class="col-md-1"></div>
                         <label class="p-3 fw-bold">Organization Account Information</label>
                         <div class="col-md-4 mb-4">
-                            <input type="text" name="organization_name" class="form-control mb-2"
+                            <input type="text" value="<?php echo $Organization_Name; ?>" name="organization_name" class="form-control mb-2"
                                 placeholder="Organization Name" required autofocus>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <input type="text" name="contact_number" class="form-control mb-2"
+                            <input type="text" value="<?php echo $Contact_Number; ?>" name="contact_number" class="form-control mb-2"
                                 placeholder="Contact Number" required autofocus>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <input type="text" name="email_address" class="form-control mb-2"
+                            <input type="text" value="<?php echo $Email_Address; ?>" name="email_address" class="form-control mb-2"
                                 placeholder="Email Address" required autofocus>
                         </div>
                         <hr>

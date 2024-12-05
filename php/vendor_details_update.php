@@ -7,6 +7,20 @@ if (!isset($_SESSION['name'])) {
     exit();
 }
 
+$user_id = $_SESSION['user_id'];
+$getvendor_info_qry = "SELECT * FROM vendor_details WHERE User_ID = ?";
+$stmt = $connect->prepare($getvendor_info_qry);
+$stmt->bind_param('s', $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($row = $result->fetch_assoc()) {
+    $business_name = $row['business_name'];
+    $business_type = $row['business_type'];
+    $tax_id = $row['tax_id'];
+    $years_in_business = $row['years_in_business'];
+    $product_types = $row['product_types'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,28 +47,28 @@ if (!isset($_SESSION['name'])) {
                         <div class="col-md-1"></div>
                         <label class="p-3 fw-bold">Vendor Account Information</label>
                         <div class="col-md-4 mb-4">
-                            <input type="text" name="business_name" class="form-control mb-2"
+                            <input type="text" value="<?php echo $business_name;?>" name="business_name" class="form-control mb-2"
                                 placeholder="Business Name" required autofocus>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <input type="text" name="tax_id" class="form-control mb-2"
+                            <input type="text" value="<?php echo $tax_id;?>" name="tax_id" class="form-control mb-2"
                                 placeholder="Tax ID" required autofocus>
                         </div>
                         <div class="col-md-4 mb-4">
                             <select name="business_type" class="form-control" id="business_type" required>
                                 <option value="Type" disabled selected>Business Type</option>
-                                <option value="Retailer">Retailer</option>
-                                <option value="Wholesaler">Wholesaler</option>
-                                <option value="Distributor">Distributor</option>
-                                <option value="Other">Other</option>
+                                <option value="Retailer" <?php echo ($business_type == 'Retailer') ? 'selected' : ''; ?>>Retailer</option>
+                                <option value="Wholesaler" <?php echo ($business_type == 'Wholesaler') ? 'selected' : ''; ?>>Wholesaler</option>
+                                <option value="Distributor" <?php echo ($business_type == 'Distributor') ? 'selected' : ''; ?>>Distributor</option>
+                                <option value="Other" <?php echo ($business_type == 'Other') ? 'selected' : ''; ?>>Other</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <input type="text" name="yr_in_business" class="form-control mb-2"
+                            <input type="text" value="<?php echo $years_in_business;?>" name="yr_in_business" class="form-control mb-2"
                                 placeholder="Years in Business" required autofocus>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <input type="text" name="product_types" class="form-control mb-2"
+                            <input type="text" value="<?php echo $product_types;?>" name="product_types" class="form-control mb-2"
                                 placeholder="Product Type" required autofocus>
                         </div>
                         <hr>
