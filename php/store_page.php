@@ -55,7 +55,7 @@ include 'components/user_details.php';
                         <a class="anc-page px-3" href="store_page.php">Shop</a>
                     </div>
                     <div class="col-md-6">
-                        <form action="seller_store_page.php" method="get">
+                        <form action="store_page.php" method="get">
                             <div class="col-md-12 d-flex align-items-center">
                                 <input class="p-1" id="search-input" name="search" type="text" placeholder="Search..">
                                 <button type="submit" id="icon-search" class="fa-solid fa-magnifying-glass p-1"></button>
