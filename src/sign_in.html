@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/all.min.css">
+        <link rel="stylesheet" href="../css/fontawesome.min.css">
+        <script src="../css/bootstrap-5.3.3-dist/js/bootstrap.min.js" rel="script"></script>
+        <title>HarvestCrops - Sign-in</title>
+    </head>
+    <body class="update_farmer_bg">
+        <div class="split-2 left">
+              <img id="left img" src="../images/sign_in_img/sign_in_image.jpg" alt="">
+            </div>
+          </div>
+        <div class="split right bg-cfe1b9">
+            <a href="index.html" class="text-decoration-none c-397F35 p-2 m-2"><i class="fa-solid fa-backward"></i> back</a>
+            <div class="container">
+                <div class="section">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center rounde px-5">
+                            <form class="text-dark" action="../php/components/sign_in.php" method="post">
+                                <div class="section">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-9 d-flex justify-content-center">
+                                            <span id="logo_sign_in">
+                                                <img src="../images/HarvestCrops - Logo Version 1 (No BG).png" alt="Logo" id="logo-signin">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="h3 mb-2 font-weight-normal d-flex justify-content-center pb-3 mt-4 c-2E4F21">Log in</h1>
+                                <div>
+                                    <label for="inputEmail" >Email address</label>
+                                    <input type="email" name="email" id="inputEmail" class="form-control mb-4" placeholder="Enter email" required autofocus>
+                                    <label for="inputPassword" >Password</label>
+                                    <input type="password" name="password" id="inputPassword" class="form-control mb-2" placeholder="Enter password" required>
+                                        <a class="password-text-ds text-secondary font-size-md" href="forgot_password.html" name="forgot_password">Forgot your password?</a> 
+                                    <br>
+                                    <div class="d-flex justify-content-center">
+                                        <button class="btn btn-md mt-4 mb-4 sign-button-ds text-light border-0 bg-397F35" type="submit" name="signin">Log in</button>
+                                    </div>
+                                    <a href="create_account.html" class="d-flex justify-content-center c-397F35">Create a new account</a> 
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </body>
+</html>
